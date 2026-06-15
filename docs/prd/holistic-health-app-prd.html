@@ -1,0 +1,1965 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Holistic Women's Hormone Health App PRD</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f6f2;
+      --panel: #ffffff;
+      --ink: #18211f;
+      --muted: #60706b;
+      --line: #d7dfd7;
+      --accent: #246b5f;
+      --accent-strong: #16483f;
+      --accent-soft: #e6f2ed;
+      --gold: #a06f21;
+      --gold-soft: #fff4da;
+      --risk: #a13b2b;
+      --risk-soft: #fbecea;
+      --ready: #257044;
+      --ready-soft: #e8f5ed;
+      --shadow: 0 14px 34px rgba(33, 46, 43, 0.08);
+      --deco-ink: #18213a;
+      --deco-ink-deep: #0e1424;
+      --deco-ink-soft: #29324f;
+      --deco-ivory: #faf4e4;
+      --deco-cream: #f3ead2;
+      --deco-paper: #ece0bf;
+      --deco-paper-edge: #d3c193;
+      --deco-brass: #b58f33;
+      --deco-brass-deep: #8a6a22;
+      --deco-gold-leaf: #e6cd86;
+      --deco-tomato: #bd4127;
+      --deco-tomato-deep: #8c2c1c;
+      --deco-olive: #335f3c;
+      --deco-olive-soft: #6d8a64;
+      --deco-sage: rgba(51, 95, 60, 0.12);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      padding: 32px clamp(20px, 5vw, 56px) 28px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.18;
+      margin: 0;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      max-width: 980px;
+    }
+
+    h2 {
+      font-size: clamp(1.35rem, 2.4vw, 2rem);
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    ul,
+    ol {
+      margin: 10px 0 0;
+      padding-left: 22px;
+    }
+
+    li + li {
+      margin-top: 8px;
+    }
+
+    input,
+    select {
+      font: inherit;
+    }
+
+    input[type="search"] {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      padding: 10px 12px;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
+      gap: 24px;
+      padding: 24px clamp(20px, 5vw, 56px) 56px;
+    }
+
+    nav {
+      position: sticky;
+      top: 16px;
+      align-self: start;
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      backdrop-filter: blur(10px);
+    }
+
+    nav a {
+      display: block;
+      border-radius: 6px;
+      color: var(--muted);
+      padding: 8px 10px;
+      text-decoration: none;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      outline: none;
+    }
+
+    section {
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .meta {
+      color: var(--muted);
+      margin-top: 12px;
+      max-width: 850px;
+    }
+
+    .panel,
+    .card,
+    details {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      padding: clamp(18px, 3vw, 26px);
+    }
+
+    .card {
+      padding: 18px;
+    }
+
+    details {
+      padding: 16px 18px;
+    }
+
+    details + details {
+      margin-top: 12px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .summary-grid,
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .summary-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 18px;
+    }
+
+    .status-board {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 16px;
+    }
+
+    .status-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .status-card.resolved {
+      background: var(--ready-soft);
+      border-color: rgba(37, 112, 68, 0.24);
+    }
+
+    .status-card.needs {
+      background: var(--gold-soft);
+      border-color: rgba(160, 111, 33, 0.24);
+    }
+
+    .status-card h3 {
+      margin-bottom: 8px;
+    }
+
+    .prompt-status {
+      display: inline-flex;
+      margin-bottom: 8px;
+    }
+
+    .grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .status {
+      align-items: center;
+      background: var(--accent-soft);
+      border-radius: 999px;
+      color: var(--accent-strong);
+      display: inline-flex;
+      font-size: 0.84rem;
+      font-weight: 800;
+      gap: 6px;
+      padding: 5px 10px;
+      width: fit-content;
+    }
+
+    .status.ready {
+      background: var(--ready-soft);
+      color: var(--ready);
+    }
+
+    .status.risk {
+      background: var(--risk-soft);
+      color: var(--risk);
+    }
+
+    .status.gold {
+      background: var(--gold-soft);
+      color: var(--gold);
+    }
+
+    .section-head {
+      align-items: end;
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 680px;
+    }
+
+    .toolbar {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: minmax(0, 1fr) auto;
+      margin-bottom: 16px;
+    }
+
+    .checklist {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .checklist li {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: 18px 1fr;
+    }
+
+    .checklist input {
+      margin-top: 5px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .mockup-board {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(286px, 1fr));
+      margin-top: 22px;
+    }
+
+    .phone-frame {
+      background: #0a0d16;
+      border: 1px solid #2a2f3e;
+      border-radius: 46px;
+      box-shadow:
+        0 0 0 8px #11151f,
+        0 34px 72px -28px rgba(10, 12, 22, 0.62);
+      margin: 0 auto;
+      max-width: 334px;
+      padding: 12px;
+    }
+
+    .phone-screen {
+      background:
+        radial-gradient(circle at 18% 8%, rgba(230, 205, 134, 0.18), transparent 21%),
+        linear-gradient(90deg, rgba(181, 143, 51, 0.05) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(24, 33, 58, 0.04) 1px, transparent 1px),
+        var(--deco-cream);
+      background-size: auto, 28px 28px, 28px 28px, auto;
+      border: 1px solid rgba(230, 205, 134, 0.44);
+      border-radius: 34px;
+      box-shadow: inset 0 0 0 1px rgba(14, 20, 36, 0.18);
+      min-height: 650px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .phone-screen::before {
+      background: #0a0d16;
+      border-radius: 0 0 16px 16px;
+      content: "";
+      display: block;
+      height: 26px;
+      left: 50%;
+      margin: 0 auto;
+      position: absolute;
+      top: 0;
+      transform: translateX(-50%);
+      width: 112px;
+      z-index: 3;
+    }
+
+    .phone-screen::after {
+      border: 1px solid rgba(181, 143, 51, 0.46);
+      border-radius: 28px;
+      content: "";
+      inset: 10px;
+      pointer-events: none;
+      position: absolute;
+      z-index: 2;
+    }
+
+    .mock-statusbar {
+      align-items: center;
+      color: var(--deco-ink);
+      display: flex;
+      font-size: 0.72rem;
+      font-weight: 800;
+      justify-content: space-between;
+      padding: 12px 24px 6px;
+      position: relative;
+      z-index: 4;
+    }
+
+    .mock-appbar {
+      align-items: center;
+      border-bottom: 1px solid rgba(181, 143, 51, 0.5);
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      margin: 2px 18px 14px;
+      padding: 10px 4px 14px;
+      position: relative;
+      z-index: 4;
+    }
+
+    .mock-title {
+      color: var(--deco-ink);
+      font-family: "Avenir Next Condensed", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+      font-size: 1.34rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+
+    .mock-title::after {
+      background: linear-gradient(90deg, transparent, var(--deco-brass), var(--deco-tomato), transparent);
+      content: "";
+      display: block;
+      height: 1px;
+      margin-top: 8px;
+      width: 86px;
+    }
+
+    .mock-icon-button {
+      align-items: center;
+      background: linear-gradient(150deg, var(--deco-gold-leaf), var(--deco-brass) 54%, var(--deco-brass-deep));
+      border: 1px solid rgba(14, 20, 36, 0.28);
+      border-radius: 7px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+      color: var(--deco-ink-deep);
+      display: inline-flex;
+      font-family: "Avenir Next Condensed", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 800;
+      height: 32px;
+      justify-content: center;
+      letter-spacing: 0.12em;
+      min-width: 34px;
+      padding: 0 10px;
+      text-transform: uppercase;
+    }
+
+    .mock-content {
+      display: grid;
+      gap: 12px;
+      padding: 0 18px 92px;
+      position: relative;
+      z-index: 4;
+    }
+
+    .mock-card,
+    .mock-list-row,
+    .mock-input,
+    .mock-photo {
+      background: rgba(255, 250, 240, 0.92);
+      border: 1px solid rgba(181, 143, 51, 0.38);
+      border-radius: 7px;
+    }
+
+    .mock-card {
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.52),
+        inset 0 -1px 0 rgba(120, 90, 30, 0.12),
+        0 2px 6px rgba(58, 42, 20, 0.1);
+      overflow: hidden;
+      padding: 14px;
+      position: relative;
+    }
+
+    .mock-card::before {
+      border: 1px solid rgba(181, 143, 51, 0.34);
+      border-radius: 4px;
+      content: "";
+      inset: 5px;
+      pointer-events: none;
+      position: absolute;
+    }
+
+    .mock-card h4 {
+      color: var(--deco-ink);
+      font-family: "Avenir Next Condensed", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.86rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      margin: 0 0 8px;
+      text-transform: uppercase;
+    }
+
+    .mock-card p,
+    .mock-list-row p,
+    .mock-tab span {
+      color: var(--deco-ink-soft);
+      font-size: 0.74rem;
+      line-height: 1.35;
+      margin: 0;
+    }
+
+    .mock-stat-grid {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: repeat(auto-fit, minmax(62px, 1fr));
+      margin-top: 10px;
+    }
+
+    .mock-stat {
+      background: rgba(236, 224, 191, 0.82);
+      border: 1px solid rgba(181, 143, 51, 0.28);
+      border-radius: 7px;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .mock-stat strong {
+      color: var(--deco-ink);
+      display: block;
+      font-family: "Avenir Next Condensed", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+      font-size: 1.28rem;
+      letter-spacing: 0.04em;
+    }
+
+    .mock-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .mock-chip {
+      background: rgba(51, 95, 60, 0.12);
+      border: 1px solid rgba(51, 95, 60, 0.3);
+      border-radius: 999px;
+      color: var(--deco-olive);
+      font-family: "Avenir Next Condensed", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      padding: 5px 9px;
+      text-transform: uppercase;
+    }
+
+    .mock-chip.alt {
+      background: rgba(181, 143, 51, 0.16);
+      border-color: rgba(181, 143, 51, 0.56);
+      color: var(--deco-brass-deep);
+    }
+
+    .mock-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .mock-list-row {
+      align-items: center;
+      display: grid;
+      gap: 8px;
+      grid-template-columns: 1fr auto;
+      padding: 10px;
+      position: relative;
+    }
+
+    .mock-list-row strong {
+      color: var(--deco-ink);
+      display: block;
+      font-size: 0.82rem;
+    }
+
+    .mock-input {
+      background: rgba(255, 250, 240, 0.78);
+      border-bottom: 1.5px solid rgba(181, 143, 51, 0.7);
+      color: var(--deco-ink-soft);
+      font-size: 0.78rem;
+      padding: 11px 12px;
+    }
+
+    .mock-photo {
+      align-items: center;
+      background:
+        repeating-conic-gradient(from 0deg, rgba(230, 205, 134, 0.18) 0deg 5deg, transparent 5deg 10deg),
+        linear-gradient(170deg, var(--deco-ink-soft), var(--deco-ink) 55%, var(--deco-ink-deep));
+      color: var(--deco-gold-leaf);
+      display: flex;
+      font-family: "Avenir Next Condensed", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.76rem;
+      font-weight: 850;
+      justify-content: center;
+      letter-spacing: 0.14em;
+      min-height: 128px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .mock-bar {
+      background: rgba(236, 224, 191, 0.9);
+      border: 1px solid rgba(181, 143, 51, 0.24);
+      border-radius: 999px;
+      height: 9px;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .mock-bar span {
+      background: linear-gradient(90deg, var(--deco-brass), var(--deco-tomato));
+      display: block;
+      height: 100%;
+    }
+
+    .mock-tabbar {
+      background: linear-gradient(170deg, var(--deco-ink-soft), var(--deco-ink) 60%, var(--deco-ink-deep));
+      border-top: 1px solid rgba(230, 205, 134, 0.3);
+      bottom: 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      left: 0;
+      padding: 10px 8px 18px;
+      position: absolute;
+      right: 0;
+      z-index: 5;
+    }
+
+    .mock-tab {
+      align-items: center;
+      color: #aab0c4;
+      display: grid;
+      gap: 2px;
+      justify-items: center;
+      min-width: 0;
+    }
+
+    .mock-tab strong {
+      align-items: center;
+      background: transparent;
+      border-radius: 999px;
+      display: inline-flex;
+      font-family: "Avenir Next Condensed", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.82rem;
+      height: 28px;
+      justify-content: center;
+      min-width: 28px;
+    }
+
+    .mock-tab.active {
+      color: var(--deco-gold-leaf);
+      font-weight: 900;
+    }
+
+    .mock-tab.active strong {
+      background: rgba(230, 205, 134, 0.14);
+      border: 1px solid rgba(230, 205, 134, 0.42);
+    }
+
+    .mock-caption {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin: 10px auto 0;
+      max-width: 320px;
+    }
+
+    @media (max-width: 860px) {
+      main {
+        display: block;
+      }
+
+      nav {
+        margin-bottom: 20px;
+        position: static;
+      }
+
+      .summary-grid,
+      .status-board,
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        align-items: start;
+        display: grid;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      header,
+      main {
+        padding: 0;
+      }
+
+      nav,
+      .toolbar {
+        display: none;
+      }
+
+      main {
+        display: block;
+      }
+
+      .panel,
+      .card,
+      details {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="eyebrow">Product Requirements Document</p>
+    <h1>Holistic Women's Hormone Health App PRD</h1>
+    <p class="meta">Updated June 15, 2026 · Owner: TBD · Mode: PRD · Status: Product direction captured</p>
+  </header>
+
+  <main>
+    <nav aria-label="PRD sections">
+      <a href="#summary">Summary</a>
+      <a href="#clarifications">Status</a>
+      <a href="#decisions">Decisions</a>
+      <a href="#goals">Goals</a>
+      <a href="#mockups">Mockups</a>
+      <a href="#stories">User Stories</a>
+      <a href="#requirements">Requirements</a>
+      <a href="#scope">Scope</a>
+      <a href="#ux">UX</a>
+      <a href="#technical">Technical</a>
+      <a href="#implementation">Implementation</a>
+      <a href="#metrics">Metrics</a>
+    </nav>
+
+    <div>
+      <section id="summary" class="panel">
+        <p class="status ready">Direction captured</p>
+        <h2>Introduction / Overview</h2>
+        <p>This PRD defines an iPhone app for holistic women's health, with a primary focus on inside-out acne care, female hormone health, macronutrient visibility, supplement education, lifestyle support for stress and anxiety, exercise logging, adaptive naturopathic-style consult support, and reusable food macro tracking. The product should feel like a functional medicine consultant in the user's pocket while remaining clear that it is a wellness and education tool, not a replacement for licensed medical care.</p>
+        <div class="summary-grid">
+          <article class="card">
+            <h3>Problem</h3>
+            <p class="muted">College-age women, women in their early 20s, and reproductive-age adults trying to improve acne, hormone health, stress, digestion, energy, and cycle-related symptoms often track macros, supplements, symptoms, lifestyle routines, and exercise across disconnected tools.</p>
+          </article>
+          <article class="card">
+            <h3>Audience</h3>
+            <p class="muted">Women who want holistic, functional medicine-informed self-guidance around inside-out acne care, hormones, nutrition, skin, supplements, stress, and daily routines.</p>
+          </article>
+          <article class="card">
+            <h3>MVP Wedge</h3>
+            <p class="muted">A four-tab app structure: Lifestyle, Supplements, Macro, and Exercise, with a gear-accessed Settings area for API keys, model selection, API cost tracking, privacy, and data controls.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="clarifications" class="panel">
+        <p class="status gold">Working status</p>
+        <h2>Clarification Status</h2>
+        <p class="muted">This section separates what has been incorporated into the PRD from what still needs a clearer product decision before high-fidelity design or implementation.</p>
+        <div class="status-board">
+          <article class="status-card resolved">
+            <h3>Resolved and Incorporated</h3>
+            <ul>
+              <li>Primary focus is inside-out acne care with hormone support and functional wellness included.</li>
+              <li>Primary choices and guardrails have been incorporated, with all relevant option sets treated as important app inputs or boundaries.</li>
+              <li>Success is centered on useful insight and helping users understand body patterns.</li>
+              <li>Initial audience is college-age women, women in their early 20s, and reproductive-age adults.</li>
+              <li>Bottom tabs are Lifestyle, Supplements, Macro, and Exercise; Settings is reached from a gear icon.</li>
+              <li>Macro tracking is protein-forward and macro-centered. Calories may appear as secondary food data, but calorie deficit and weight-loss strategy are not part of the food module.</li>
+              <li>Macro data uses an editable local JSON library with optional iCloud sync and JSON import/upload.</li>
+              <li>Meal photo analysis supports multi-item meals and restaurant plates after user confirmation.</li>
+              <li>Food data module should adapt the Health-Tracker food structure: Add Food, Log Meal, Food Log, Daily Totals, and Visualize Food.</li>
+              <li>Food module should exclude Better Choices, dynamic burn rate, burn and weight, and how-are-you-feeling sections.</li>
+              <li>Meal planning is deferred out of MVP and should be revisited later.</li>
+              <li>Barcode scanning and external food databases are not needed for MVP.</li>
+              <li>Gemini photo analysis should add confirmed foods/meals into the user's JSON library so repeated foods can be searched and logged without another image analysis call.</li>
+              <li>Reference citations should be included when specific sources are available, especially for non-drug acne best practices and holistic wellness guidance.</li>
+              <li>The app is for one primary user first; a future public version could be sold as a one-time purchase if it proves valuable.</li>
+              <li>Local phone storage and optional iCloud storage are acceptable for the first version.</li>
+              <li>Serving presets are 25%, 50%, 75%, exact amount, 150%, and double, with room for a custom amount.</li>
+              <li>Health assessments are manually initiated at whatever frequency the user wants.</li>
+              <li>Acne flare photo review is in scope with no default image storage.</li>
+              <li>Gemini API key, model selection, and API cost tracking live in Settings.</li>
+              <li>Exercise uses low/medium/high intensity plus duration, with sprint activity choices.</li>
+              <li>Exercise duration sliders use a default range from 5 to 60 minutes in 5-minute increments.</li>
+              <li>Reference UI screenshots have been incorporated for food logging, saved-food search, portion sizing, meal photo capture, exercise duration sliders, acne photo review, and manual health assessment creation.</li>
+              <li>The Ristoro Italian Art Deco design guide is the working app visual direction for SwiftUI styling, mockups, typography, color, controls, framed cards, and tone.</li>
+              <li>Data is local-first with optional iCloud sync.</li>
+            </ul>
+          </article>
+          <article class="status-card needs">
+            <h3>Remaining Refinement</h3>
+            <ul>
+              <li>No open product-scope blocker remains in the PRD.</li>
+              <li>High-fidelity app screens should refine the Ristoro-inspired direction in SwiftUI before final implementation polish.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="decisions" class="panel">
+        <p class="status ready">User responses incorporated</p>
+        <h2>Resolved Product Decisions</h2>
+        <ul>
+          <li>Primary product emphasis is inside-out acne care, while still including the hormone support hub and functional wellness plan concepts.</li>
+          <li>Initial persona is college-age women, women in their early 20s, and reproductive-age adults.</li>
+          <li>Bottom tabs are Lifestyle, Supplements, Macro, and Exercise. Settings is opened from a gear icon and includes API setup, API storage, model selection, and cost tracking.</li>
+          <li>Acne is the most important MVP concern, but PMS, irregular cycles, PCOS support, bloating, cravings, fatigue, mood, cycle awareness, and related hormone-health concerns remain in scope.</li>
+          <li>The app should support acne flare photo review with Gemini, follow-up questions, and holistic non-drug wellness suggestions. Acne images should not be stored by default; the assessment, context, and recommendations may be saved for trend and follow-up use.</li>
+          <li>The Macro tab is protein-forward and macro-centered, with protein, carbohydrates, and fat as the primary fields. Calories can be retained as secondary food information, but the app must not frame the experience around calorie deficit, weight loss, burn rate, or restriction.</li>
+          <li>The macro library should be an actual editable JSON-backed local store with iCloud sync as an option, plus import/upload support for an existing saved JSON database.</li>
+          <li>Confirmed food photo results and confirmed Gemini estimates should become reusable JSON library records, creating a custom library of the user's most frequently eaten foods over time.</li>
+          <li>Meal photo analysis should support multi-item meals and restaurant plates, not only single foods.</li>
+          <li>Barcode scanning and external food database integrations are out of MVP; the preferred approach is photo/upload/typed entry plus the user's growing custom JSON library.</li>
+          <li>Meal planning is deferred out of MVP and can be added later.</li>
+          <li>Visualizations should include daily macro rings, weekly macro bars, macro-to-symptom comparisons, supplement adherence, stress trends, acne trends, and cycle overlays.</li>
+          <li>The naturopathic consult should ask adaptive questions one at a time, up to 10 questions, and generate a practitioner-style report with cited references where available.</li>
+          <li>Supplements guidance should connect possible nutrient areas to the user's goals, such as acne and protein needs, and can include supplement suggestions, clinician questions, and areas to investigate with safety boundaries.</li>
+          <li>Lifestyle practices should react to the user's logged data, goals, and consult responses rather than relying on static generic recommendations.</li>
+          <li>Exercise logging should use low, medium, and high intensity labels for weightlifting and sprint bursts, with sprint activity choices such as running, bike, rowing, and boxing.</li>
+          <li>Exercise duration sliders should run from 5 to 60 minutes in 5-minute increments for both weightlifting and sprint/burst sessions.</li>
+          <li>The app is initially personal-use oriented and may later be sold as a one-time purchase.</li>
+          <li>Data should live locally on-device first, with optional iCloud sync.</li>
+          <li>Safety posture should be lightweight because this is a custom app for one knowledgeable user, but the product should still avoid diagnosis, drug guidance, or medical treatment claims.</li>
+          <li>Gemini model selection should be exposed to users because they provide their own API key.</li>
+          <li>The food log UI should adapt the reference structure: Add Food connected to a JSON food library, New Food, Log Meal with camera/photo upload, Food Log rows with serving size and macro details, Daily Totals, and Visualize Food. Calories may remain as secondary row/totals data, but deficit and calorie burn are intentionally excluded.</li>
+          <li>Saved foods should support serving amount chips for 25%, 50%, 75%, exact amount, 150%, and double, plus a custom amount and Cancel/Log actions before a food is added to the daily macro log.</li>
+          <li>Exercise UI should use activity or intensity cards plus visible duration sliders for weightlifting and sprint/burst sessions.</li>
+          <li>The acne workflow should be promoted as a first-priority screen: photo/upload, consent, follow-up questions, holistic non-drug suggestions, saved assessment, and no default image storage.</li>
+          <li>The PRD should include a manually initiated health assessment creation flow that pulls from macros, eating patterns, active treatments, holistic treatments, acne photo findings, supplements, lifestyle, exercise, symptoms, and consult answers.</li>
+        </ul>
+      </section>
+
+      <section id="goals" class="panel">
+        <div class="section-head">
+          <div>
+            <h2>Goals</h2>
+            <p>Finalized product goals incorporated from approved product decisions.</p>
+          </div>
+        </div>
+        <ol>
+          <li>Help users track daily food, meals, protein, carbohydrates, fat, and secondary calorie data in the same place they track hormone and skin-related signals, without centering the experience on calorie counting or calorie deficit.</li>
+          <li>Provide a naturopathic and functional medicine-inspired consult area that asks adaptive one-at-a-time questions, summarizes patterns, cites references where available, and suggests wellness considerations with appropriate safety boundaries.</li>
+          <li>Support supplement tracking, including schedule, dosage notes, adherence, and user-observed effects.</li>
+          <li>Suggest possible vitamin, mineral, and supplement areas to discuss based on user goals, feelings, acne patterns, protein needs, and logged signals while avoiding diagnosis.</li>
+          <li>Recommend data-reactive lifestyle, meditative, and therapeutic practices that encourage mindfulness, slowing down, nervous system regulation, stress relief, and anxiety reduction.</li>
+          <li>Provide an exercise tab where users can log weightlifting and sprint-burst activity by selecting activity, low/medium/high intensity, and duration instead of entering individual exercises.</li>
+          <li>Create an inside-out acne care experience that connects nutrition, hormone health, stress, lifestyle, supplements, flare photo review, and saved recommendation history without shame-based or medical-claim language.</li>
+          <li>Define a focused Swift iPhone MVP that can be implemented with clear privacy, safety, and AI model-selection requirements.</li>
+          <li>Support a user-provided Gemini API key, user-visible model selection, and API cost tracking across daily, weekly, average, and total usage.</li>
+          <li>Give users a clear manual health assessment workflow that turns logged data into an editable wellness summary and current focus areas.</li>
+        </ol>
+      </section>
+
+      <section id="mockups" class="panel">
+        <div class="section-head">
+          <div>
+            <p class="status gold">Wireframe mockups</p>
+            <h2>HTML Mockups</h2>
+            <p>Structural HTML wireframes for the current app direction.</p>
+          </div>
+        </div>
+        <p class="muted">These structural HTML wireframes now use the Ristoro design guide as the app's working visual direction: aged cream paper, midnight navy ink, antique brass/gold, botanical verde, restrained rosso accents, sharp Art Deco framing, poster-style uppercase labels, seal-like controls, and calm Italian wellness language used lightly. The guide should inform SwiftUI styling, spacing, typography choices, card treatments, tab bars, buttons, and empty/photo states during app development.</p>
+
+        <div class="mockup-board">
+          <article>
+            <div class="phone-frame" aria-label="Lifestyle tab wireframe">
+              <div class="phone-screen">
+                <div class="mock-statusbar"><span>9:41</span><span>100%</span></div>
+                <div class="mock-appbar">
+                  <div>
+                    <p class="mock-title">Lifestyle</p>
+                    <p class="muted">Stress and anxiety support</p>
+                  </div>
+                  <span class="mock-icon-button">Gear</span>
+                </div>
+                <div class="mock-content">
+                  <div class="mock-card">
+                    <h4>Today's practice</h4>
+                    <p>4-minute box breathing for nervous system regulation.</p>
+                    <div class="mock-chip-row">
+                      <span class="mock-chip">Start</span>
+                      <span class="mock-chip alt">Save</span>
+                      <span class="mock-chip">Skip</span>
+                    </div>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Why this suggestion</h4>
+                    <p>High stress, poor sleep, and luteal-phase symptoms were logged this week.</p>
+                  </div>
+                  <div class="mock-list">
+                    <div class="mock-list-row">
+                      <div><strong>Evening wind-down</strong><p>Screen boundary and tea ritual</p></div>
+                      <span class="mock-chip">8 min</span>
+                    </div>
+                    <div class="mock-list-row">
+                      <div><strong>Grounding walk</strong><p>Low-intensity reset after work</p></div>
+                      <span class="mock-chip">12 min</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-tabbar" aria-label="Bottom tabs">
+                  <div class="mock-tab active"><strong>L</strong><span>Lifestyle</span></div>
+                  <div class="mock-tab"><strong>S</strong><span>Supplements</span></div>
+                  <div class="mock-tab"><strong>M</strong><span>Macro</span></div>
+                  <div class="mock-tab"><strong>E</strong><span>Exercise</span></div>
+                </div>
+              </div>
+            </div>
+            <p class="mock-caption">Lifestyle tab: recommendations are quick, contextual, and completion-focused.</p>
+          </article>
+
+          <article>
+            <div class="phone-frame" aria-label="Supplements tab wireframe">
+              <div class="phone-screen">
+                <div class="mock-statusbar"><span>9:41</span><span>100%</span></div>
+                <div class="mock-appbar">
+                  <div>
+                    <p class="mock-title">Supplements</p>
+                    <p class="muted">Nutrients tied to goals</p>
+                  </div>
+                  <span class="mock-icon-button">Gear</span>
+                </div>
+                <div class="mock-content">
+                  <div class="mock-input">Goal context: acne + protein needs</div>
+                  <div class="mock-chip-row">
+                    <span class="mock-chip">Fatigue</span>
+                    <span class="mock-chip">Heavy cycle</span>
+                    <span class="mock-chip">Poor sleep</span>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Possible area: zinc</h4>
+                    <p>Based on acne goal, skin check-ins, and diet pattern. This is not a diagnosis. Consider labs or a qualified professional.</p>
+                    <div class="mock-chip-row">
+                      <span class="mock-chip">Track supplement</span>
+                      <span class="mock-chip alt">Ask clinician</span>
+                    </div>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Supplement routine</h4>
+                    <div class="mock-list-row">
+                      <div><strong>Magnesium glycinate</strong><p>Evening, taken 4 of 7 days</p></div>
+                      <span class="mock-chip">Log</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-tabbar" aria-label="Bottom tabs">
+                  <div class="mock-tab"><strong>L</strong><span>Lifestyle</span></div>
+                  <div class="mock-tab active"><strong>S</strong><span>Supplements</span></div>
+                  <div class="mock-tab"><strong>M</strong><span>Macro</span></div>
+                  <div class="mock-tab"><strong>E</strong><span>Exercise</span></div>
+                </div>
+              </div>
+            </div>
+            <p class="mock-caption">Supplements tab: goal-aware nutrient areas, supplement tracking, clinician questions, and professional-review prompts.</p>
+          </article>
+
+          <article>
+            <div class="phone-frame" aria-label="Macro tab wireframe">
+              <div class="phone-screen">
+                <div class="mock-statusbar"><span>9:41</span><span>100%</span></div>
+                <div class="mock-appbar">
+                  <div>
+                    <p class="mock-title">Macro</p>
+                    <p class="muted">Food, library, photos, planning</p>
+                  </div>
+                  <span class="mock-icon-button">Gear</span>
+                </div>
+                <div class="mock-content">
+                  <div class="mock-input">Type what you ate today...</div>
+                  <div class="mock-chip-row">
+                    <span class="mock-chip">Scan library first</span>
+                    <span class="mock-chip alt">Use Gemini if new</span>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Daily macro totals</h4>
+                    <div class="mock-stat-grid">
+                      <div class="mock-stat"><strong>92g</strong><p>Protein</p></div>
+                      <div class="mock-stat"><strong>138g</strong><p>Carbs</p></div>
+                      <div class="mock-stat"><strong>48g</strong><p>Fat</p></div>
+                    </div>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Macro totals</h4>
+                    <p>Protein</p>
+                    <div class="mock-bar"><span style="width: 68%"></span></div>
+                    <p>Carbs</p>
+                    <div class="mock-bar"><span style="width: 52%"></span></div>
+                    <p>Fat</p>
+                    <div class="mock-bar"><span style="width: 61%"></span></div>
+                  </div>
+                  <div class="mock-list-row">
+                    <div><strong>Multi-item photo capture</strong><p>Meal or restaurant plate</p></div>
+                    <span class="mock-chip">Open</span>
+                  </div>
+                </div>
+                <div class="mock-tabbar" aria-label="Bottom tabs">
+                  <div class="mock-tab"><strong>L</strong><span>Lifestyle</span></div>
+                  <div class="mock-tab"><strong>S</strong><span>Supplements</span></div>
+                  <div class="mock-tab active"><strong>M</strong><span>Macro</span></div>
+                  <div class="mock-tab"><strong>E</strong><span>Exercise</span></div>
+                </div>
+              </div>
+            </div>
+            <p class="mock-caption">Macro tab: protein-forward macro positioning, JSON library reuse, Gemini fallback, visual totals, and photo entry.</p>
+          </article>
+
+          <article>
+            <div class="phone-frame" aria-label="Exercise tab wireframe">
+              <div class="phone-screen">
+                <div class="mock-statusbar"><span>9:41</span><span>100%</span></div>
+                <div class="mock-appbar">
+                  <div>
+                    <p class="mock-title">Exercise</p>
+                    <p class="muted">Intensity and duration</p>
+                  </div>
+                  <span class="mock-icon-button">Gear</span>
+                </div>
+                <div class="mock-content">
+                  <div class="mock-card">
+                    <h4>Weightlifting</h4>
+                    <div class="mock-chip-row">
+                      <span class="mock-chip">Low</span>
+                      <span class="mock-chip alt">Medium</span>
+                      <span class="mock-chip">High</span>
+                    </div>
+                    <div class="mock-input">Duration: 45 minutes</div>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Sprint burst</h4>
+                    <div class="mock-chip-row">
+                      <span class="mock-chip">Run</span>
+                      <span class="mock-chip">Bike</span>
+                      <span class="mock-chip">Row</span>
+                      <span class="mock-chip">Box</span>
+                    </div>
+                    <div class="mock-input">Duration: 8 minutes</div>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Today's sessions</h4>
+                    <div class="mock-list-row">
+                      <div><strong>Lift medium</strong><p>45 min, saved 7:20 AM</p></div>
+                      <span class="mock-chip">Edit</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-tabbar" aria-label="Bottom tabs">
+                  <div class="mock-tab"><strong>L</strong><span>Lifestyle</span></div>
+                  <div class="mock-tab"><strong>S</strong><span>Supplements</span></div>
+                  <div class="mock-tab"><strong>M</strong><span>Macro</span></div>
+                  <div class="mock-tab active"><strong>E</strong><span>Exercise</span></div>
+                </div>
+              </div>
+            </div>
+            <p class="mock-caption">Exercise tab: fast capture by activity, low/medium/high intensity, and duration, without individual lift or drill entry.</p>
+          </article>
+        </div>
+
+        <div class="mockup-board">
+          <article>
+            <div class="phone-frame" aria-label="Photo macro confirmation wireframe">
+              <div class="phone-screen">
+                <div class="mock-statusbar"><span>9:41</span><span>100%</span></div>
+                <div class="mock-appbar">
+                  <div>
+                    <p class="mock-title">Confirm macros</p>
+                    <p class="muted">Review before saving</p>
+                  </div>
+                  <span class="mock-icon-button">Close</span>
+                </div>
+                <div class="mock-content">
+                  <div class="mock-photo">Meal photo preview</div>
+                  <div class="mock-card">
+                    <h4>Gemini estimate</h4>
+                    <div class="mock-list">
+                      <div class="mock-list-row">
+                        <div><strong>Greek yogurt bowl</strong><p>1 bowl, berries, granola</p></div>
+                        <span class="mock-chip">Edit</span>
+                      </div>
+                      <div class="mock-stat-grid">
+                        <div class="mock-stat"><strong>28g</strong><p>Protein</p></div>
+                        <div class="mock-stat"><strong>54g</strong><p>Carbs</p></div>
+                        <div class="mock-stat"><strong>14g</strong><p>Fat</p></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Save behavior</h4>
+                    <p>Only confirmed entries are added to today's log and the reusable JSON macro library.</p>
+                    <div class="mock-chip-row">
+                      <span class="mock-chip">Save to log</span>
+                      <span class="mock-chip alt">Save to library</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-tabbar" aria-label="Bottom tabs">
+                  <div class="mock-tab"><strong>L</strong><span>Lifestyle</span></div>
+                  <div class="mock-tab"><strong>S</strong><span>Supplements</span></div>
+                  <div class="mock-tab active"><strong>M</strong><span>Macro</span></div>
+                  <div class="mock-tab"><strong>E</strong><span>Exercise</span></div>
+                </div>
+              </div>
+            </div>
+            <p class="mock-caption">Photo confirmation flow: AI output is editable and requires explicit save before it affects logs or the library.</p>
+          </article>
+
+          <article>
+            <div class="phone-frame" aria-label="Settings wireframe">
+              <div class="phone-screen">
+                <div class="mock-statusbar"><span>9:41</span><span>100%</span></div>
+                <div class="mock-appbar">
+                  <div>
+                    <p class="mock-title">Settings</p>
+                    <p class="muted">Not a primary bottom tab</p>
+                  </div>
+                  <span class="mock-icon-button">Done</span>
+                </div>
+                <div class="mock-content">
+                  <div class="mock-card">
+                    <h4>Gemini API key</h4>
+                    <div class="mock-input">********************</div>
+                    <div class="mock-chip-row">
+                      <span class="mock-chip">Paste</span>
+                      <span class="mock-chip">Show</span>
+                      <span class="mock-chip alt">Save</span>
+                      <span class="mock-chip">Clear</span>
+                    </div>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Model</h4>
+                    <div class="mock-chip-row">
+                      <span class="mock-chip">Gemini 2.5 Flash</span>
+                      <span class="mock-chip alt">Gemini 3.5 Flash</span>
+                      <span class="mock-chip">Pro acne review</span>
+                    </div>
+                  </div>
+                  <div class="mock-list-row">
+                    <div><strong>API cost tracker</strong><p>$1.42 week, $0.20 avg/day</p></div>
+                    <span class="mock-chip">View</span>
+                  </div>
+                  <div class="mock-list-row">
+                    <div><strong>Total Gemini cost</strong><p>$8.64 all time</p></div>
+                    <span class="mock-chip">Details</span>
+                  </div>
+                  <div class="mock-list-row">
+                    <div><strong>Macro library</strong><p>Import, edit, export JSON</p></div>
+                    <span class="mock-chip">Export</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="mock-caption">Settings: reached from a gear/profile control, not one of the four core tabs.</p>
+          </article>
+        </div>
+
+        <div class="mockup-board">
+          <article>
+            <div class="phone-frame" aria-label="Detailed food log wireframe">
+              <div class="phone-screen">
+                <div class="mock-statusbar"><span>9:41</span><span>100%</span></div>
+                <div class="mock-appbar">
+                  <div>
+                    <p class="mock-title">Food Log</p>
+                    <p class="muted">Saved foods and today's macros</p>
+                  </div>
+                  <span class="mock-icon-button">New</span>
+                </div>
+                <div class="mock-content">
+                  <div class="mock-card">
+                    <h4>Add food</h4>
+                    <div class="mock-input">Search saved JSON foods...</div>
+                    <div class="mock-chip-row">
+                      <span class="mock-chip">Granola</span>
+                      <span class="mock-chip">Greek yogurt</span>
+                      <span class="mock-chip">Coffee</span>
+                    </div>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Log meal</h4>
+                    <p>Describe your meal or add a photo.</p>
+                    <div class="mock-input">2 eggs, sourdough toast, avocado</div>
+                    <div class="mock-chip-row">
+                      <span class="mock-chip alt">Camera</span>
+                      <span class="mock-chip">Photo Library</span>
+                      <span class="mock-chip">Calculate Macros</span>
+                    </div>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Food log</h4>
+                    <div class="mock-list">
+                      <div class="mock-list-row">
+                        <div><strong>Coffee with half and half</strong><p>12:12 PM · 8 oz + 2 tbsp · 40 cal · P:1g C:1g F:3g</p></div>
+                        <span class="mock-chip alt">Remove</span>
+                      </div>
+                      <div class="mock-list-row">
+                        <div><strong>Healthy club sandwich</strong><p>12:23 PM · 1 sandwich · 610 cal · P:35g C:55g F:28g</p></div>
+                        <span class="mock-chip alt">Remove</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Daily macro totals</h4>
+                    <div class="mock-stat-grid">
+                      <div class="mock-stat"><strong>48g</strong><p>Protein focus</p></div>
+                      <div class="mock-stat"><strong>145g</strong><p>Carbs</p></div>
+                      <div class="mock-stat"><strong>53g</strong><p>Fat</p></div>
+                      <div class="mock-stat"><strong>1235</strong><p>Calories</p></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-tabbar" aria-label="Bottom tabs">
+                  <div class="mock-tab"><strong>L</strong><span>Lifestyle</span></div>
+                  <div class="mock-tab"><strong>S</strong><span>Supplements</span></div>
+                  <div class="mock-tab active"><strong>M</strong><span>Macro</span></div>
+                  <div class="mock-tab"><strong>E</strong><span>Exercise</span></div>
+                </div>
+              </div>
+            </div>
+            <p class="mock-caption">Food log detail: mirrors the useful reference structure, keeps calories as secondary food data, and replaces deficit emphasis with protein focus.</p>
+          </article>
+
+          <article>
+            <div class="phone-frame" aria-label="JSON library portion sizing wireframe">
+              <div class="phone-screen">
+                <div class="mock-statusbar"><span>9:41</span><span>100%</span></div>
+                <div class="mock-appbar">
+                  <div>
+                    <p class="mock-title">Add Saved Food</p>
+                    <p class="muted">Portion from JSON library</p>
+                  </div>
+                  <span class="mock-icon-button">Done</span>
+                </div>
+                <div class="mock-content">
+                  <div class="mock-input">Granola</div>
+                  <div class="mock-card">
+                    <h4>Library matches</h4>
+                    <div class="mock-list">
+                      <div class="mock-list-row">
+                        <div><strong>Granola Cookies</strong><p>4 cookies · 180 cal · P:8g C:28g F:6g</p></div>
+                        <span class="mock-chip">Pick</span>
+                      </div>
+                      <div class="mock-list-row">
+                        <div><strong>Granola</strong><p>1/4 cup · 130 cal · P:3g C:20g F:5g</p></div>
+                        <span class="mock-chip alt">Selected</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Serving multiplier</h4>
+                    <p>Per serving: 1/4 cup · 130 cal · P:3g C:20g F:5g</p>
+                    <div class="mock-chip-row">
+                      <span class="mock-chip">25%</span>
+                      <span class="mock-chip">50%</span>
+                      <span class="mock-chip">75%</span>
+                      <span class="mock-chip alt">Exact</span>
+                      <span class="mock-chip">150%</span>
+                      <span class="mock-chip">Double</span>
+                    </div>
+                    <div class="mock-input">Custom multiplier: 1.33</div>
+                    <p><strong>Result: 130 cal · P:3g C:20g F:5g</strong></p>
+                  </div>
+                  <div class="mock-chip-row">
+                    <span class="mock-chip">Cancel</span>
+                    <span class="mock-chip alt">Log</span>
+                  </div>
+                </div>
+                <div class="mock-tabbar" aria-label="Bottom tabs">
+                  <div class="mock-tab"><strong>L</strong><span>Lifestyle</span></div>
+                  <div class="mock-tab"><strong>S</strong><span>Supplements</span></div>
+                  <div class="mock-tab active"><strong>M</strong><span>Macro</span></div>
+                  <div class="mock-tab"><strong>E</strong><span>Exercise</span></div>
+                </div>
+              </div>
+            </div>
+            <p class="mock-caption">Saved-food flow: the user chooses a known JSON record, adjusts the serving amount, then logs it. Meal planning is deferred out of MVP.</p>
+          </article>
+
+          <article>
+            <div class="phone-frame" aria-label="Meal photo macro capture wireframe">
+              <div class="phone-screen">
+                <div class="mock-statusbar"><span>9:41</span><span>100%</span></div>
+                <div class="mock-appbar">
+                  <div>
+                    <p class="mock-title">Meal Photo</p>
+                    <p class="muted">Confirm before saving</p>
+                  </div>
+                  <span class="mock-icon-button">Close</span>
+                </div>
+                <div class="mock-content">
+                  <div class="mock-photo">Restaurant plate photo</div>
+                  <div class="mock-card">
+                    <h4>Detected items</h4>
+                    <div class="mock-list">
+                      <div class="mock-list-row">
+                        <div><strong>Chicken, rice, salad</strong><p>Estimated plate · 560 cal · P:42g C:58g F:18g</p></div>
+                        <span class="mock-chip">Edit</span>
+                      </div>
+                      <div class="mock-list-row">
+                        <div><strong>Assumptions</strong><p>Portion size and dressing amount need confirmation.</p></div>
+                        <span class="mock-chip alt">Review</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Save options</h4>
+                    <p>Save confirmed items to today's log and add reusable library records for future meals.</p>
+                    <div class="mock-chip-row">
+                      <span class="mock-chip">Log only</span>
+                      <span class="mock-chip alt">Log + Library</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-tabbar" aria-label="Bottom tabs">
+                  <div class="mock-tab"><strong>L</strong><span>Lifestyle</span></div>
+                  <div class="mock-tab"><strong>S</strong><span>Supplements</span></div>
+                  <div class="mock-tab active"><strong>M</strong><span>Macro</span></div>
+                  <div class="mock-tab"><strong>E</strong><span>Exercise</span></div>
+                </div>
+              </div>
+            </div>
+            <p class="mock-caption">Food photo feature: Gemini output must be editable, assumption-aware, and user-confirmed before it changes logs or the JSON library.</p>
+          </article>
+
+          <article>
+            <div class="phone-frame" aria-label="Visualize food menu workflow wireframe">
+              <div class="phone-screen">
+                <div class="mock-statusbar"><span>9:41</span><span>100%</span></div>
+                <div class="mock-appbar">
+                  <div>
+                    <p class="mock-title">Visualize Food</p>
+                    <p class="muted">Menu photo to macro estimate</p>
+                  </div>
+                  <span class="mock-icon-button">Clear</span>
+                </div>
+                <div class="mock-content">
+                  <div class="mock-card">
+                    <h4>Menu input</h4>
+                    <p>Take a menu photo, upload a screenshot, or paste dish text when there is no food picture.</p>
+                    <div class="mock-chip-row">
+                      <span class="mock-chip alt">Menu Photo</span>
+                      <span class="mock-chip">Screenshot</span>
+                      <span class="mock-chip">Dish Text</span>
+                    </div>
+                  </div>
+                  <div class="mock-photo">Generated dish visualization</div>
+                  <div class="mock-card">
+                    <h4>Calculate macros</h4>
+                    <p>Gemini uses the generated food image and dish text to estimate serving size, calories, protein, carbohydrates, and fat.</p>
+                    <div class="mock-chip-row">
+                      <span class="mock-chip">Regenerate</span>
+                      <span class="mock-chip alt">Calculate Macros</span>
+                    </div>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Confirmation</h4>
+                    <p>User reviews the estimate, edits assumptions, then logs the meal or saves it to the JSON library.</p>
+                  </div>
+                </div>
+                <div class="mock-tabbar" aria-label="Bottom tabs">
+                  <div class="mock-tab"><strong>L</strong><span>Lifestyle</span></div>
+                  <div class="mock-tab"><strong>S</strong><span>Supplements</span></div>
+                  <div class="mock-tab active"><strong>M</strong><span>Macro</span></div>
+                  <div class="mock-tab"><strong>E</strong><span>Exercise</span></div>
+                </div>
+              </div>
+            </div>
+            <p class="mock-caption">Visualize Food: keep the menu-to-generated-food-image workflow, then route it through the same macro confirmation and JSON-library save behavior.</p>
+          </article>
+        </div>
+
+        <div class="mockup-board">
+          <article>
+            <div class="phone-frame" aria-label="Exercise sliders wireframe">
+              <div class="phone-screen">
+                <div class="mock-statusbar"><span>9:41</span><span>100%</span></div>
+                <div class="mock-appbar">
+                  <div>
+                    <p class="mock-title">Exercise</p>
+                    <p class="muted">Intensity and duration sliders</p>
+                  </div>
+                  <span class="mock-icon-button">Save</span>
+                </div>
+                <div class="mock-content">
+                  <div class="mock-card">
+                    <h4>Weightlifting</h4>
+                    <div class="mock-chip-row">
+                      <span class="mock-chip">Low</span>
+                      <span class="mock-chip alt">Medium</span>
+                      <span class="mock-chip">High</span>
+                    </div>
+                    <p>Duration: 45 min</p>
+                    <div class="mock-bar"><span style="width: 60%"></span></div>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Sprint / Burst</h4>
+                    <div class="mock-chip-row">
+                      <span class="mock-chip alt">Running</span>
+                      <span class="mock-chip">Stationary Bike</span>
+                      <span class="mock-chip">Rowing</span>
+                      <span class="mock-chip">Boxing</span>
+                    </div>
+                    <p>Duration: 8 min</p>
+                    <div class="mock-bar"><span style="width: 25%"></span></div>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Daily summary</h4>
+                    <p>2 sessions logged. Used for stress, sleep, skin, and cycle pattern analysis.</p>
+                  </div>
+                </div>
+                <div class="mock-tabbar" aria-label="Bottom tabs">
+                  <div class="mock-tab"><strong>L</strong><span>Lifestyle</span></div>
+                  <div class="mock-tab"><strong>S</strong><span>Supplements</span></div>
+                  <div class="mock-tab"><strong>M</strong><span>Macro</span></div>
+                  <div class="mock-tab active"><strong>E</strong><span>Exercise</span></div>
+                </div>
+              </div>
+            </div>
+            <p class="mock-caption">Exercise detail: uses sliders and simple intensity/activity choices, with no calorie-burn estimate or exercise database requirement.</p>
+          </article>
+
+          <article>
+            <div class="phone-frame" aria-label="Acne photo and wellness suggestions wireframe">
+              <div class="phone-screen">
+                <div class="mock-statusbar"><span>9:41</span><span>100%</span></div>
+                <div class="mock-appbar">
+                  <div>
+                    <p class="mock-title">Acne Review</p>
+                    <p class="muted">Inside-out care priority</p>
+                  </div>
+                  <span class="mock-icon-button">Consent</span>
+                </div>
+                <div class="mock-content">
+                  <div class="mock-photo">Flare photo preview</div>
+                  <div class="mock-card">
+                    <h4>Before analysis</h4>
+                    <p>Photo is used for Gemini review with consent and is not stored by default.</p>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Follow-up questions</h4>
+                    <div class="mock-chip-row">
+                      <span class="mock-chip">Cycle phase</span>
+                      <span class="mock-chip">Stress</span>
+                      <span class="mock-chip">Sleep</span>
+                      <span class="mock-chip">Recent foods</span>
+                    </div>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Holistic suggestions</h4>
+                    <p>Hydration, lower-glycemic meal ideas, zinc discussion prompt, pillowcase routine, and 4-minute stress reset. Not diagnosis or medical treatment.</p>
+                  </div>
+                </div>
+                <div class="mock-tabbar" aria-label="Bottom tabs">
+                  <div class="mock-tab active"><strong>L</strong><span>Lifestyle</span></div>
+                  <div class="mock-tab"><strong>S</strong><span>Supplements</span></div>
+                  <div class="mock-tab"><strong>M</strong><span>Macro</span></div>
+                  <div class="mock-tab"><strong>E</strong><span>Exercise</span></div>
+                </div>
+              </div>
+            </div>
+            <p class="mock-caption">Acne UI: a high-priority consult-style flow with consent, contextual questions, saved assessment, and wellness-only safety language.</p>
+          </article>
+
+          <article>
+            <div class="phone-frame" aria-label="Weekly health assessment wireframe">
+              <div class="phone-screen">
+                <div class="mock-statusbar"><span>9:41</span><span>100%</span></div>
+                <div class="mock-appbar">
+                  <div>
+            <p class="mock-title">Health Assessment</p>
+                    <p class="muted">Create health review</p>
+                  </div>
+                  <span class="mock-icon-button">Create</span>
+                </div>
+                <div class="mock-content">
+                  <div class="mock-card">
+                    <h4>Inputs included</h4>
+                    <div class="mock-chip-row">
+                      <span class="mock-chip">Macros</span>
+                      <span class="mock-chip">Acne</span>
+                      <span class="mock-chip">Cycle</span>
+                      <span class="mock-chip">Supplements</span>
+                      <span class="mock-chip">Lifestyle</span>
+                      <span class="mock-chip">Exercise</span>
+                    </div>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Assessment sections</h4>
+                    <div class="mock-list">
+                      <div class="mock-list-row">
+                        <div><strong>Pattern summary</strong><p>Food, stress, cycle, skin, and supplement consistency.</p></div>
+                        <span class="mock-chip">On</span>
+                      </div>
+                      <div class="mock-list-row">
+                        <div><strong>Next-week focus</strong><p>Protein consistency, sleep reset, acne flare context.</p></div>
+                        <span class="mock-chip">On</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mock-card">
+                    <h4>Output</h4>
+                    <p>Editable wellness report with cited references where available. Results use macros, eating patterns, active treatments, holistic treatments, and acne photo findings.</p>
+                  </div>
+                </div>
+                <div class="mock-tabbar" aria-label="Bottom tabs">
+                  <div class="mock-tab active"><strong>L</strong><span>Lifestyle</span></div>
+                  <div class="mock-tab"><strong>S</strong><span>Supplements</span></div>
+                  <div class="mock-tab"><strong>M</strong><span>Macro</span></div>
+                  <div class="mock-tab"><strong>E</strong><span>Exercise</span></div>
+                </div>
+              </div>
+            </div>
+            <p class="mock-caption">Health assessment: manually initiated whenever the user wants, using logged data and saved acne-photo findings.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="stories">
+        <div class="section-head">
+          <div>
+            <h2>User Stories</h2>
+            <p>Implementation-ready story areas for the current PRD.</p>
+          </div>
+        </div>
+        <div class="toolbar">
+          <input id="storySearch" type="search" placeholder="Search stories and requirements" aria-label="Search stories and requirements">
+          <span class="status">16 draft story areas</span>
+        </div>
+        <div class="grid" data-filter-root>
+          <article class="card" data-filter-text="US-001 onboarding goals profile hormone health acne food macros supplements mindfulness">
+            <p class="status">US-001</p>
+            <h3>Women's Health Onboarding</h3>
+            <p>As a new user, I want to define my hormone, skin, nutrition, supplement, and stress priorities so that the app can tailor my first daily tracking plan.</p>
+            <ul class="checklist">
+              <li><input type="checkbox"> <span>Onboarding captures goals across hormone health, acne or skin concerns, cycle context, nutrition, supplements, stress, sleep, and mindfulness.</span></li>
+              <li><input type="checkbox"> <span>Onboarding makes clear that the app provides wellness education and tracking, not diagnosis or medical treatment.</span></li>
+              <li><input type="checkbox"> <span>Users can skip optional questions and update answers later.</span></li>
+            </ul>
+          </article>
+
+          <article class="card" data-filter-text="US-002 food meal tracking macros protein carbs fat nutrition json library gemini cache">
+            <p class="status">US-002</p>
+            <h3>Macro-First Food Tracking</h3>
+            <p>As a user, I want to type what I ate and get macronutrients from my saved food library or Gemini so that logging gets faster over time.</p>
+            <ul class="checklist">
+              <li><input type="checkbox"> <span>Users can add breakfast, lunch, dinner, snacks, drinks, and notes for each day by typing a natural-language description of what they ate.</span></li>
+              <li><input type="checkbox"> <span>The app first checks the user's local JSON-backed food macro library for known foods and meals before calling Gemini.</span></li>
+              <li><input type="checkbox"> <span>The food log shows each saved item with timestamp, serving description, optional secondary calories, protein, carbohydrates, fat, and a remove action.</span></li>
+              <li><input type="checkbox"> <span>When Gemini estimates macros for a new food or meal, the user must review and confirm the estimate before it is added to the daily log or saved library.</span></li>
+              <li><input type="checkbox"> <span>The app shows daily totals for protein, carbohydrates, fat, and secondary calories, with extra visibility for protein intake and no required macro targets in MVP.</span></li>
+              <li><input type="checkbox"> <span>Calories can appear in the food module, but calorie deficit, burn rate, weight-loss countdowns, and restriction framing are excluded.</span></li>
+            </ul>
+          </article>
+
+          <article class="card" data-filter-text="US-003 photo upload food macro recognition gemini vision confirm json library">
+            <p class="status">US-003</p>
+            <h3>Photo-Based Macro Capture</h3>
+            <p>As a user, I want to photograph or upload a meal image and confirm the identified foods and macros so that the app can log the meal and improve my saved macro library.</p>
+            <ul class="checklist">
+              <li><input type="checkbox"> <span>Users can take a photo or upload an existing photo from the iPhone photo library.</span></li>
+              <li><input type="checkbox"> <span>Gemini analyzes the image and returns structured food items, estimated serving descriptions, and protein, carbohydrate, and fat values.</span></li>
+              <li><input type="checkbox"> <span>The user can edit food names, portions, and macro values before accepting the result.</span></li>
+              <li><input type="checkbox"> <span>Only user-confirmed results are added to the daily log and saved to the JSON-backed food macro library.</span></li>
+              <li><input type="checkbox"> <span>Previously confirmed foods and meals are reused for future search and logging to reduce unnecessary Gemini calls and image analysis.</span></li>
+              <li><input type="checkbox"> <span>Over time, the user's most frequently eaten foods become a personalized searchable food library.</span></li>
+            </ul>
+          </article>
+
+          <article class="card" data-filter-text="US-004 hormone skin tracker cycle acne symptoms mood energy stress digestion">
+            <p class="status">US-004</p>
+            <h3>Hormone and Skin Check-In</h3>
+            <p>As a user, I want to track hormone-related symptoms, cycle context, acne, and stress so that I can notice patterns over time.</p>
+            <ul class="checklist">
+              <li><input type="checkbox"> <span>Users can log cycle day or phase, acne severity or location, mood, energy, cravings, digestion, bloating, sleep, and stress.</span></li>
+              <li><input type="checkbox"> <span>Users can add custom symptoms and free-text observations.</span></li>
+              <li><input type="checkbox"> <span>Trends use cautious language and do not imply diagnosis or guaranteed cause.</span></li>
+            </ul>
+          </article>
+
+          <article class="card" data-filter-text="US-005 naturopathic consult functional medicine consultant questions recommendations">
+            <p class="status">US-005</p>
+            <h3>Naturopathic Health Consult</h3>
+            <p>As a user, I want a consult-like section that asks holistic questions and suggests areas to consider so that I can reflect on my health more deeply.</p>
+            <ul class="checklist">
+              <li><input type="checkbox"> <span>Consult flows ask structured questions about digestion, stress, sleep, skin, cycle, food, supplements, hydration, and lifestyle.</span></li>
+              <li><input type="checkbox"> <span>AI-generated responses are framed as educational considerations, not personalized diagnosis or treatment.</span></li>
+              <li><input type="checkbox"> <span>The consult can reference the user's logged patterns when consent is granted.</span></li>
+            </ul>
+          </article>
+
+          <article class="card" data-filter-text="US-006 supplements vitamins minerals deficiency iron symptoms feeling tracker acne protein goals">
+            <p class="status">US-006</p>
+            <h3>Supplements and Nutrient Guidance</h3>
+            <p>As a user, I want the Supplements tab to suggest possible vitamin, mineral, and supplement areas to consider based on my goals, symptoms, acne patterns, and nutrition data so that I know what to discuss or investigate next.</p>
+            <ul class="checklist">
+              <li><input type="checkbox"> <span>Users can log feelings and symptoms that may relate to nutrition status, such as fatigue, dizziness, low mood, cravings, poor sleep, brittle nails, or heavy cycles.</span></li>
+              <li><input type="checkbox"> <span>The app can suggest possible nutrient areas to consider based on user goals such as acne support or protein needs, without diagnosing a deficiency.</span></li>
+              <li><input type="checkbox"> <span>Suggestions include plain-language rationale, relevant user inputs, and guidance to consider labs or a qualified professional when appropriate.</span></li>
+              <li><input type="checkbox"> <span>Suggestions can include supplement ideas, clinician questions, and nutrient areas to investigate, with clear safety boundaries.</span></li>
+              <li><input type="checkbox"> <span>Users can track supplements with name, dosage notes, frequency, timing, reason for taking, and adherence state.</span></li>
+              <li><input type="checkbox"> <span>The app includes safety copy about supplement interactions, pregnancy, medications, medical conditions, and professional review.</span></li>
+            </ul>
+          </article>
+
+          <article class="card" data-filter-text="US-006A acne flare photo consult gemini questions recommendations no image storage">
+            <p class="status gold">US-006A</p>
+            <h3>Acne Flare Photo Consult</h3>
+            <p>As a user, I want to photograph an acne flare and receive holistic follow-up questions and wellness suggestions so that the app can help me think through inside-out care patterns.</p>
+            <ul class="checklist">
+              <li><input type="checkbox"> <span>Users can take or upload an acne flare photo for Gemini-supported visual review with explicit consent.</span></li>
+              <li><input type="checkbox"> <span>The app does not store acne images by default after analysis.</span></li>
+              <li><input type="checkbox"> <span>The app may store the assessment summary, user answers, and non-drug wellness suggestions for future comparison and follow-up recommendations.</span></li>
+              <li><input type="checkbox"> <span>Gemini asks clarifying questions before generating suggestions when the initial image and logged context are insufficient.</span></li>
+              <li><input type="checkbox"> <span>All output is framed as wellness education and cannot claim to diagnose, treat, or cure acne.</span></li>
+            </ul>
+          </article>
+
+          <article class="card" data-filter-text="US-007 lifestyle anxiety stress reduction meditative therapeutic practices mindfulness slowing down nervous system">
+            <p class="status">US-007</p>
+            <h3>Lifestyle Stress and Anxiety Support</h3>
+            <p>As a user, I want lifestyle suggestions for reducing stress and anxiety so that I can support hormone health and daily resilience.</p>
+            <ul class="checklist">
+              <li><input type="checkbox"> <span>The Lifestyle tab recommends practices such as breathwork, meditation, journaling, gentle movement, gratitude, grounding, sleep wind-down, and screen-boundary rituals.</span></li>
+              <li><input type="checkbox"> <span>Users can save, complete, skip, and rate practices.</span></li>
+              <li><input type="checkbox"> <span>Recommendations adapt to stated goals and tracked stress, anxiety, sleep, mood, exercise, and cycle context.</span></li>
+            </ul>
+          </article>
+
+          <article class="card" data-filter-text="US-008 gemini model selector api key settings token usage 2.5 flash 3.5 flash AI consultant">
+            <p class="status">US-008</p>
+            <h3>AI Settings, API Key, and Model Selection</h3>
+            <p>As a user, I want to add my Gemini API key and choose the Gemini model powering AI features so that the app can use my configured AI access responsibly.</p>
+            <ul class="checklist">
+              <li><input type="checkbox"> <span>Settings include a secure Gemini API key entry field with paste, show/hide, save, and clear actions.</span></li>
+              <li><input type="checkbox"> <span>Settings include a model selector exposed to the user because the user supplies their own API key.</span></li>
+              <li><input type="checkbox"> <span>The app stores the user's model preference and applies it to consult and recommendation features.</span></li>
+              <li><input type="checkbox"> <span>The UI explains that model availability, cost, token usage, speed, and capabilities may vary.</span></li>
+              <li><input type="checkbox"> <span>Settings include API cost tracking for daily, weekly, average, and total estimated cost when usage data is available.</span></li>
+            </ul>
+          </article>
+
+          <article class="card" data-filter-text="US-009 privacy export delete consent health data">
+            <p class="status risk">US-009</p>
+            <h3>Health Data Trust Controls</h3>
+            <p>As a user, I want clear controls over my health data so that I understand what is stored and can manage it.</p>
+            <ul class="checklist">
+              <li><input type="checkbox"> <span>Users can export and delete personal health data.</span></li>
+              <li><input type="checkbox"> <span>Privacy settings explain storage, AI use, sharing, and any future integrations in plain language.</span></li>
+              <li><input type="checkbox"> <span>Consent is explicit for notifications, sensitive categories, AI consult context, and any future provider sharing.</span></li>
+            </ul>
+          </article>
+
+          <article class="card" data-filter-text="US-010 macro visualization chart dashboard trends protein carbs fat hormones skin">
+            <p class="status">US-010</p>
+            <h3>Macro and Health Visualizations</h3>
+            <p>As a user, I want visual summaries of my macros and health patterns so that I can understand trends without focusing on calories.</p>
+            <ul class="checklist">
+              <li><input type="checkbox"> <span>Dashboard visualizations show protein, carbohydrate, and fat totals over daily and weekly periods.</span></li>
+              <li><input type="checkbox"> <span>Charts can compare macro patterns with selected hormone, skin, stress, supplement, or mindfulness signals.</span></li>
+              <li><input type="checkbox"> <span>Visualizations exclude calorie deficit, calorie burn, and weight-loss countdown framing.</span></li>
+            </ul>
+          </article>
+
+          <article class="card" data-filter-text="US-011 meal planning deferred saved ideas planned foods photo library macro plan">
+            <p class="status gold">US-011</p>
+            <h3>Post-MVP Meal Planning</h3>
+            <p>As a user, I may later want saved meal ideas and planned meals, but this should not be part of the first MVP.</p>
+            <ul class="checklist">
+              <li><input type="checkbox"> <span>MVP excludes saved meal ideas, dated planned meals, AI-assisted meal plans, recipe builder, and full weekly meal plans.</span></li>
+              <li><input type="checkbox"> <span>The food module focuses on logging what the user actually ate and growing the custom JSON food library.</span></li>
+              <li><input type="checkbox"> <span>Meal planning can be revisited after the food logging and health assessment workflows are useful.</span></li>
+            </ul>
+          </article>
+
+          <article class="card" data-filter-text="US-012 exercise weightlifting sprint burst intensity duration workout no individual exercises">
+            <p class="status">US-012</p>
+            <h3>Exercise by Intensity and Duration</h3>
+            <p>As a user, I want to log weightlifting and sprint-burst exercise by selecting intensity and duration so that tracking is fast and does not require entering individual exercises.</p>
+            <ul class="checklist">
+              <li><input type="checkbox"> <span>The Exercise tab supports weightlifting with low, medium, and high intensity choices plus duration in minutes.</span></li>
+              <li><input type="checkbox"> <span>The Exercise tab supports sprint bursts with activity choices such as running, stationary bike, rowing, and boxing, plus low, medium, and high intensity and duration in minutes.</span></li>
+              <li><input type="checkbox"> <span>Duration is adjustable with a slider or equivalent iOS control from 5 to 60 minutes in 5-minute increments, with selected minutes visible before saving.</span></li>
+              <li><input type="checkbox"> <span>Users can save multiple exercise sessions per day and see a simple daily exercise summary.</span></li>
+              <li><input type="checkbox"> <span>The app does not require selecting or entering individual lifts, sets, reps, or exercise names in MVP.</span></li>
+            </ul>
+          </article>
+
+          <article class="card" data-filter-text="US-013 saved food library serving multiplier portion sizing json plan log macros">
+            <p class="status">US-013</p>
+            <h3>Saved Food Portion Sizing</h3>
+            <p>As a user, I want to choose a saved food from my JSON macro library and adjust the portion size so that logging common foods is fast and accurate enough for macro trend analysis.</p>
+            <ul class="checklist">
+              <li><input type="checkbox"> <span>Saved-food search returns matching JSON library records with serving description, calories, protein, carbohydrate, and fat values.</span></li>
+              <li><input type="checkbox"> <span>The selected food screen shows default amount chips for 25%, 50%, 75%, exact amount, 150%, and double, plus a custom amount input.</span></li>
+              <li><input type="checkbox"> <span>Changing the multiplier recalculates calories, protein, carbohydrates, and fat before the user saves.</span></li>
+              <li><input type="checkbox"> <span>Users can cancel or log the food immediately. Planning actions are deferred out of MVP.</span></li>
+              <li><input type="checkbox"> <span>The flow does not show deficit, burn, or weight-loss calculations.</span></li>
+            </ul>
+          </article>
+
+          <article class="card" data-filter-text="US-015 visualize food menu photo screenshot generated image macros json library">
+            <p class="status gold">US-015</p>
+            <h3>Visualize Food From Menu</h3>
+            <p>As a user, I want to photograph a menu or paste dish text and have the app visualize the food before calculating macros so that I can estimate protein, carbs, and fat when no food photo exists.</p>
+            <ul class="checklist">
+              <li><input type="checkbox"> <span>Users can take a menu photo, upload a menu screenshot, or type/paste a dish description.</span></li>
+              <li><input type="checkbox"> <span>Gemini generates a food visualization based on the menu item or dish description.</span></li>
+              <li><input type="checkbox"> <span>The app can then use the generated food image and text context to estimate serving size, calories, protein, carbohydrates, and fat.</span></li>
+              <li><input type="checkbox"> <span>The user must confirm or edit the generated macro estimate before logging the food or saving it to the JSON library.</span></li>
+              <li><input type="checkbox"> <span>The feature is not a restaurant recommendation or Better Choices flow.</span></li>
+            </ul>
+          </article>
+
+          <article class="card" data-filter-text="US-014 manual health assessment report macros acne photos treatments holistic cycle supplements lifestyle exercise consult">
+            <p class="status gold">US-014</p>
+            <h3>Manual Health Assessment</h3>
+            <p>As a user, I want to manually create a health assessment whenever I choose so that I can review macros, eating patterns, treatments, holistic practices, and acne-photo findings on demand.</p>
+            <ul class="checklist">
+              <li><input type="checkbox"> <span>The assessment is manually initiated by the user and can be run at whatever frequency the user wants.</span></li>
+              <li><input type="checkbox"> <span>The assessment can include macros, eating patterns, active treatments, holistic treatments, acne logs, acne photo findings, cycle context, symptoms, supplements, lifestyle practices, exercise, and consult responses.</span></li>
+              <li><input type="checkbox"> <span>Users can review which data categories are included before generating the report.</span></li>
+              <li><input type="checkbox"> <span>The generated report includes pattern summary, possible contributors, next focus areas, holistic options to consider, and cited references when specific sources are available.</span></li>
+              <li><input type="checkbox"> <span>The report is editable and savable as a health assessment record.</span></li>
+              <li><input type="checkbox"> <span>The report avoids diagnosis, treatment planning, supplement dosing claims, and calorie/weight-loss framing.</span></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="requirements" class="panel">
+        <h2>Functional Requirements</h2>
+        <ol>
+          <li><strong>FR-1:</strong> The system must let users create a women's health profile with hormone, skin, cycle, nutrition, supplement, stress, sleep, and wellness goals.</li>
+          <li><strong>FR-2:</strong> The system must let users log daily meals with food name, meal category, serving notes, calories as optional secondary data, protein, carbohydrates, fat, and optional notes.</li>
+          <li><strong>FR-3:</strong> The system must calculate daily totals for protein, carbohydrates, fat, and secondary calories, with protein visually emphasized. MVP must track macros without requiring macro targets.</li>
+          <li><strong>FR-4:</strong> The system must not present itself as a calorie tracker or weight-loss app; calories may be retained as secondary food data, but calorie deficit, burn rate, and weight-loss strategy must not be core UI concepts.</li>
+          <li><strong>FR-5:</strong> The system must maintain a user-specific, editable JSON-backed food macro library of confirmed foods, meals, serving descriptions, calories, protein, carbohydrates, fat, source, confirmation date, and last-used date.</li>
+          <li><strong>FR-6:</strong> When a user types what they ate, the system must search the local food macro library before calling Gemini for a new macro estimate. A saved food match should be based on the primary food item, such as chicken, cheeseburger, or another canonical item name.</li>
+          <li><strong>FR-7:</strong> When Gemini estimates macros for a new food or meal, the system must require user confirmation or editing before saving the item to the daily log or JSON-backed library. Confirmed entries must become searchable reusable records for future logging.</li>
+          <li><strong>FR-8:</strong> The system must let users photograph or upload meal photos and request Gemini image analysis for food identification and macro estimation, including multi-item meals and restaurant plates.</li>
+          <li><strong>FR-9:</strong> Photo-based macro results must be editable and must only be added to the daily log and saved food macro library after user confirmation.</li>
+          <li><strong>FR-10:</strong> The system must let users track hormone and skin signals, including cycle phase or day, acne severity or location, mood, energy, stress, digestion, bloating, cravings, sleep, and custom symptoms.</li>
+          <li><strong>FR-11:</strong> The system must provide a naturopathic-style consult section that asks adaptive questions one at a time, up to 10 questions, and generates educational wellness considerations and a practitioner-style report with cited references where available.</li>
+          <li><strong>FR-12:</strong> The system must organize the primary mobile interface around four bottom tabs: Lifestyle, Supplements, Macro, and Exercise.</li>
+          <li><strong>FR-13:</strong> The Lifestyle tab must recommend daily lifestyle, mindfulness, meditative, and therapeutic practices for reducing stress, reducing anxiety, slowing down, and supporting nervous system regulation. Recommendations must react to user goals, logged data, and consult responses.</li>
+          <li><strong>FR-14:</strong> The Supplements tab must let users log feelings, symptoms, goals, supplement routines, and nutrition signals that may relate to vitamin, mineral, protein, or supplement needs.</li>
+          <li><strong>FR-15:</strong> The Supplements tab must suggest possible nutrient or supplement areas to consider based on user goals and inputs, while clearly stating that these are not diagnoses and may require labs or professional review. Suggestions may include supplement ideas, clinician questions, and areas to investigate.</li>
+          <li><strong>FR-16:</strong> The system must let users track supplements with name, dosage notes, schedule, adherence status, reason for taking, start date, pause or discontinued state, and free-text notes.</li>
+          <li><strong>FR-17:</strong> The Exercise tab must let users log weightlifting by selecting low, medium, or high intensity and duration rather than entering individual exercises.</li>
+          <li><strong>FR-18:</strong> The Exercise tab must let users log sprint-burst sessions by selecting an activity such as running, bike, rowing, or boxing, plus low, medium, or high intensity and duration rather than entering individual sprint drills.</li>
+          <li><strong>FR-19:</strong> The Exercise tab must support multiple saved exercise sessions per day and show a daily summary suitable for trend analysis.</li>
+          <li><strong>FR-20:</strong> The system must provide an AI settings area where users can add, show, hide, save, clear, and validate their own Gemini API key.</li>
+          <li><strong>FR-21:</strong> The system must let users select the Gemini model used for consult, macro parsing, food photo analysis, acne flare photo review, supplement suggestions, lifestyle recommendations, and other AI features.</li>
+          <li><strong>FR-22:</strong> The system must log AI usage events, including feature used, selected model, timestamp, success or failure state, token usage when available, and estimated cost where pricing metadata is available.</li>
+          <li><strong>FR-23:</strong> The system must summarize patterns across meals, macros, supplements, stress, mindfulness practices, exercise, cycle context, symptoms, and acne without making diagnostic claims.</li>
+          <li><strong>FR-24:</strong> The system must provide visualizations for daily macro rings, weekly macro bars, macro-to-symptom comparisons, supplement adherence, stress trends, acne trends, and cycle overlays.</li>
+          <li><strong>FR-25:</strong> Meal planning is deferred out of MVP. The first version must not include saved meal ideas, dated planned meals, AI-assisted meal plans, recipe builder, or full weekly meal plans.</li>
+          <li><strong>FR-26:</strong> The system must provide data import and export flows for the reusable macro library and user logs where privacy constraints allow, including upload/import of a saved JSON macro database.</li>
+          <li><strong>FR-27:</strong> The system must provide privacy controls for data export, deletion, notification consent, AI context consent, photo analysis consent, and sensitive health data collection.</li>
+          <li><strong>FR-28:</strong> The system must support empty, loading, error, offline, and permission-denied states for core workflows.</li>
+          <li><strong>FR-29:</strong> The system must support acne flare photo review with Gemini when the user consents. The app must not store acne images by default, but may store the resulting assessment, user answers, and non-drug wellness suggestions for future comparison and follow-up recommendations.</li>
+          <li><strong>FR-30:</strong> Settings must include API cost tracking that summarizes estimated daily, weekly, average, and total Gemini usage cost when enough usage metadata is available.</li>
+          <li><strong>FR-31:</strong> The app must store data locally on-device first and support optional iCloud sync for user data and the editable JSON macro library.</li>
+          <li><strong>FR-32:</strong> The Macro tab must provide a food data module with Add Food, New Food, Log Meal, Food Log, Daily Totals, and Visualize Food sections, adapted from the reference structure without copying code or branding.</li>
+          <li><strong>FR-33:</strong> Saved food selection must support serving amount chips for 25%, 50%, 75%, exact amount, 150%, and double, plus a custom amount input, live recalculation of calories, protein, carbohydrates, and fat, and Cancel/Log actions.</li>
+          <li><strong>FR-34:</strong> The Exercise tab must use a duration slider or equivalent minute-selection control for weightlifting and sprint/burst sessions, with a default range of 5 to 60 minutes, 5-minute increments, and the selected duration visible before saving.</li>
+          <li><strong>FR-35:</strong> The Acne Review flow must include photo/upload, explicit consent, no-default-image-storage language, follow-up questions, holistic non-drug suggestions, saved assessment output, and clear non-medical boundaries.</li>
+          <li><strong>FR-36:</strong> The system must let users manually create a health assessment at any frequency from selected data categories and save an editable report with pattern summary, current focus areas, holistic options to consider, and cited references when specific sources are available.</li>
+          <li><strong>FR-37:</strong> The Food Log section must summarize each logged food using the reference-style row pattern: food name, timestamp, serving amount and serving size, calories as secondary data, protein, carbohydrates, fat, and remove action.</li>
+          <li><strong>FR-38:</strong> The Daily Totals section must be similar to the reference layout but must emphasize protein over all other values; it may include calories, protein, carbohydrates, and fat, but must not include deficit.</li>
+          <li><strong>FR-39:</strong> The Visualize Food section must let users take a menu photo, upload a menu screenshot, or enter dish text, generate a food visualization when no food photo exists, calculate macros from that generated visualization, and route the result through the same confirmation, log, and JSON-library save flow.</li>
+          <li><strong>FR-40:</strong> The food data module must exclude the reference app's Better Choices, dynamic burn rate, burn and weight, and how-are-you-feeling sections.</li>
+        </ol>
+      </section>
+
+      <section id="scope" class="panel">
+        <h2>Non-Goals</h2>
+        <ul>
+          <li>Diagnosis, treatment planning, emergency response, prescription advice, or claims that the app cures acne, hormone disorders, or other medical conditions.</li>
+          <li>Replacement for physicians, dermatologists, endocrinologists, gynecologists, registered dietitians, naturopathic doctors, therapists, or other qualified professionals.</li>
+          <li>Automatic wearable, EHR, pharmacy, lab, or food database integrations in the initial version unless later product work makes one integration essential.</li>
+          <li>Provider billing, insurance workflows, or regulated clinical documentation in the initial version.</li>
+          <li>Public social networking, leaderboards, or guilt-driven streak mechanics.</li>
+          <li>Calorie-tracker positioning, calorie-deficit optimization, rigid calorie restriction, diet culture framing, acne shame, or fear-based supplement recommendations. Calories may exist only as secondary food metadata.</li>
+          <li>Diagnosing vitamin or mineral deficiencies from symptoms alone, replacing lab work, or recommending high-risk supplement dosing without professional review.</li>
+          <li>Detailed exercise programming, exercise libraries, individual lift tracking, sets, reps, progressive overload planning, or athletic coaching in MVP.</li>
+          <li>Copying code, assets, calorie-deficit logic, branding, design language, or product positioning from the reference Health-Tracker repository. The repository is inspiration for technical patterns only.</li>
+        </ul>
+      </section>
+
+      <section id="ux" class="panel">
+        <h2>UX and Design Considerations</h2>
+        <ul>
+          <li>Primary navigation should use four bottom tabs: Lifestyle, Supplements, Macro, and Exercise.</li>
+          <li>Settings should be reachable from a top-right gear/profile control rather than competing with the four primary bottom tabs.</li>
+          <li>The Lifestyle tab should prioritize immediate stress and anxiety support: today's suggested practice, saved practices, completion history, and related symptom context.</li>
+          <li>The Supplements tab should prioritize careful supplement and nutrient guidance: user goals, feelings, possible nutrient areas to consider, supplement tracking, clinician questions, and safety notes.</li>
+          <li>The Macro tab should contain the food data module: Add Food, New Food, Log Meal, Food Log, Daily Totals, Visualize Food, editable JSON library reuse, multi-item photo/upload macro analysis, and macro totals. Meal planning is deferred out of MVP.</li>
+          <li>The detailed food log should follow a practical capture structure: search saved foods, add a new food, describe a meal, attach a camera/photo-library image, review the itemized log, and see protein-forward daily totals with carbs, fat, and secondary calories.</li>
+          <li>Saved-food selection should make portion sizing obvious with amount chips, a custom amount field, and a visible recalculated calories/protein/carbs/fat result before the user taps Log.</li>
+          <li>The Exercise tab should be fast: select exercise type, select activity when relevant, select low/medium/high intensity, set duration, save session, and review daily summary.</li>
+          <li>Exercise duration should feel like the reference slider interaction, using 5 to 60 minutes in 5-minute increments, but the app should omit calorie-burn and deficit estimates.</li>
+          <li>The acne photo UI should feel like a primary app workflow, not a buried support feature, because inside-out acne care is the top product priority.</li>
+          <li>Health assessment creation should be manually initiated and should let users choose included data categories before generating an editable wellness report.</li>
+          <li>Language should be calm, specific, and non-judgmental, especially around food, body, acne, adherence, and missed routines.</li>
+          <li>Macro tracking should be fast enough for repeated daily use, reuse known foods whenever possible, and avoid making users feel punished for incomplete logs.</li>
+          <li>Macro confirmation screens should clearly show food item, portion assumption, calories as secondary data, protein, carbohydrates, and fat before the user saves results from text, photo, or Visualize Food analysis.</li>
+          <li>Acne flare review should be explicitly consent-based, clear that photos are not stored by default, and focused on holistic non-drug wellness suggestions rather than treatment claims.</li>
+          <li>Consult and insight screens should be visually scannable and careful about medical interpretation.</li>
+          <li>The visual direction should follow the provided Ristoro design guide: aged paper surfaces, midnight navy ink, antique brass/gold, botanical verde, restrained rosso accents, sharp Art Deco frames, seal-like controls, poster-style uppercase labels, and calm Italian wellness language used sparingly.</li>
+          <li>Accessibility must include sufficient contrast, Dynamic Type support, VoiceOver-friendly labels, visible focus states where relevant, and touch targets appropriate for iPhone.</li>
+        </ul>
+      </section>
+
+      <section id="technical">
+        <details open>
+          <summary>Technical Considerations</summary>
+          <ul>
+            <li>The app will be built as a native Apple iPhone app coded in Swift. SwiftUI should be the default UI framework unless an existing codebase requires UIKit.</li>
+            <li>Reference repository for patterns only: <a href="https://github.com/CBosco8014/Health-Tracker">CBosco8014/Health-Tracker</a>. Do not copy the app, code, assets, calorie-deficit logic, brand style, or product structure.</li>
+            <li>Data model likely includes one primary user profile, goals, cycle profile, meal entries, food items, saved macro library records, lifestyle practice recommendations, practice completions, active treatment logs, holistic treatment logs, nutrient/supplement signals, supplement records, exercise sessions, symptom logs, acne logs, acne flare assessments, health assessment reports, consult sessions, AI model preference, API usage cost records, consent records, and audit events.</li>
+            <li>Gemini-backed features should support user-selectable Gemini models for consult, food macro parsing, multi-item meal photo analysis, acne flare review, supplement suggestions, and lifestyle recommendations.</li>
+            <li>Model selection should be stored per user and used through a typed AI service layer so models can be changed, disabled, or expanded without rewriting UI flows.</li>
+            <li>Health-related data should be treated as sensitive even if the MVP is positioned as wellness rather than clinical care.</li>
+            <li>Authentication, encryption at rest, secure transport, data retention, local cache behavior, and deletion workflows need explicit requirements before implementation.</li>
+            <li>Because the first version is a custom app for one knowledgeable user, safety posture can be lightweight, but AI output should still avoid diagnosis, drug guidance, medication changes, and medical treatment claims.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>Reference App Patterns to Adapt</summary>
+          <ul>
+            <li>Use the reference repository only to understand useful implementation patterns: Codable models, JSON-backed food records, daily logging, photo selection, confirmation before saving, visual summaries, meal ideas, simplified exercise capture, import/export, and settings-driven API configuration.</li>
+            <li>Adapt the JSON database idea from food records into a protein-forward macro library that can retain calories as secondary food data while centering protein, carbohydrates, and fat.</li>
+            <li>Adapt the logging pattern from calorie intake and deficit tracking into daily food logging, supplement adherence, hormone and skin symptoms, and practice completion, excluding deficit and burn-rate concepts.</li>
+            <li>Adapt the photographing pattern into a photo or upload macro-estimation flow that requires user confirmation before saving.</li>
+            <li>Adapt the Visualize Food pattern for menu photos, menu screenshots, and dish text into a generated food image followed by macro estimation and confirmation.</li>
+            <li>Adapt the visualization pattern into macro, hormone, skin, supplement, stress, and practice trend views, excluding calorie burn, calorie deficit, and weight-loss countdown concepts.</li>
+            <li>Do not adapt meal planning into MVP; keep meal planning as a future enhancement.</li>
+            <li>Adapt the exercise pattern into weightlifting and sprint-burst capture by intensity and duration, excluding calorie-burn framing and individual exercise detail.</li>
+            <li>Adapt the settings pattern into secure Gemini API key entry, user-facing model selection, AI usage cost tracking, data import/export, and privacy controls.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>Tab Data Model Notes</summary>
+          <ul>
+            <li>Lifestyle records should include recommendation type, trigger context, completion state, user rating, and notes.</li>
+            <li>Supplement guidance records should include reported feelings, user goals, possible nutrient area, rationale, confidence, safety notes, suggested next step, linked supplement records, and whether the user marked the suggestion as relevant.</li>
+            <li>Macro records should remain macro-centered for product positioning: protein, carbohydrate, and fat are the primary nutrition fields, with calories allowed as secondary food metadata.</li>
+            <li>Acne flare assessment records should include user consent timestamp, image analysis summary, follow-up question responses, non-drug wellness suggestions, references when available, and should not include the source image by default.</li>
+            <li>Exercise records should include exercise category, intensity, duration, timestamp, optional notes, and source. MVP categories are weightlifting and sprint burst.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>Macro Library and Gemini Efficiency</summary>
+          <ul>
+            <li>The macro tracker should use a local JSON-backed food library as the first lookup layer for typed meal descriptions and previously confirmed photo results.</li>
+            <li>Suggested JSON record fields include id, canonicalName, aliases, servingDescription, defaultServingQuantity, defaultServingUnit, calories, proteinGrams, carbohydrateGrams, fatGrams, source, confidence, userConfirmed, createdAt, updatedAt, lastUsedAt, and notes.</li>
+            <li>Daily meal log records should store the library item reference when available, selected serving amount, custom serving notes, timestamp, meal type, calories, protein grams, carbohydrate grams, fat grams, and source path such as manual, library, typed Gemini, photo Gemini, or visualized-menu Gemini.</li>
+            <li>The JSON macro library should be editable, locally stored, optionally synced through iCloud, and importable from a saved JSON database.</li>
+            <li>Gemini should only be called when the app cannot confidently match the user's typed entry or selected photo result to an existing confirmed library item. Matching should prioritize the primary food item or canonical meal name.</li>
+            <li>Confirmed Gemini results should become reusable library records, which improves speed, lowers AI usage, avoids repeat image analysis for common foods, and supports future personal pattern analysis.</li>
+            <li>The app should keep daily meal logs separate from the reusable macro library so users can edit one logged meal without corrupting the saved reference food.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>AI Model Requirements</summary>
+          <ul>
+            <li>The app must never hardcode a Gemini API key. MVP should support a Settings-entered user API key stored securely in iOS Keychain; a backend proxy can be considered later if account-based service billing is needed.</li>
+            <li>Supported model choices for PRD planning are Gemini 2.5 Flash and Gemini 3.5 Flash, with room to add Gemini Pro-class models for acne flare photo review if the user provides access through their own API key.</li>
+            <li>The app should include fallback behavior when a selected model is unavailable, rate-limited, too costly, or blocked by policy.</li>
+            <li>Food text parsing should request structured JSON output with foods, portions, calories, protein grams, carbohydrate grams, fat grams, confidence, assumptions, and source notes.</li>
+            <li>Photo and Visualize Food analysis should request structured JSON output and must surface assumptions to the user before saving.</li>
+            <li>Settings should show whether an API key is configured and expose token, request, and estimated cost history when Gemini returns usage metadata. Cost summaries should include daily, weekly, average, and total cost.</li>
+            <li>Prompts must constrain AI output to wellness education, reflection, habit support, and questions for qualified professionals. Prompts must forbid diagnosis, treatment plans, medication changes, or urgent-care triage.</li>
+            <li>Health assessment prompts should request structured JSON output with included data sources, pattern summary, evidence caveats, current focus areas, active treatments, holistic treatments, acne photo findings, and references when specific sources are available.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>Regulatory and Safety Notes</summary>
+          <ul>
+            <li>Current direction is a custom one-person wellness and education app with functional medicine and naturopathic-style framing, not a clinical product.</li>
+            <li>PRD should explicitly avoid FDA-style treatment claims unless the product is intentionally pursuing clinical validation.</li>
+            <li>Privacy posture can start with local phone storage and optional iCloud sync because this is a one-person app, but data export and deletion should still be available.</li>
+            <li>Supplement guidance should avoid drug/medication changes and high-risk dosing claims. Heavy safety infrastructure or a safety cofounder is not required for the custom first version.</li>
+          </ul>
+        </details>
+      </section>
+
+      <section id="implementation">
+        <h2>Implementation Plan</h2>
+        <details open>
+          <summary>Draft Milestones</summary>
+          <ol>
+            <li>Apply the Ristoro design guide to the SwiftUI visual system, including color tokens, typography choices, spacing, card frames, tab bar, buttons, tags, input fields, photo states, and calm voice guidelines.</li>
+            <li>Review the Health-Tracker reference repository only for pattern inspiration; document any adapted pattern before implementation and avoid copying code, assets, calorie logic, or brand design.</li>
+            <li>Finalize iPhone MVP information architecture around the four bottom tabs: Lifestyle, Supplements, Macro, and Exercise, with Settings accessible from a top-right gear control outside the tab bar.</li>
+            <li>Define Swift data models for meals, reusable macro library records, lifestyle practices, active treatments, holistic treatments, nutrient/supplement signals, supplement records, exercise sessions, symptoms, acne logs, acne flare assessments, health assessments, cycle context, consult sessions, AI settings, API usage/cost events, and privacy consent.</li>
+            <li>Design the food data module first because it is the highest-frequency daily workflow: Add Food, New Food, Log Meal, Food Log, Daily Totals, and Visualize Food.</li>
+            <li>Design typed food logging, JSON macro lookup, Gemini fallback, confirmation, and protein-forward daily macro summary behavior before lower-frequency insight screens.</li>
+            <li>Design saved-food search and portion sizing with 25%, 50%, 75%, exact, 150%, double, and custom amount options; include secondary calories and clear separation between reusable JSON records and daily log entries.</li>
+            <li>Design the multi-item meal photo or upload macro capture flow, including iPhone camera/photo permissions, Gemini image analysis, editable confirmation, and library save behavior.</li>
+            <li>Design Visualize Food for menu photos, menu screenshots, and dish text, including generated dish visualization, macro calculation from generated image plus text context, editable confirmation, and JSON-library save behavior.</li>
+            <li>Design the acne flare photo consult flow, including consent, camera/photo permissions, Gemini visual review, adaptive follow-up questions, non-drug wellness suggestions, no-image-storage default, and saved assessment history.</li>
+            <li>Design manually initiated health assessment creation, including data-category selection, active treatment and holistic treatment inputs, acne photo findings, Gemini report generation, editable saved report, and cited references when specific sources are available.</li>
+            <li>Defer meal planning flows until a later version after the core food logging and health assessment workflows are stable.</li>
+            <li>Design Settings with Keychain-backed user-provided Gemini API key entry, user-facing model selection, daily/weekly/average/total API cost tracking, import/export, iCloud sync controls, and privacy controls.</li>
+            <li>Design the Lifestyle tab for stress/anxiety practice recommendations, completion, and feedback.</li>
+            <li>Design the Supplements tab for goal-aware nutrient/supplement suggestions, supplement tracking, clinician questions, and clear safety boundaries.</li>
+            <li>Design the Exercise tab for weightlifting and sprint-burst sessions by activity where relevant, low/medium/high intensity, and duration.</li>
+            <li>Design hormone and acne tracking as supporting context available to Supplements, Macro, Lifestyle, and insight workflows.</li>
+            <li>Design the Gemini-powered consult layer, prompt constraints, model selector, fallback behavior, cited references where available, adaptive 10-question flow, and consent gates.</li>
+            <li>Confirm local/iCloud storage, data deletion, and lightweight wellness-only boundaries before implementation starts.</li>
+            <li>Create high-fidelity mobile screens from the Ristoro-inspired mockups before implementation polish.</li>
+          </ol>
+        </details>
+        <details>
+          <summary>Verification Plan</summary>
+          <ul>
+            <li>Review PRD for concrete acceptance criteria and explicit non-goals.</li>
+            <li>Verify iPhone UX requirements, Dynamic Type, VoiceOver labels, and touch-target sizing are represented.</li>
+            <li>Confirm typed food logging checks the local JSON macro library before calling Gemini.</li>
+            <li>Confirm saved-food search returns JSON library matches and serving amount changes recalculate calories, protein, carbohydrates, and fat without showing deficit values.</li>
+            <li>Confirm food logging produces accurate daily totals for calories, protein, carbohydrates, and fat across common typed, reused, edited, photo-confirmed, and visualized-menu entry paths.</li>
+            <li>Confirm confirmed photo foods are saved into the JSON library and can be searched/logged the next day without another image analysis call.</li>
+            <li>Confirm food photo analysis results are never saved until the user explicitly confirms or edits them.</li>
+            <li>Confirm Visualize Food can generate a food image from a menu photo, menu screenshot, or dish text, calculate macros from the generated image, and route the result through meal confirmation.</li>
+            <li>Confirm acne flare photos are not stored by default and that only assessment summaries, answers, and wellness suggestions are saved after consent.</li>
+            <li>Confirm acne suggestions are labeled as holistic non-drug wellness suggestions, not medical treatment.</li>
+            <li>Confirm the food data module does not include Better Choices, dynamic burn rate, burn and weight, how-are-you-feeling, calorie deficit, calorie burn, or weight-loss countdown concepts.</li>
+            <li>Confirm the bottom tab bar contains Lifestyle, Supplements, Macro, and Exercise as the primary destinations.</li>
+            <li>Confirm supplement suggestions are framed as possible nutrient areas to consider, not diagnoses or treatment recommendations.</li>
+            <li>Confirm exercise logging uses low/medium/high intensity and visible 5-to-60-minute duration sliders in 5-minute increments for weightlifting and sprint bursts, without individual exercise entry or calorie-burn estimates in MVP.</li>
+            <li>Confirm health assessments are only generated when manually initiated and can include macros, eating patterns, active treatments, holistic treatments, and acne photo findings.</li>
+            <li>Confirm the Settings API key is not hardcoded, is stored in Keychain, can be cleared, and is not exposed in logs or exports.</li>
+            <li>Confirm Settings tracks Gemini API usage cost summaries for daily, weekly, average, and total cost when usage metadata is available.</li>
+            <li>Confirm AI consult output stays inside wellness education and does not generate diagnosis, treatment plans, medication changes, or unsafe supplement claims.</li>
+            <li>Confirm privacy, safety, and medical-claims boundaries before build work.</li>
+          </ul>
+        </details>
+      </section>
+
+      <section id="metrics" class="panel">
+        <h2>Success Metrics</h2>
+        <ol>
+          <li>Activation: percentage of users who complete onboarding, set a health goal, and log the first meal or check-in.</li>
+          <li>Macro tracking consistency: percentage of users who log macro entries on at least four days in week two.</li>
+          <li>Macro usefulness: percentage of users who view daily macro totals, especially protein visibility, and report that the summary helps them make food decisions.</li>
+          <li>Macro library efficiency: percentage of meal logs resolved from the user's saved macro library without a Gemini call.</li>
+          <li>Meal photo capture adoption: percentage of active users who successfully save at least one photo-confirmed multi-item meal macro entry.</li>
+          <li>Saved food efficiency: percentage of common food logs completed through saved JSON records and serving amount presets without a Gemini call.</li>
+          <li>Acne consult adoption: percentage of active users who complete an acne flare photo review, answer follow-up questions, and save an assessment summary.</li>
+          <li>Manual assessment adoption: number of manually initiated health assessments generated and saved after meaningful logged inputs.</li>
+          <li>AI settings readiness: percentage of users who configure a Gemini key, choose a model, view estimated usage cost, and successfully complete at least one AI-assisted macro parse or photo analysis.</li>
+          <li>Lifestyle adoption: percentage of users who complete at least two stress or anxiety support practices per week.</li>
+          <li>Supplement relevance: percentage of users who mark a supplement or nutrient-area suggestion as relevant or worth discussing with a professional.</li>
+          <li>Exercise simplicity: percentage of exercise sessions logged in under 30 seconds using intensity and duration.</li>
+          <li>Supplement adherence: percentage of users who create a supplement routine and mark adherence at least three days per week.</li>
+          <li>Insight value: percentage of users who report clearer understanding of food, stress, cycle, supplements, acne, or hormone patterns.</li>
+          <li>Trust: percentage of users who understand privacy controls, AI consent, and wellness-only boundaries without confusion.</li>
+        </ol>
+      </section>
+
+    </div>
+  </main>
+
+  <script>
+    const search = document.querySelector('#storySearch');
+    const cards = [...document.querySelectorAll('[data-filter-text]')];
+    search?.addEventListener('input', () => {
+      const query = search.value.trim().toLowerCase();
+      cards.forEach((card) => {
+        card.hidden = query && !card.dataset.filterText.toLowerCase().includes(query);
+      });
+    });
+  </script>
+</body>
+</html>

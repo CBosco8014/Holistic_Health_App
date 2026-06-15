@@ -1,0 +1,407 @@
+{
+  "project": "Holistic Women's Hormone Health App",
+  "branchName": "ralph/holistic-health-app",
+  "description": "Native Swift iPhone MVP for a holistic women's health app centered on inside-out acne care, protein-forward macro tracking, reusable JSON food records, Gemini-assisted food and wellness workflows, supplements, lifestyle support, exercise logging, and manual health assessments. The app is local-first with optional iCloud sync, user-provided Gemini API key support, and a Ristoro-inspired Italian Art Deco visual system.",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Create Swift App Baseline and Four-Tab Shell",
+      "description": "As a developer, I want a native Swift iPhone app scaffold with the approved information architecture so that all MVP modules have a stable place to be implemented.",
+      "acceptanceCriteria": [
+        "A Swift iPhone app project exists with a launchable app target.",
+        "The primary interface uses four bottom tabs labeled Lifestyle, Supplements, Macro, and Exercise.",
+        "A Settings entry point is available from a gear or profile control outside the bottom tab bar.",
+        "The app includes placeholder screens for each primary tab and Settings.",
+        "Typecheck passes",
+        "Build passes",
+        "Verify in iOS simulator that the app launches and the four tabs are navigable.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-002",
+      "title": "Implement Ristoro-Inspired SwiftUI Design System",
+      "description": "As a user, I want the app to follow the approved Italian Art Deco visual direction so that the experience feels calm, premium, and cohesive.",
+      "acceptanceCriteria": [
+        "SwiftUI design tokens define aged cream paper, midnight navy ink, antique brass/gold, botanical verde, and restrained rosso colors.",
+        "Reusable SwiftUI components exist for framed cards, tags/chips, primary and secondary buttons, input fields, photo placeholders, ornamental rules, and tab treatments.",
+        "Typography choices follow the Ristoro direction using available iOS fonts or bundled fonts if added intentionally.",
+        "Core placeholder screens use the design system instead of default unstyled controls.",
+        "Accessibility contrast is checked for key text and controls.",
+        "Typecheck passes",
+        "Build passes",
+        "Verify in iOS simulator that components render without overlapping text on a standard iPhone viewport.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-003",
+      "title": "Define Core Domain Models",
+      "description": "As a developer, I want typed domain models for the MVP health data so that screens, persistence, and AI workflows share consistent structures.",
+      "acceptanceCriteria": [
+        "Codable models exist for user profile, goals, consent records, macro library records, meal log entries, supplements, lifestyle practices, exercise sessions, symptom logs, acne logs, acne assessments, consult sessions, health assessments, AI settings, and API usage events.",
+        "Macro library records include canonical name, aliases, serving description, calories, protein grams, carbohydrate grams, fat grams, source, confidence, confirmation state, timestamps, and notes.",
+        "Daily meal log records are separate from reusable macro library records and can reference a library record when available.",
+        "Exercise records include category, activity where applicable, intensity, duration, timestamp, notes, and source.",
+        "Acne assessment records do not require storing the source image by default.",
+        "Typecheck passes",
+        "Build passes",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-004",
+      "title": "Add Local JSON Storage and Import Export Foundation",
+      "description": "As a user, I want my macro library and logs stored locally with JSON import and export so that the app can build a custom food database over time.",
+      "acceptanceCriteria": [
+        "A local persistence service can read and write the editable JSON-backed macro library.",
+        "The storage layer supports saving, updating, deleting, and searching macro library records.",
+        "The app can import a saved JSON macro database and merge or replace records through an explicit user flow or service method.",
+        "The app can export the macro library JSON to a file or share target.",
+        "The storage design leaves a clear extension point for optional iCloud sync.",
+        "Typecheck passes",
+        "Build passes",
+        "Tests pass for JSON encode, decode, import, export, and record update behavior.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-005",
+      "title": "Build Onboarding and Health Profile",
+      "description": "As a new user, I want to define hormone, skin, nutrition, supplement, stress, sleep, and wellness priorities so that the app can tailor the experience.",
+      "acceptanceCriteria": [
+        "Onboarding captures goals across inside-out acne care, hormone health, cycle context, nutrition, supplements, stress, sleep, exercise, and mindfulness.",
+        "Users can skip optional questions and edit profile answers later.",
+        "Onboarding includes wellness-only safety language and does not claim to diagnose or treat medical conditions.",
+        "Saved profile data is available to Lifestyle, Supplements, Macro, Acne Review, Consult, and Health Assessment workflows.",
+        "Typecheck passes",
+        "Build passes",
+        "Verify in iOS simulator that onboarding can be completed and profile data persists after relaunch.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-006",
+      "title": "Implement Settings for Gemini Key, Model Selection, and Cost Tracking",
+      "description": "As a user, I want to enter my Gemini API key, choose a model, and see usage costs so that AI features use my own configured access.",
+      "acceptanceCriteria": [
+        "Settings includes Gemini API key entry with paste, show or hide, save, clear, and configured-state display.",
+        "The API key is stored securely in Keychain and is not hardcoded, logged, or included in exports.",
+        "Settings exposes user-selectable Gemini model options for AI workflows.",
+        "AI usage events store feature, model, timestamp, success or failure state, token usage when available, and estimated cost when pricing metadata is available.",
+        "Settings summarizes estimated daily, weekly, average, and total Gemini usage cost when data is available.",
+        "Typecheck passes",
+        "Build passes",
+        "Verify in iOS simulator that settings values persist and can be cleared.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-007",
+      "title": "Create Gemini AI Service Layer with Structured Responses",
+      "description": "As a developer, I want a typed Gemini service layer so that food, acne, consult, supplement, lifestyle, and assessment features can share safe AI request behavior.",
+      "acceptanceCriteria": [
+        "A typed AI service reads the selected model and API key from settings.",
+        "The service supports structured JSON response requests for food parsing, photo analysis, visualized-menu macros, acne assessment, consult questions, supplement suggestions, lifestyle suggestions, and health assessment reports.",
+        "The service records usage events and errors without exposing the API key.",
+        "The service has fallback behavior for missing key, unavailable model, rate limit, failed request, malformed response, and policy-blocked output.",
+        "Prompts constrain output to wellness education and forbid diagnosis, treatment plans, medication changes, and urgent-care triage.",
+        "Typecheck passes",
+        "Build passes",
+        "Tests pass for request construction, missing-key handling, malformed-response handling, and usage logging.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-008",
+      "title": "Build Macro Tab Food Data Module",
+      "description": "As a user, I want a Macro tab with Add Food, New Food, Log Meal, Food Log, Daily Totals, and Visualize Food sections so that food tracking is centered on protein, carbs, and fat.",
+      "acceptanceCriteria": [
+        "Macro tab includes Add Food, New Food, Log Meal, Food Log, Daily Totals, and Visualize Food entry points or sections.",
+        "The UI emphasizes protein, carbohydrates, and fat; calories may appear only as secondary food data.",
+        "The module excludes calorie deficit, burn rate, weight-loss countdown, Better Choices, dynamic burn rate, burn and weight, and how-are-you-feeling sections.",
+        "Food Log rows show food name, timestamp, serving amount and size, secondary calories, protein, carbohydrates, fat, and remove action.",
+        "Daily Totals emphasizes protein over other values and never shows deficit.",
+        "Typecheck passes",
+        "Build passes",
+        "Verify in iOS simulator that the Macro tab renders all required sections without text overlap.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-009",
+      "title": "Implement Typed Meal Logging with Library-First Lookup",
+      "description": "As a user, I want to type what I ate and have the app check my saved macro library before calling Gemini so that common foods are logged quickly and cheaply.",
+      "acceptanceCriteria": [
+        "Typed food entry searches the local JSON macro library before any Gemini request is made.",
+        "Matching prioritizes the primary or canonical food item name and known aliases.",
+        "Known foods can be logged directly with editable serving notes and meal category.",
+        "Unknown typed foods can request a Gemini estimate and require user confirmation or editing before saving.",
+        "Confirmed Gemini estimates are saved as reusable JSON macro library records and daily log entries.",
+        "Typecheck passes",
+        "Build passes",
+        "Tests pass for known-food lookup, unknown-food fallback, confirmation-required behavior, and daily totals recalculation.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-010",
+      "title": "Implement Saved Food Search and Portion Sizing",
+      "description": "As a user, I want to choose a saved food and adjust serving size so that logging repeated foods is fast and accurate enough for macro trends.",
+      "acceptanceCriteria": [
+        "Saved-food search returns matching JSON library records with serving description, secondary calories, protein, carbohydrates, and fat.",
+        "The selected food view provides amount chips for 25%, 50%, 75%, exact amount, 150%, and double.",
+        "The selected food view includes a custom amount input.",
+        "Changing amount recalculates secondary calories, protein, carbohydrates, and fat before saving.",
+        "Users can cancel or log the food immediately; meal planning actions are not included in MVP.",
+        "Typecheck passes",
+        "Build passes",
+        "Verify in iOS simulator that amount chips and custom amount update totals before logging.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-011",
+      "title": "Add Meal Photo and Upload Macro Capture",
+      "description": "As a user, I want to photograph or upload a meal and confirm itemized macros so that restaurant plates and multi-item meals can be logged.",
+      "acceptanceCriteria": [
+        "Users can take a meal photo or upload an existing image from the photo library.",
+        "The app handles camera and photo-library permission states, including denied permission.",
+        "Gemini image analysis returns structured food items, serving assumptions, secondary calories, protein, carbohydrates, fat, confidence, and notes.",
+        "Users can edit food names, portions, and macro values before accepting results.",
+        "Only confirmed results are added to the daily log and saved to the JSON macro library.",
+        "Typecheck passes",
+        "Build passes",
+        "Verify in iOS simulator that photo permission, upload, review, edit, cancel, and confirm states are reachable.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-012",
+      "title": "Add Visualize Food From Menu Workflow",
+      "description": "As a user, I want to photograph a menu, upload a menu screenshot, or enter dish text and visualize the food before macro estimation so that I can estimate macros when no food photo exists.",
+      "acceptanceCriteria": [
+        "Visualize Food accepts menu photo, menu screenshot, or typed dish description input.",
+        "Gemini generates a food visualization or structured visual description from the input.",
+        "The app estimates serving size, secondary calories, protein, carbohydrates, and fat from the generated visualization plus text context.",
+        "The user must confirm or edit the macro estimate before logging or saving it to the JSON library.",
+        "The feature does not include restaurant recommendations, Better Choices, calorie deficit, or weight-loss framing.",
+        "Typecheck passes",
+        "Build passes",
+        "Verify in iOS simulator that all three input paths reach the same confirmation flow.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-013",
+      "title": "Build Hormone and Skin Check-In",
+      "description": "As a user, I want to track hormone-related symptoms, cycle context, acne, and stress so that the app can use these signals in insights and assessments.",
+      "acceptanceCriteria": [
+        "Users can log cycle day or phase, acne severity or location, mood, energy, cravings, digestion, bloating, sleep, stress, and custom symptoms.",
+        "Users can add free-text observations.",
+        "Logged signals are available to visualizations, lifestyle recommendations, supplement suggestions, acne assessment, consult, and manual health assessment workflows.",
+        "Pattern language avoids diagnosis and guaranteed-cause claims.",
+        "Typecheck passes",
+        "Build passes",
+        "Verify in iOS simulator that check-ins can be created, edited, and viewed after relaunch.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-014",
+      "title": "Build Supplements Tab and Nutrient Guidance",
+      "description": "As a user, I want to track supplements and receive careful nutrient-area suggestions so that I know what to investigate or discuss next.",
+      "acceptanceCriteria": [
+        "Supplements tab lets users track supplement name, dosage notes, schedule, timing, reason for taking, adherence state, start date, pause or discontinued state, and notes.",
+        "Users can log feelings and symptoms relevant to nutrition status, acne support, protein needs, and general goals.",
+        "The app can suggest possible nutrient or supplement areas to consider without diagnosing a deficiency.",
+        "Suggestions include rationale, relevant user inputs, safety notes, clinician questions, and professional-review guidance when appropriate.",
+        "Safety copy covers supplement interactions, pregnancy, medications, medical conditions, and professional review.",
+        "Typecheck passes",
+        "Build passes",
+        "Verify in iOS simulator that supplements can be created and adherence can be logged.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-015",
+      "title": "Build Lifestyle Tab Recommendations",
+      "description": "As a user, I want data-reactive lifestyle practices for stress and anxiety support so that the app can help with nervous system regulation and hormone-health context.",
+      "acceptanceCriteria": [
+        "Lifestyle tab recommends practices such as breathwork, meditation, journaling, gentle movement, gratitude, grounding, sleep wind-down, and screen-boundary rituals.",
+        "Users can save, start, complete, skip, and rate practices.",
+        "Recommendations adapt to goals and tracked stress, anxiety, sleep, mood, exercise, consult responses, and cycle context where available.",
+        "Completed practices are stored for trend and assessment use.",
+        "Language is calm, specific, non-judgmental, and avoids hype or shame.",
+        "Typecheck passes",
+        "Build passes",
+        "Verify in iOS simulator that a practice can be saved, completed, skipped, and rated.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-016",
+      "title": "Build Exercise Tab for Intensity and Duration",
+      "description": "As a user, I want to log weightlifting and sprint-burst exercise by selecting intensity and duration so that exercise tracking is quick.",
+      "acceptanceCriteria": [
+        "Exercise tab supports weightlifting with low, medium, and high intensity choices.",
+        "Exercise tab supports sprint-burst activities including running, stationary bike, rowing, and boxing.",
+        "Both weightlifting and sprint-burst sessions use a duration slider or equivalent minute picker from 5 to 60 minutes in 5-minute increments.",
+        "Selected duration is visible before saving.",
+        "Users can save multiple exercise sessions per day and see a simple daily summary.",
+        "MVP does not require individual lifts, sets, reps, sprint drills, calorie-burn estimates, or deficit calculations.",
+        "Typecheck passes",
+        "Build passes",
+        "Verify in iOS simulator that exercise sessions can be saved and summarized.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-017",
+      "title": "Build Acne Flare Photo Consult",
+      "description": "As a user, I want to photograph an acne flare and receive holistic follow-up questions and wellness suggestions so that I can think through inside-out care patterns.",
+      "acceptanceCriteria": [
+        "Users can take or upload an acne flare photo for Gemini-supported visual review with explicit consent.",
+        "The flow clearly states that acne images are not stored by default.",
+        "Gemini can ask clarifying questions before suggestions when image and logged context are insufficient.",
+        "The app may store assessment summary, user answers, contextual findings, references when available, and non-drug wellness suggestions.",
+        "All output is framed as wellness education and cannot claim to diagnose, treat, or cure acne.",
+        "Typecheck passes",
+        "Build passes",
+        "Verify in iOS simulator that consent, photo selection, follow-up questions, output review, and save states are reachable.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-018",
+      "title": "Build Adaptive Consult and Manual Health Assessment",
+      "description": "As a user, I want adaptive consult questions and manually initiated health assessments so that I can review macros, acne, treatments, holistic practices, and patterns on demand.",
+      "acceptanceCriteria": [
+        "Consult flows ask adaptive one-at-a-time questions up to 10 questions across digestion, stress, sleep, skin, cycle, food, supplements, hydration, and lifestyle.",
+        "Consult responses can reference logged patterns only when consent is granted.",
+        "Manual health assessment can be initiated at any frequency selected by the user.",
+        "Users can choose included data categories before generating an assessment.",
+        "Generated assessments include pattern summary, possible contributors, current focus areas, active treatments, holistic treatments, acne photo findings, cited references when available, and clear caveats.",
+        "Reports are editable after generation and saved for later review.",
+        "Typecheck passes",
+        "Build passes",
+        "Verify in iOS simulator that consult and manual assessment flows can be completed and saved.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-019",
+      "title": "Build Macro and Health Visualizations",
+      "description": "As a user, I want visual summaries of macro and health patterns so that I can understand trends without focusing on calories.",
+      "acceptanceCriteria": [
+        "Visualizations show protein, carbohydrate, and fat totals over daily and weekly periods.",
+        "Visualizations can compare macro patterns with selected hormone, skin, stress, supplement, lifestyle, exercise, or cycle signals.",
+        "Visualizations include supplement adherence, stress trends, acne trends, and cycle overlays when data exists.",
+        "Empty and insufficient-data states explain what to log next without shame or pressure.",
+        "Charts exclude calorie deficit, calorie burn, weight-loss countdowns, and restriction framing.",
+        "Typecheck passes",
+        "Build passes",
+        "Verify in iOS simulator that charts render with seeded data and empty states.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-020",
+      "title": "Add Privacy, Consent, Export, Deletion, and MVP Verification",
+      "description": "As a user, I want clear privacy and consent controls so that I understand what is stored and can manage sensitive health data.",
+      "acceptanceCriteria": [
+        "Privacy settings explain local storage, optional iCloud sync, AI context use, photo analysis consent, data export, and data deletion in plain language.",
+        "Users can export personal health data where privacy constraints allow.",
+        "Users can delete personal health data and clear the macro library after explicit confirmation.",
+        "Consent is explicit for notifications, sensitive health categories, AI consult context, acne photo review, and future provider sharing if added later.",
+        "Core workflows include empty, loading, error, offline, and permission-denied states where applicable.",
+        "A verification checklist or lightweight test plan maps MVP behavior back to the PRD requirements.",
+        "Typecheck passes",
+        "Build passes",
+        "Tests pass",
+        "Verify in iOS simulator that privacy, export, deletion, and error states are reachable.",
+        "No unrelated files are modified",
+        "progress.txt is updated with result and notes"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": ""
+    }
+  ]
+}
