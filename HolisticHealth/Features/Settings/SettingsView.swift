@@ -25,10 +25,13 @@ struct SettingsView: View {
                 }
 
                 SectionHeader(eyebrow: "Data", title: "Privacy")
-                SettingsRow(systemImage: "lock.shield",
-                            title: "Privacy & data",
-                            subtitle: "Export, deletion, and consent",
-                            disabled: true)
+                NavigationLink {
+                    PrivacyView()
+                } label: {
+                    SettingsRow(systemImage: "lock.shield",
+                                title: "Privacy & data",
+                                subtitle: "Export, deletion, and consent")
+                }
             }
             .padding(Theme.Spacing.l)
         }

@@ -28,6 +28,17 @@ Started: 2026-06-15
   - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
 ---
 
+## 2026-06-17 - US-020  ✅ ALL STORIES COMPLETE
+- Built privacy, consent, export, deletion + MVP verification.
+- Files: Services/DataExport.swift (ExportBundle + DataExport + DataReset), Features/Settings/PrivacyView.swift, docs/verification-checklist.md; updated SettingsView (privacy link), App (privacy route); HolisticHealthTests/DataExportTests.swift.
+- Plain-language privacy explanations, consent toggles for all ConsentType, JSON export (API key excluded), clear-library + delete-all behind confirmation. Verification checklist maps every story.
+- Build + 3 tests pass. FULL SUITE: 93 tests, 0 failures. Sim verified privacy screen.
+- Project status: 20/20 user stories passing. App is a complete native SwiftUI MVP.
+- **Learnings for future iterations:**
+  - `DataExport`/`DataReset` centralize aggregate read/wipe across all stores — update them when adding a new store.
+  - The API key is excluded from export by construction (it's only in Keychain). `DataReset.deleteAll(clearKey:)` controls whether the credential is also removed.
+---
+
 ## 2026-06-17 - US-019
 - Built macro & health visualizations.
 - Files: Features/Insights/{InsightsBuilder,InsightsView}.swift; updated App (insights route); HolisticHealthTests/InsightsBuilderTests.swift.

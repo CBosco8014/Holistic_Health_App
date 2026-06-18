@@ -400,8 +400,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 3,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "PrivacyView: plain-language explanations (local-first/iCloud/AI context/photos/export/deletion), explicit consent toggles for all ConsentType, JSON export via ShareLink (DataExport.buildBundle excludes Keychain API key), clear-library + delete-all behind confirmation alerts (DataReset.deleteAll keeps key unless clearKey). State coverage (empty/loading/error/offline/permission-denied) present across workflows. docs/verification-checklist.md maps every story to impl + verification. 3 tests pass (export round-trip excludes key, deleteAll keeps/clears key); sim verified."
     }
   ]
 }
