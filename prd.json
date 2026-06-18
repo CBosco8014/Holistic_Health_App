@@ -256,8 +256,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "CheckInStore @MainActor (checkins.json): save(upsert)/delete/clear, sorted/latest/recent(n)/todays(). CheckInView: cycle phase chips + cycle-day toggle/stepper, acne severity RatingSelector + location chips, mood/energy/cravings/digestion/bloating/sleep/stress ratings, custom symptom add/remove chips, free-text notes. Surfaced on Lifestyle tab (todays edit + recent history). Reusable RatingSelector (0-5 optional). Non-diagnostic pattern language. Available app-wide via env object to downstream workflows. 4 store tests pass; sim verified editor renders all controls."
     },
     {
       "id": "US-014",

@@ -28,6 +28,16 @@ Started: 2026-06-15
   - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
 ---
 
+## 2026-06-17 - US-013
+- Built the hormone & skin check-in.
+- Files: Services/Persistence/CheckInStore.swift, Features/HealthLog/{CheckInView,CheckInRow}.swift, Shared/DesignSystem/Components/RatingSelector.swift; updated LifestyleView (hosts check-in), App (inject CheckInStore + checkin route); HolisticHealthTests/CheckInStoreTests.swift.
+- `CheckInStore` (env object) is the shared source of logged hormone/skin signals for US-014/015/017/018/019. CheckInView captures cycle, skin (severity + locations), 7 signal ratings, custom symptoms, notes. Non-diagnostic copy.
+- Build + 4 tests (68 total) pass. Sim verified the editor.
+- **Learnings for future iterations:**
+  - `RatingSelector` (Binding<Int?>, 0–5) is the reusable self-rating control. `CheckInStore.recent(n)` / `.todays()` / `.latest` feed downstream features and visualizations.
+  - The Lifestyle tab currently hosts only the check-in; US-015 adds the practices section above it.
+---
+
 ## 2026-06-17 - US-012
 - Implemented Visualize Food from menu (photo / screenshot / text -> one confirm flow).
 - Files: Features/Macro/{VisualizeFoodViewModel,VisualizeFoodView}.swift, extended FoodEstimate.swift (VisualizedFoodEstimate + .visualize schema); updated MacroView + DebugScreenRouter (visualize); HolisticHealthTests/VisualizeFoodViewModelTests.swift.
