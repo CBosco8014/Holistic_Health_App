@@ -94,6 +94,7 @@ struct DebugScreenRouter: View {
             case "acne": AcneConsultView(aiConfig: aiConfig)
             case "consult": ConsultView(aiConfig: aiConfig)
             case "assessment": HealthAssessmentView(aiConfig: aiConfig)
+            case "insights": InsightsView()
             default: RootView()
             }
         }

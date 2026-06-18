@@ -28,6 +28,15 @@ Started: 2026-06-15
   - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
 ---
 
+## 2026-06-17 - US-019
+- Built macro & health visualizations.
+- Files: Features/Insights/{InsightsBuilder,InsightsView}.swift; updated App (insights route); HolisticHealthTests/InsightsBuilderTests.swift.
+- `InsightsBuilder` is pure/testable (recentDays, weeklyMacros, signalSeries, hasMacroData/hasSignalData). `InsightsView` uses Swift Charts: stacked macro bars + a selectable signal line, empty/insufficient states, no deficit/burn/weight-loss.
+- Build + 5 tests (114 total) pass. Sim verified charts with seeded data.
+- **Learnings for future iterations:**
+  - Swift Charts (`import Charts`) works on the iOS 17 target. Keep chart-data computation in `InsightsBuilder` (pure) and only rendering in the view — that's what made it testable.
+---
+
 ## 2026-06-17 - US-018
 - Built adaptive consult + manual health assessment.
 - Files: Features/Consult/{ConsultViewModel,ConsultView,HealthAssessmentViewModel,HealthAssessmentView}.swift; updated App (consult/assessment routes); HolisticHealthTests/{ConsultViewModelTests,HealthAssessmentViewModelTests}.swift.

@@ -378,8 +378,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 3,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "InsightsBuilder (pure, testable): recentDays, weeklyMacros (P/C/F per day), signalSeries (stress/acne/sleep/mood from check-ins, exercise minutes, supplements taken), hasMacroData/hasSignalData. InsightsView (Swift Charts): stacked macro bar chart over 7 days + selectable health-signal line chart to compare; empty/insufficient-data states with kind, no-shame copy. Excludes deficit/burn/weight-loss/restriction. Entry on Lifestyle Insights hub. 5 builder tests pass; sim verified charts + data."
     },
     {
       "id": "US-020",
