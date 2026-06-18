@@ -217,8 +217,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "MealPhotoView: Upload (PhotosPicker, no perm) + Take photo (CameraPicker UIImagePickerController). CameraPermission helper checks isAvailable + AVCaptureDevice status; denied/unavailable shows guidance note. MealPhotoViewModel: setImage -> analyze() Gemini (.photoAnalysis, FoodEstimateSchema.meal) -> editable EditableFoodItem list (name/serving/P/C/F/cal/category/include) -> confirm() saves ONLY included items as .geminiPhoto library records + log entries; empty/ error states. Photos not stored by default. 5 tests pass; sim verified capture + review/edit states."
     },
     {
       "id": "US-012",

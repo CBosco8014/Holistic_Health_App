@@ -28,6 +28,17 @@ Started: 2026-06-15
   - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
 ---
 
+## 2026-06-17 - US-011
+- Implemented meal photo + upload macro capture.
+- Files: Shared/CameraPicker.swift (CameraPermission + UIImagePickerController representable), Features/Macro/{MealPhotoViewModel,MealPhotoView}.swift; updated DebugScreenRouter (mealphoto); HolisticHealthTests/MealPhotoViewModelTests.swift.
+- Upload uses PhotosPicker (no permission). Camera uses CameraPicker + AVCaptureDevice auth; unavailable/denied shows guidance. Gemini photoAnalysis -> editable items (toggle include, edit macros/category) -> confirm saves only included as .geminiPhoto records + log entries. Photos not stored by default.
+- Build + 5 tests (58 total) pass. Sim verified capture + review/edit screens (debug seed for review).
+- **Learnings for future iterations:**
+  - `CameraPicker` + `CameraPermission` are reusable for the acne flare photo (US-017). PhotosPicker is the simplest library path (no permission prompt).
+  - For screens needing a live AI result to screenshot, add a `#if DEBUG` seed method on the VM + an `HH_*` env onAppear hook (see `debugSeedReview` / `HH_PHOTO_DEMO`).
+  - `EditableFoodItem` (string-backed editable macros + include toggle) is the review-row pattern; reuse for US-012.
+---
+
 ## 2026-06-17 - US-010
 - Implemented saved-food search + portion sizing.
 - Files: Features/Macro/{AddFoodViewModel,AddFoodView,MealPhotoView(placeholder)}.swift; updated MacroView + DebugScreenRouter (addfood); HolisticHealthTests/AddFoodViewModelTests.swift.

@@ -74,6 +74,7 @@ struct DebugScreenRouter: View {
             case "onboarding": OnboardingView()
             case "logmeal": LogMealView(library: library, mealLog: mealLog, aiConfig: aiConfig)
             case "addfood": AddFoodView(library: library, mealLog: mealLog, aiConfig: aiConfig)
+            case "mealphoto": MealPhotoView(library: library, mealLog: mealLog, aiConfig: aiConfig)
             case "newfood": NewFoodView()
             default: RootView()
             }
