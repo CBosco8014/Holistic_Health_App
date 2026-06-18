@@ -19,8 +19,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Scaffolded with XcodeGen (project.yml -> HolisticHealth.xcodeproj). Four-tab TabView (Lifestyle/Supplements/Macro/Exercise) + Settings sheet from nav-bar gear. iOS 17 target, Swift 5 mode. Build + 2 unit tests pass; verified launch on iPhone 16 sim."
     },
     {
       "id": "US-002",

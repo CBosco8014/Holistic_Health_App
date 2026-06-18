@@ -1,0 +1,25 @@
+# macOS
+.DS_Store
+
+# Xcode generated project (regenerate with `xcodegen`)
+*.xcodeproj
+*.xcworkspace
+!default.xcworkspace
+
+# Xcode build / user data
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# Ralph
+.last-branch

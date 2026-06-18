@@ -1,3 +1,26 @@
 # Ralph Progress Log
 Started: 2026-06-15
 ---
+
+## Codebase Patterns
+- Project is generated with **XcodeGen**: `project.yml` is the source of truth. After adding/removing source files or build settings, run `xcodegen generate`. The `.xcodeproj` is gitignored (regenerate it).
+- Build: `xcodebuild build -project HolisticHealth.xcodeproj -scheme HolisticHealth -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.3.1' -derivedDataPath build`
+- Test: same command with `test` instead of `build`. Pin `OS=18.3.1` on the iPhone 16 destination — the bare name is ambiguous (many OS runtimes installed).
+- Sim verify: `xcrun simctl boot "iPhone 16"; xcrun simctl install "iPhone 16" <app>; xcrun simctl launch "iPhone 16" com.holistichealth.app; xcrun simctl io "iPhone 16" screenshot /tmp/x.png`. Built app is under `build/Build/Products/Debug-iphonesimulator/HolisticHealth.app`.
+- Source layout: `HolisticHealth/App` (entry + root), `HolisticHealth/Features/<Feature>`, `HolisticHealth/Shared` (reusable views), `HolisticHealth/Resources` (Assets.xcassets). Tests in `HolisticHealthTests/`.
+- Bundle id: `com.holistichealth.app`. Swift 5 language mode (avoids strict-concurrency churn during rapid build). iOS 17 deployment target.
+- Tabs are defined by the `AppTab` enum in `App/RootView.swift` — order there is the bottom-bar order. Settings is a sheet, NOT a tab.
+- Info.plist is auto-generated (`GENERATE_INFOPLIST_FILE: YES`); set Info.plist keys via `INFOPLIST_KEY_*` build settings in project.yml (camera + photo usage strings already added).
+
+---
+
+## 2026-06-17 - US-001
+- Implemented native SwiftUI app scaffold with the approved 4-tab IA + Settings.
+- Files: project.yml, .gitignore, App/HolisticHealthApp.swift, App/RootView.swift, Shared/PlaceholderScreen.swift, Features/{Lifestyle,Supplements,Macro,Exercise,Settings}/*.swift, Resources/Assets.xcassets/*, HolisticHealthTests/AppShellTests.swift
+- Four bottom tabs (Lifestyle, Supplements, Macro, Exercise); Settings opens as a sheet from a gear in the nav bar (outside the tab bar). Each tab has a placeholder screen.
+- Build passes; 2 unit tests pass (tab count/order, titles+symbols present); verified launch on iPhone 16 (iOS 18.3.1) simulator — all four tabs render and the gear is present.
+- **Learnings for future iterations:**
+  - See Codebase Patterns above for build/test/sim commands.
+  - PlaceholderScreen (Shared) is the temporary visual stand-in; US-002 should replace its plain styling with Ristoro design-system components.
+  - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
+---
