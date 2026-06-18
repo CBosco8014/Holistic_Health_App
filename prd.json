@@ -177,8 +177,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "LogMealViewModel: refreshMatches() searches local library FIRST (no network); selectKnown logs directly with editable serving+category; requestEstimate() calls Gemini (.foodParsing) only when user opts in for unknown food; estimate sets step=.confirmEstimate and does NOT auto-save; confirmAndLog saves Gemini estimates as reusable library records (.geminiText,.confirmed) + daily log entry; known foods log without duplicating library. LogMealView: search w/ library rows -> Ask Gemini -> editable confirm w/ Needs-review tag/confidence/assumptions. 6 tests pass (lookup, fallback, confirmation-required, save+totals recalc, no-dup, estimator error)."
     },
     {
       "id": "US-010",

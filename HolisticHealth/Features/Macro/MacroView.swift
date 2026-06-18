@@ -6,6 +6,8 @@ import SwiftUI
 /// burn rate, weight-loss countdowns, "Better Choices", and mood check sections.
 struct MacroView: View {
     @EnvironmentObject private var mealLog: MealLogStore
+    @EnvironmentObject private var library: MacroLibraryStore
+    @EnvironmentObject private var aiConfig: AIConfigStore
 
     var body: some View {
         ScrollView {
@@ -25,7 +27,9 @@ struct MacroView: View {
         VStack(alignment: .leading, spacing: Theme.Spacing.m) {
             SectionHeader(eyebrow: "Log", title: "Add to today")
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: Theme.Spacing.m) {
-                NavigationLink { LogMealView() } label: {
+                NavigationLink {
+                    LogMealView(library: library, mealLog: mealLog, aiConfig: aiConfig)
+                } label: {
                     MacroActionTile(systemImage: "text.badge.plus", title: "Log Meal",
                                     subtitle: "Type what you ate")
                 }

@@ -61,6 +61,9 @@ struct AppRootView: View {
 /// Has no effect in release builds.
 struct DebugScreenRouter: View {
     let screen: String
+    @EnvironmentObject private var library: MacroLibraryStore
+    @EnvironmentObject private var mealLog: MealLogStore
+    @EnvironmentObject private var aiConfig: AIConfigStore
 
     var body: some View {
         NavigationStack {
@@ -69,6 +72,8 @@ struct DebugScreenRouter: View {
             case "gemini": GeminiSettingsView()
             case "profile": ProfileEditView()
             case "onboarding": OnboardingView()
+            case "logmeal": LogMealView(library: library, mealLog: mealLog, aiConfig: aiConfig)
+            case "newfood": NewFoodView()
             default: RootView()
             }
         }

@@ -28,6 +28,17 @@ Started: 2026-06-15
   - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
 ---
 
+## 2026-06-17 - US-009
+- Implemented typed meal logging with library-first lookup.
+- Files: Features/Macro/{FoodEstimate,LogMealViewModel,LogMealView}.swift; updated MacroView (pass stores into LogMealView), App DebugScreenRouter (+logmeal/newfood cases, env objects); HolisticHealthTests/LogMealViewModelTests.swift.
+- Library is ALWAYS searched before Gemini. Gemini estimate only on explicit opt-in for unknown foods, and never auto-saves — confirmation required. Confirmed estimates become reusable library records (.geminiText) + a log entry; known foods log without duplicating the library.
+- Build + 6 tests (49 total) pass.
+- **Learnings for future iterations:**
+  - `ParsedFoodEstimate`/`ParsedMealEstimate` DTOs + `FoodEstimateSchema.single/.meal` are shared by US-009/011/012. Reuse them.
+  - VM pattern with injected `estimator` closure (default wires GeminiService) keeps AI flows unit-testable without network — reuse for US-011/012/017/018.
+  - Views needing stores at init (StateObject VM) are built from MacroView where env objects exist, passing stores into the init; DebugScreenRouter does the same for screenshots.
+---
+
 ## 2026-06-17 - US-008
 - Built the Macro tab food module.
 - Files: Services/Persistence/MealLogStore.swift, Features/Macro/{MacroView,NewFoodView,LogMealView,AddFoodView,VisualizeFoodView}.swift, Features/Macro/Components/{MacroStat,DailyTotalsCard,FoodLogRow}.swift; updated App (inject MealLogStore); HolisticHealthTests/MealLogStoreTests.swift.
