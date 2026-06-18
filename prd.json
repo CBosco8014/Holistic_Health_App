@@ -337,8 +337,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "AcneConsultView (entry on Lifestyle Insights hub): consent step (records ProfileStore .acnePhotoReview, states image not stored) -> capture (camera/upload + notes) -> Gemini .acneAssessment may return clarifyingQuestions -> answer step -> wellness reflection (summary/findings/suggestions/references). Save stores AcneAssessment with NO image (buildAssessment excludes it). Wellness-only, cannot diagnose/treat. AssessmentStore added (acne/health/consult, image-free). 5 tests pass; sim verified consent step."
     },
     {
       "id": "US-018",

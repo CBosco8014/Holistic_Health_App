@@ -28,6 +28,16 @@ Started: 2026-06-15
   - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
 ---
 
+## 2026-06-17 - US-017
+- Built the acne flare photo consult.
+- Files: Services/Persistence/AssessmentStore.swift, Features/Consult/{AcneConsultViewModel,AcneConsultView}.swift, placeholder Consult/ConsultView.swift + Consult/HealthAssessmentView.swift (US-018) + Insights/InsightsView.swift (US-019); updated LifestyleView (Insights & Reviews hub), App (inject AssessmentStore + acne route); HolisticHealthTests/AcneConsultViewModelTests.swift.
+- Consent-gated; image never stored (AcneAssessment has no image field, buildAssessment derives only summary/findings/suggestions/refs). Gemini may ask clarifying questions first. Wellness-only.
+- Build + 5 tests (94 total) pass. Sim verified consent step.
+- **Learnings for future iterations:**
+  - The Lifestyle tab now has an "Insights & Reviews" hub linking acne/consult/assessment/visualizations. US-018 fills ConsultView + HealthAssessmentView; US-019 fills InsightsView (all are placeholders now).
+  - `AssessmentStore` holds acne + health + consult records (image-free). Reuse for US-018.
+---
+
 ## 2026-06-17 - US-016
 - Built the Exercise tab.
 - Files: Services/Persistence/ExerciseStore.swift, Features/Exercise/ExerciseView.swift (replaced placeholder); updated App (inject ExerciseStore + exercise route); HolisticHealthTests/ExerciseStoreTests.swift.

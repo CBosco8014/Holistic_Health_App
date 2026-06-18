@@ -4,17 +4,51 @@ struct LifestyleView: View {
     @EnvironmentObject private var checkInStore: CheckInStore
     @EnvironmentObject private var profileStore: ProfileStore
     @EnvironmentObject private var lifestyleStore: LifestyleStore
+    @EnvironmentObject private var aiConfig: AIConfigStore
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: Theme.Spacing.xl) {
                 practicesSection
+                insightsSection
                 checkInSection
             }
             .padding(Theme.Spacing.l)
         }
         .decoBackground()
         .navigationTitle("Lifestyle")
+    }
+
+    // MARK: - Insights & reviews hub
+
+    private var insightsSection: some View {
+        VStack(alignment: .leading, spacing: Theme.Spacing.m) {
+            SectionHeader(eyebrow: "Insights", title: "Reviews & Reflections")
+            NavigationLink { AcneConsultView(aiConfig: aiConfig) } label: {
+                MacroActionTile(systemImage: "face.smiling",
+                                title: "Acne flare review",
+                                subtitle: "Inside-out wellness reflection")
+            }
+            .buttonStyle(.plain)
+            NavigationLink { ConsultView(aiConfig: aiConfig) } label: {
+                MacroActionTile(systemImage: "bubble.left.and.bubble.right",
+                                title: "Adaptive consult",
+                                subtitle: "A few guided wellness questions")
+            }
+            .buttonStyle(.plain)
+            NavigationLink { HealthAssessmentView(aiConfig: aiConfig) } label: {
+                MacroActionTile(systemImage: "doc.text.magnifyingglass",
+                                title: "Health assessment",
+                                subtitle: "Summarize your recent patterns")
+            }
+            .buttonStyle(.plain)
+            NavigationLink { InsightsView() } label: {
+                MacroActionTile(systemImage: "chart.bar",
+                                title: "Visualizations",
+                                subtitle: "Macro & health trends")
+            }
+            .buttonStyle(.plain)
+        }
     }
 
     // MARK: - Practices
