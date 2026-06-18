@@ -28,6 +28,18 @@ Started: 2026-06-15
   - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
 ---
 
+## 2026-06-17 - US-007
+- Built the typed Gemini AI service layer.
+- Files: Services/AI/{HTTPClient,AIError,AIGuardrails,JSONSchema,GeminiService}.swift; HolisticHealthTests/GeminiServiceTests.swift.
+- `GeminiService(config:http:)` @MainActor. ONE entry point: `generate<T:Decodable>(feature:userText:images:schema:decoding:)`. Applies `AIGuardrails.instruction(for:)`, sends structured-JSON request, records usage (success/failure) via AIConfigStore, returns decoded T. Errors -> `AIError` with user-safe messages + fallback to manual entry.
+- Build + 7 tests (35 total) pass.
+- **Learnings for future iterations:**
+  - Feature views build `GeminiService(config: aiConfig)` on demand (aiConfig is an @EnvironmentObject); GeminiService is NOT injected globally.
+  - Define each feature's result as a `Decodable` DTO and a matching `JSONSchema.object(...)`; pass both to `generate`. UPPERCASE schema types via the `JSONSchema` helpers.
+  - The model NEVER sees the key in the body — it's only in the URL query. Don't log request bodies with the key. Always offer a manual fallback when `AIError` is thrown.
+  - Wellness guardrails are centralized in `AIGuardrails.base`; per-feature framing in `AIGuardrails.instruction(for:)`. Extend there, not in feature prompts.
+---
+
 ## 2026-06-17 - US-006
 - Implemented Settings for Gemini key, model selection, and cost tracking.
 - Files: Services/Keychain/KeychainService.swift, Services/AI/AIConfigStore.swift, Features/Settings/GeminiSettingsView.swift; updated App/HolisticHealthApp.swift (inject AIConfigStore + DEBUG HH_SCREEN router), Features/Settings/SettingsView.swift; HolisticHealthTests/AIConfigStoreTests.swift.

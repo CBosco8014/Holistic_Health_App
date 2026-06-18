@@ -137,8 +137,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "GeminiService @MainActor generic generate<T:Decodable>(feature,userText,images,schema) -> reads model+key from AIConfigStore, applies AIGuardrails system instruction, requests structured JSON (responseMimeType+responseSchema), records success/failure usage events (key never in body/logs - only in URL query), maps errors to AIError (missingKey/modelUnavailable/rateLimited/requestFailed/malformed/policyBlocked/transport) with safe fallback messages. HTTPClient protocol + URLSession impl + mock. JSONSchema builder (OPENAPI uppercase). AIGuardrails forbids diagnosis/treatment/meds/triage. 7 tests pass (construction, missing-key, malformed, usage logging, 429, safety-block, 404)."
     },
     {
       "id": "US-008",
