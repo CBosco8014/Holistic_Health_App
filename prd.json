@@ -296,8 +296,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "PracticeCatalog: 8 practice types (breathwork/meditation/journaling/gentle movement/gratitude/grounding/sleep wind-down/screen-boundary) + data-reactive recommended(profile,latest) scoring by stress/sleep/mood + goals. LifestyleStore: record(save/start/complete/skip + rating), todaysStatus, completedCount, persisted. PracticeCard: Save/Start/Complete/Skip + RatingSelector, status tag. LifestyleView shows recommendations above check-in. Calm non-judgmental copy. 5 tests pass (recommender stress/sleep/empty, store record/persist); sim verified."
     },
     {
       "id": "US-016",

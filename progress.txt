@@ -28,6 +28,15 @@ Started: 2026-06-15
   - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
 ---
 
+## 2026-06-17 - US-015
+- Built Lifestyle tab recommendations.
+- Files: Features/Lifestyle/{PracticeCatalog,PracticeCard}.swift, Services/Persistence/LifestyleStore.swift; updated LifestyleView (+practices section), App (inject LifestyleStore + lifestyle route); HolisticHealthTests/LifestyleTests.swift.
+- `PracticeCatalog.recommended(profile:latest:)` is a pure, testable recommender scoring by recent stress/sleep/mood + goals. `LifestyleStore` records save/start/complete/skip + ratings (trend/assessment use). PracticeCard exposes all five actions.
+- Build + 5 tests (86 total) pass. Sim verified the Lifestyle tab.
+- **Learnings for future iterations:**
+  - Recommender is rule-based (no AI) and pure — easy to extend with consult/cycle/exercise signals later. `LifestyleStore.completedCount`/`recent` feed US-019 visualizations + US-018 assessment.
+---
+
 ## 2026-06-17 - US-014
 - Built the Supplements tab + nutrient guidance.
 - Files: Services/Persistence/SupplementStore.swift, Features/Supplements/{SupplementEditView,NutrientGuidance,SupplementsView}.swift; updated App (inject SupplementStore + supplements route); HolisticHealthTests/{SupplementStoreTests,NutrientGuidanceViewModelTests}.swift.
