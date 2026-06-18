@@ -28,6 +28,18 @@ Started: 2026-06-15
   - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
 ---
 
+## 2026-06-17 - US-004
+- Built the local JSON persistence layer + import/export.
+- Files: Services/Persistence/{JSONCoding,FileDataStore,MacroLibraryStore}.swift; HolisticHealthTests/MacroLibraryStoreTests.swift.
+- `DataPersisting` protocol decouples file IO; `FileDataStore(baseDirectory:)` is injectable for tests. `StorageLocation` + `FileDataStore.directory(for:)` are the documented iCloud extension point (local only today).
+- `MacroLibraryStore` is `@MainActor ObservableObject` (use as `@StateObject`/env object in UI). CRUD: upsert/update/delete/clear; ranked `search`; `bestMatch` for library-first lookup; export to Data/File; import with merge|replace (dedupe by id then normalized canonical name).
+- Build + 8 store tests (16 total) pass.
+- **Learnings for future iterations:**
+  - Use `JSONCoding.encoder/decoder` for ALL JSON (iso8601 dates) so files interoperate with export/import.
+  - `MacroLibraryStore` is `@MainActor`; tests touching it must be `@MainActor`. Inject a temp-dir FileDataStore in tests.
+  - This store pattern (Published array + DataPersisting + named file) is the template for future stores (meals, supplements, etc.).
+---
+
 ## 2026-06-17 - US-003
 - Defined all core Codable domain models in `HolisticHealth/Models/`.
 - Files: Macros.swift, UserProfile.swift, Supplements.swift, Lifestyle.swift, Exercise.swift, HealthLogs.swift, Assessments.swift, AISettings.swift; HolisticHealthTests/ModelsTests.swift.

@@ -78,8 +78,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Persistence in Services/Persistence: JSONCoding (iso8601 shared coders), DataPersisting protocol + FileDataStore (injectable baseDirectory for tests; StorageLocation enum documents iCloud extension point), MacroLibraryStore @MainActor ObservableObject with upsert/update/delete/clear/search/bestMatch + export(Data/File) + importLibrary(merge|replace, dedupe by id then normalized name). 8 storage tests (16 total) pass."
     },
     {
       "id": "US-005",
