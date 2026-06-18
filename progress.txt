@@ -28,6 +28,15 @@ Started: 2026-06-15
   - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
 ---
 
+## 2026-06-17 - US-016
+- Built the Exercise tab.
+- Files: Services/Persistence/ExerciseStore.swift, Features/Exercise/ExerciseView.swift (replaced placeholder); updated App (inject ExerciseStore + exercise route); HolisticHealthTests/ExerciseStoreTests.swift.
+- Weightlifting (low/med/high) + sprint-burst (running/bike/rowing/boxing), duration Slider 5–60 in 5-min steps with visible value, today summary, multiple sessions/day + remove. No lifts/sets/reps/calorie-burn/deficit.
+- Build + 3 tests (89 total) pass. Sim verified. ALL FOUR TABS now complete.
+- **Learnings for future iterations:**
+  - `ExerciseStore.totalMinutes(on:)`/`sessions(on:)` feed US-019 visualizations + US-018 assessment.
+---
+
 ## 2026-06-17 - US-015
 - Built Lifestyle tab recommendations.
 - Files: Features/Lifestyle/{PracticeCatalog,PracticeCard}.swift, Services/Persistence/LifestyleStore.swift; updated LifestyleView (+practices section), App (inject LifestyleStore + lifestyle route); HolisticHealthTests/LifestyleTests.swift.

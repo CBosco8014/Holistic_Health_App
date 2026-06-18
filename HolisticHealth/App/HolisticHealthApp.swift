@@ -15,6 +15,7 @@ struct HolisticHealthApp: App {
     @StateObject private var checkInStore = CheckInStore()
     @StateObject private var supplementStore = SupplementStore()
     @StateObject private var lifestyleStore = LifestyleStore()
+    @StateObject private var exerciseStore = ExerciseStore()
 
     init() {
         ThemeAppearance.apply()
@@ -30,6 +31,7 @@ struct HolisticHealthApp: App {
                 .environmentObject(checkInStore)
                 .environmentObject(supplementStore)
                 .environmentObject(lifestyleStore)
+                .environmentObject(exerciseStore)
                 .tint(Theme.Colors.accentText)
         }
     }
@@ -86,6 +88,7 @@ struct DebugScreenRouter: View {
             case "checkin": CheckInView()
             case "supplements": SupplementsView()
             case "lifestyle": LifestyleView()
+            case "exercise": ExerciseView()
             default: RootView()
             }
         }

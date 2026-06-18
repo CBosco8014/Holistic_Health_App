@@ -317,8 +317,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "ExerciseStore (@MainActor): sessions, add/remove, sessions(on:)/totalMinutes(on:). ExerciseView: category chips (Weightlifting->intensity low/med/high; Sprint Burst->running/bike/rowing/boxing activity), duration Slider 5-60 step 5 with visible value before save, Today summary (minutes+sessions), multiple sessions/day + today list with remove. No lifts/sets/reps/calorie-burn/deficit. 3 tests pass; sim verified."
     },
     {
       "id": "US-017",
