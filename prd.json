@@ -358,8 +358,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "ConsultView: adaptive one-at-a-time questions (<=10) across 9 topics; logged-pattern context only when .aiConsultContext consent toggle on; saves ConsultSession. HealthAssessmentView: select AssessmentCategory data, Gemini .healthAssessment -> HealthAssessment (pattern summary/contributors/focus/active+holistic treatments/acne findings/refs/caveats), editable summary (editedReport), saved. Both built via env-object holder + @ObservedObject child pattern. Stored in AssessmentStore. 10 tests pass (consult one-at-a-time/complete/10-cap/consent-gated context/session; assessment build/edits/guard/error); sim verified."
     },
     {
       "id": "US-019",

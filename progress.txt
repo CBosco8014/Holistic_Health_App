@@ -28,6 +28,16 @@ Started: 2026-06-15
   - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
 ---
 
+## 2026-06-17 - US-018
+- Built adaptive consult + manual health assessment.
+- Files: Features/Consult/{ConsultViewModel,ConsultView,HealthAssessmentViewModel,HealthAssessmentView}.swift; updated App (consult/assessment routes); HolisticHealthTests/{ConsultViewModelTests,HealthAssessmentViewModelTests}.swift.
+- Consult: one question at a time, ≤10, consent-gated logged-pattern context, saved as ConsultSession. Assessment: pick categories → Gemini report (summary/contributors/focus/treatments/findings/refs/caveats), editable, saved.
+- Build + 10 tests (109 total) pass. Sim verified both screens.
+- **Learnings for future iterations:**
+  - **env-object VM pattern**: a `Holder: ObservableObject` configured in `.onAppear` builds the VM from env objects; a private `*Content` view takes the VM as `@ObservedObject` so its @Published changes actually drive the UI (a VM nested in a holder alone won't). Use this whenever a StateObject VM needs many env stores.
+  - Consult context is gated by `usePatterns`; never pass logged data to the model unless the consent toggle is on.
+---
+
 ## 2026-06-17 - US-017
 - Built the acne flare photo consult.
 - Files: Services/Persistence/AssessmentStore.swift, Features/Consult/{AcneConsultViewModel,AcneConsultView}.swift, placeholder Consult/ConsultView.swift + Consult/HealthAssessmentView.swift (US-018) + Insights/InsightsView.swift (US-019); updated LifestyleView (Insights & Reviews hub), App (inject AssessmentStore + acne route); HolisticHealthTests/AcneConsultViewModelTests.swift.
