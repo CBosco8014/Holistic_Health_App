@@ -97,8 +97,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "OnboardingView: 4-step flow (welcome+safety, goals multi-select across all GoalAreas, optional cycle context w/ Skip, optional notes) -> ProfileStore.update marks onboardingCompleted. AppRootView gates onboarding vs RootView. ProfileEditView (Settings > Edit profile) edits later. ProfileStore @MainActor env object available app-wide; consents + reset included. SafetyText/SafetyNote shared wellness copy. FlowChips/WrapLayout added. 3 ProfileStore tests pass; sim verified onboarding renders + seeded profile skips to shell."
     },
     {
       "id": "US-006",

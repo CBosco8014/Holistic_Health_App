@@ -28,6 +28,17 @@ Started: 2026-06-15
   - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
 ---
 
+## 2026-06-17 - US-005
+- Built onboarding + health profile.
+- Files: Services/Persistence/ProfileStore.swift, Features/Onboarding/OnboardingView.swift, Features/Settings/ProfileEditView.swift, Shared/SafetyText.swift, Shared/Extensions.swift, Shared/DesignSystem/Components/FlowChips.swift; updated App/HolisticHealthApp.swift (AppRootView gate + env objects), Features/Settings/SettingsView.swift; HolisticHealthTests/ProfileStoreTests.swift.
+- `AppRootView` shows OnboardingView until `profile.onboardingCompleted`, then RootView. Stores injected at WindowGroup so all workflows can read them.
+- Build + 3 profile tests (19 total) pass. Sim verified: onboarding step renders; seeding a completed profile.json into the app container and relaunching skips straight to the main shell.
+- **Learnings for future iterations:**
+  - `ProfileStore` and `MacroLibraryStore` are environment objects (injected in HolisticHealthApp). Read via `@EnvironmentObject` in any view; sheets inherit them.
+  - To verify persistence in the simulator without tap automation: write JSON into `$(xcrun simctl get_app_container booted com.holistichealth.app data)/Documents/<file>.json`, terminate, relaunch. NOTE: this leaves a completed profile, so later screenshots show the main shell (good).
+  - Reusable UI added: `FlowChips`/`WrapLayout` (wrapping selectable chips), `SafetyNote` + `SafetyText.*` (wellness disclaimers — reuse, don't rewrite), `Binding(_:replacingNilWith:)`, `String.nilIfBlank`.
+---
+
 ## 2026-06-17 - US-004
 - Built the local JSON persistence layer + import/export.
 - Files: Services/Persistence/{JSONCoding,FileDataStore,MacroLibraryStore}.swift; HolisticHealthTests/MacroLibraryStoreTests.swift.
