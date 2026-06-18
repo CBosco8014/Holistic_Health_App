@@ -276,8 +276,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "SupplementStore (@MainActor): supplements + adherence logs, save/delete, isTakenToday/setTakenToday. SupplementEditView: name/dosage/schedule/timing/reason/adherence(taking|paused|discontinued)/startDate/notes. SupplementsView: list w/ adherence toggle + status tag + edit, Add tile, AI nutrient guidance (NutrientGuidanceViewModel -> Gemini .supplementSuggestion w/ context from profile goals + latest check-in) producing NutrientSuggestion cards (area/rationale/relevant inputs/safety/clinician questions), non-diagnostic. Supplement safety copy (interactions/pregnancy/meds/conditions). 7 tests pass; sim verified."
     },
     {
       "id": "US-015",

@@ -28,6 +28,16 @@ Started: 2026-06-15
   - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
 ---
 
+## 2026-06-17 - US-014
+- Built the Supplements tab + nutrient guidance.
+- Files: Services/Persistence/SupplementStore.swift, Features/Supplements/{SupplementEditView,NutrientGuidance,SupplementsView}.swift; updated App (inject SupplementStore + supplements route); HolisticHealthTests/{SupplementStoreTests,NutrientGuidanceViewModelTests}.swift.
+- Supplement tracking (name/dosage/schedule/timing/reason/adherence/startDate/notes) + per-day adherence toggle. AI nutrient guidance pulls context from profile goals + latest check-in; cards include rationale/relevant inputs/safety/clinician questions; never diagnoses a deficiency. Supplement-specific safety copy.
+- Build + 7 tests (79 total) pass. Sim verified the tab.
+- **Learnings for future iterations:**
+  - Pattern for env-object-dependent VMs: a small `@StateObject` holder (`GuidanceHolder`) configured in `.onAppear` once env objects exist. Reuse for consult/assessment (US-018) if needed.
+  - `SupplementStore` adherence model = remove today's logs then add if taken (idempotent toggle).
+---
+
 ## 2026-06-17 - US-013
 - Built the hormone & skin check-in.
 - Files: Services/Persistence/CheckInStore.swift, Features/HealthLog/{CheckInView,CheckInRow}.swift, Shared/DesignSystem/Components/RatingSelector.swift; updated LifestyleView (hosts check-in), App (inject CheckInStore + checkin route); HolisticHealthTests/CheckInStoreTests.swift.

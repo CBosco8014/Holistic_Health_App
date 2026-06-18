@@ -13,6 +13,7 @@ struct HolisticHealthApp: App {
     @StateObject private var aiConfig = AIConfigStore()
     @StateObject private var mealLog = MealLogStore()
     @StateObject private var checkInStore = CheckInStore()
+    @StateObject private var supplementStore = SupplementStore()
 
     init() {
         ThemeAppearance.apply()
@@ -26,6 +27,7 @@ struct HolisticHealthApp: App {
                 .environmentObject(aiConfig)
                 .environmentObject(mealLog)
                 .environmentObject(checkInStore)
+                .environmentObject(supplementStore)
                 .tint(Theme.Colors.accentText)
         }
     }
@@ -80,6 +82,7 @@ struct DebugScreenRouter: View {
             case "visualize": VisualizeFoodView(library: library, mealLog: mealLog, aiConfig: aiConfig)
             case "newfood": NewFoodView()
             case "checkin": CheckInView()
+            case "supplements": SupplementsView()
             default: RootView()
             }
         }
