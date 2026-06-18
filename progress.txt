@@ -28,6 +28,17 @@ Started: 2026-06-15
   - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
 ---
 
+## 2026-06-17 - US-003
+- Defined all core Codable domain models in `HolisticHealth/Models/`.
+- Files: Macros.swift, UserProfile.swift, Supplements.swift, Lifestyle.swift, Exercise.swift, HealthLogs.swift, Assessments.swift, AISettings.swift; HolisticHealthTests/ModelsTests.swift.
+- `MacroNutrients` is the shared macro unit (protein/carb/fat primary, calories secondary) with `scaled(by:)` + `+`. `MacroLibraryRecord` (reusable, per-serving) is separate from `MealLogEntry` (daily, pre-scaled, optional `libraryRecordID`). `AcneAssessment` deliberately has NO image property. `AISettings` holds model selection only — the API key never lives in a model (Keychain only).
+- Build + 9 tests pass (round-trip + macro math).
+- **Learnings for future iterations:**
+  - Reuse `MacroNutrients` everywhere; scale with `.scaled(by:)` and total with `+`.
+  - `GeminiModel` enum carries `displayName`, `blurb`, and approximate `pricing` (ModelPricing) for US-006 cost estimates.
+  - Models use `UUID` ids + `Date` timestamps with sensible defaults; most fields optional so screens can save partial data.
+---
+
 ## 2026-06-17 - US-002
 - Implemented the Ristoro Italian Art Deco SwiftUI design system.
 - Files: Shared/DesignSystem/{Color+Hex,Theme,Typography,ThemeAppearance}.swift, Shared/DesignSystem/Components/{FramedCard,DecoButtons,Chip,DecoTextField,OrnamentalRule,PhotoPlaceholder,ScreenScaffold}.swift; updated App/HolisticHealthApp.swift, Shared/PlaceholderScreen.swift; HolisticHealthTests/DesignSystemTests.swift.

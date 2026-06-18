@@ -58,8 +58,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Codable models in HolisticHealth/Models: Macros (MacroNutrients, FoodSource, ConfirmationState, MealCategory, MacroLibraryRecord, MealLogEntry), UserProfile (+GoalArea, CyclePhase, ConsentType, ConsentRecord), Supplements (+SupplementLogEntry, NutrientSuggestion), Lifestyle (PracticeType, LifestylePractice, PracticeStatus, log), Exercise (category/intensity/SprintActivity/ExerciseSession), HealthLogs (HormoneSkinCheckIn, SymptomLog, AcneLog), Assessments (AcneAssessment-no image, ConsultSession, HealthAssessment, HealthReference, QAPair, AssessmentCategory), AISettings (GeminiModel+pricing, AISettings without key, AIFeature, APIUsageEvent). 9 round-trip/scaling tests pass."
     },
     {
       "id": "US-004",
