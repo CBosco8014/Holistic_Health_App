@@ -157,8 +157,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "MealLogStore @MainActor (meal_log.json): add/remove/clear, entries(on:), dailyTotals(on:). MacroView: DailyTotalsCard (InkPanel, protein emphasized, calories secondary only, NO deficit/burn), 4 action tiles (Log Meal, Add Food, New Food, Visualize Food) + Daily Totals + Food Log = all six sections. FoodLogRow shows name/time/serving amount+size/P-C-F/secondary cal/remove. NewFoodView fully implemented (manual create -> library + log). LogMeal/AddFood/Visualize are placeholders for US-009/010/012. Excluded sections omitted. 2 store tests pass; sim verified totals + log render correctly."
     },
     {
       "id": "US-009",

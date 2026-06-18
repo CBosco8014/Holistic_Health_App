@@ -28,6 +28,17 @@ Started: 2026-06-15
   - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
 ---
 
+## 2026-06-17 - US-008
+- Built the Macro tab food module.
+- Files: Services/Persistence/MealLogStore.swift, Features/Macro/{MacroView,NewFoodView,LogMealView,AddFoodView,VisualizeFoodView}.swift, Features/Macro/Components/{MacroStat,DailyTotalsCard,FoodLogRow}.swift; updated App (inject MealLogStore); HolisticHealthTests/MealLogStoreTests.swift.
+- Macro tab = Daily Totals (protein headline, calories secondary only) + four action tiles + Food Log (with per-row remove). NewFoodView is a real manual create-and-log flow. LogMeal/AddFood/Visualize are placeholders to be filled in US-009/010/011/012.
+- Build + tests pass. Sim verified: seeded log shows correct summed totals (P80/C15/F21, 574 cal secondary) and Food Log rows.
+- **Learnings for future iterations:**
+  - `MealLogStore` is the env object for the food log; `dailyTotals(on:)` and `entries(on:)` filter by calendar day. Protein is always the headline; never add deficit/burn/weight-loss UI.
+  - Macro UI building blocks: `DailyTotalsCard`, `FoodLogRow`, `MacroStat`, `MacroActionTile`, `MacroFormat.grams/calories`.
+  - US-009 fills `LogMealView` (library-first typed logging), US-010 fills `AddFoodView` (saved search + portions), US-011 adds photo capture to Add Food, US-012 fills `VisualizeFoodView`.
+---
+
 ## 2026-06-17 - US-007
 - Built the typed Gemini AI service layer.
 - Files: Services/AI/{HTTPClient,AIError,AIGuardrails,JSONSchema,GeminiService}.swift; HolisticHealthTests/GeminiServiceTests.swift.

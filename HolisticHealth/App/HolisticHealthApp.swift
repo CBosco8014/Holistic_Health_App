@@ -11,6 +11,7 @@ struct HolisticHealthApp: App {
     @StateObject private var profileStore = ProfileStore()
     @StateObject private var libraryStore = MacroLibraryStore()
     @StateObject private var aiConfig = AIConfigStore()
+    @StateObject private var mealLog = MealLogStore()
 
     init() {
         ThemeAppearance.apply()
@@ -22,6 +23,7 @@ struct HolisticHealthApp: App {
                 .environmentObject(profileStore)
                 .environmentObject(libraryStore)
                 .environmentObject(aiConfig)
+                .environmentObject(mealLog)
                 .tint(Theme.Colors.accentText)
         }
     }
