@@ -10,6 +10,7 @@ import SwiftUI
 struct HolisticHealthApp: App {
     @StateObject private var profileStore = ProfileStore()
     @StateObject private var libraryStore = MacroLibraryStore()
+    @StateObject private var aiConfig = AIConfigStore()
 
     init() {
         ThemeAppearance.apply()
@@ -20,6 +21,7 @@ struct HolisticHealthApp: App {
             AppRootView()
                 .environmentObject(profileStore)
                 .environmentObject(libraryStore)
+                .environmentObject(aiConfig)
                 .tint(Theme.Colors.accentText)
         }
     }
@@ -30,6 +32,19 @@ struct AppRootView: View {
     @EnvironmentObject private var profileStore: ProfileStore
 
     var body: some View {
+        #if DEBUG
+        if let screen = ProcessInfo.processInfo.environment["HH_SCREEN"] {
+            DebugScreenRouter(screen: screen)
+        } else {
+            content
+        }
+        #else
+        content
+        #endif
+    }
+
+    @ViewBuilder
+    private var content: some View {
         if profileStore.hasCompletedOnboarding {
             RootView()
         } else {
@@ -37,3 +52,24 @@ struct AppRootView: View {
         }
     }
 }
+
+#if DEBUG
+/// DEBUG-only router used to screenshot navigation-gated screens deterministically
+/// during verification. Activated by launching with `SIMCTL_CHILD_HH_SCREEN=<name>`.
+/// Has no effect in release builds.
+struct DebugScreenRouter: View {
+    let screen: String
+
+    var body: some View {
+        NavigationStack {
+            switch screen {
+            case "settings": SettingsView()
+            case "gemini": GeminiSettingsView()
+            case "profile": ProfileEditView()
+            case "onboarding": OnboardingView()
+            default: RootView()
+            }
+        }
+    }
+}
+#endif

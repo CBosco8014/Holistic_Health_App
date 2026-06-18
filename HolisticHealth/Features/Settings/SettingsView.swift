@@ -16,10 +16,13 @@ struct SettingsView: View {
                 }
 
                 SectionHeader(eyebrow: "Intelligence", title: "AI & Costs")
-                SettingsRow(systemImage: "sparkles",
-                            title: "Gemini & usage",
-                            subtitle: "API key, model, and cost tracking",
-                            disabled: true)
+                NavigationLink {
+                    GeminiSettingsView()
+                } label: {
+                    SettingsRow(systemImage: "sparkles",
+                                title: "Gemini & usage",
+                                subtitle: "API key, model, and cost tracking")
+                }
 
                 SectionHeader(eyebrow: "Data", title: "Privacy")
                 SettingsRow(systemImage: "lock.shield",

@@ -117,8 +117,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "KeychainService (Security framework) stores Gemini key only in Keychain (kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly). AIConfigStore @MainActor env object: model selection persisted to ai_settings.json, hasAPIKey derived from Keychain, usage events to usage_events.json, costSummary (today/last7/avg-per-active-day/total) + static estimateCost from GeminiModel.pricing. GeminiSettingsView: key paste/show-hide/save/clear + configured state, model radio cards, cost panel. Key never in JSON/exports. 6 tests pass; sim verified key entry + model selection render. Added DEBUG-only HH_SCREEN router for screenshotting nav-gated screens."
     },
     {
       "id": "US-007",
