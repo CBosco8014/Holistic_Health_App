@@ -43,7 +43,9 @@ struct MacroView: View {
                     MacroActionTile(systemImage: "plus.square.on.square", title: "New Food",
                                     subtitle: "Enter macros")
                 }
-                NavigationLink { VisualizeFoodView() } label: {
+                NavigationLink {
+                    VisualizeFoodView(library: library, mealLog: mealLog, aiConfig: aiConfig)
+                } label: {
                     MacroActionTile(systemImage: "wand.and.stars", title: "Visualize Food",
                                     subtitle: "Menu or dish")
                 }

@@ -237,8 +237,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "VisualizeFoodViewModel: three inputs (typed dish / menu screenshot via PhotosPicker / menu photo via CameraPicker) all call visualize() -> Gemini (.menuVisualize, FoodEstimateSchema.visualize returning visualDescription + macros) -> single confirm step (editable, shows visualization text) -> confirmAndLog saves as .geminiMenu library record + log entry. No restaurant recs/Better Choices/deficit/weight-loss. VisualizedFoodEstimate DTO + schema added. 6 tests pass (text path, image path, confirm saves menu source, error, no-input guard); sim verified all 3 input paths on one screen."
     },
     {
       "id": "US-013",

@@ -28,6 +28,16 @@ Started: 2026-06-15
   - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
 ---
 
+## 2026-06-17 - US-012
+- Implemented Visualize Food from menu (photo / screenshot / text -> one confirm flow).
+- Files: Features/Macro/{VisualizeFoodViewModel,VisualizeFoodView}.swift, extended FoodEstimate.swift (VisualizedFoodEstimate + .visualize schema); updated MacroView + DebugScreenRouter (visualize); HolisticHealthTests/VisualizeFoodViewModelTests.swift.
+- All three inputs converge on `visualize()`; Gemini returns a visual description + macro estimate; user confirms/edits before saving as a `.geminiMenu` library record + log entry. No restaurant recs / Better Choices / deficit / weight-loss framing.
+- Build + 6 tests (64 total) pass. Sim verified the single input screen with all three paths.
+- **Learnings for future iterations:**
+  - The Macro AI cluster (US-009/011/012) shares the estimator-closure VM pattern + FoodEstimate DTOs/schemas. This is the template for the remaining AI features (acne US-017, consult/assessment US-018).
+  - All AI confirm flows: estimate is editable, sourced enum set (.geminiText/.geminiPhoto/.geminiMenu), saved to library + log only on explicit confirm.
+---
+
 ## 2026-06-17 - US-011
 - Implemented meal photo + upload macro capture.
 - Files: Shared/CameraPicker.swift (CameraPermission + UIImagePickerController representable), Features/Macro/{MealPhotoViewModel,MealPhotoView}.swift; updated DebugScreenRouter (mealphoto); HolisticHealthTests/MealPhotoViewModelTests.swift.

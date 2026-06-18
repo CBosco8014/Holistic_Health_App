@@ -21,6 +21,26 @@ struct ParsedMealEstimate: Decodable, Hashable {
     var items: [ParsedFoodEstimate]
 }
 
+/// A visualized dish (menu photo/screenshot/text) — a generated visual
+/// description plus the macro estimate.
+struct VisualizedFoodEstimate: Decodable, Hashable {
+    var visualDescription: String
+    var name: String
+    var servingDescription: String
+    var proteinGrams: Double
+    var carbGrams: Double
+    var fatGrams: Double
+    var calories: Double
+    var confidence: Double?
+    var assumptions: String?
+
+    var asFood: ParsedFoodEstimate {
+        ParsedFoodEstimate(name: name, servingDescription: servingDescription,
+                           proteinGrams: proteinGrams, carbGrams: carbGrams, fatGrams: fatGrams,
+                           calories: calories, confidence: confidence, assumptions: assumptions)
+    }
+}
+
 /// Response schemas for the food estimation features.
 enum FoodEstimateSchema {
     static let foodProperties: [String: [String: Any]] = [
@@ -47,5 +67,12 @@ enum FoodEstimateSchema {
             properties: ["items": JSONSchema.array(of: JSONSchema.object(properties: foodProperties, required: required))],
             required: ["items"]
         )
+    }
+
+    /// Schema for a visualized dish (adds a generated visual description).
+    static var visualize: [String: Any] {
+        var props = foodProperties
+        props["visualDescription"] = JSONSchema.string
+        return JSONSchema.object(properties: props, required: required + ["visualDescription"])
     }
 }
