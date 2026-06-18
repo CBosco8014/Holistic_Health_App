@@ -1,41 +1,50 @@
 import SwiftUI
 
-/// Lightweight placeholder used by US-001 to give every primary tab and Settings
-/// a stable, navigable screen before real feature content is implemented in
-/// later stories. The visual treatment here is intentionally plain; US-002
-/// replaces these with the Ristoro design system.
+/// Placeholder used for tabs whose full feature content arrives in later stories.
+/// As of US-002 it renders using the Ristoro design system (framed card on
+/// paper) so the shell already reflects the approved aesthetic.
 struct PlaceholderScreen: View {
     let systemImage: String
     let title: String
     let message: String
+    var eyebrow: String = "Coming soon"
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
-                Image(systemName: systemImage)
-                    .font(.system(size: 44, weight: .light))
-                    .foregroundStyle(.secondary)
-                    .padding(.top, 48)
-
-                Text(title)
-                    .font(.title2.weight(.semibold))
-                    .multilineTextAlignment(.center)
-
-                Text(message)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 32)
+            VStack(spacing: Theme.Spacing.xl) {
+                FramedCard {
+                    VStack(spacing: Theme.Spacing.m) {
+                        Image(systemName: systemImage)
+                            .font(.system(size: 40, weight: .light))
+                            .foregroundStyle(Theme.Colors.accentText)
+                        EyebrowText(text: eyebrow)
+                        Text(title)
+                            .font(Theme.Typography.title)
+                            .foregroundStyle(Theme.Colors.textPrimary)
+                            .multilineTextAlignment(.center)
+                        OrnamentalRule()
+                        Text(message)
+                            .font(Theme.Typography.body)
+                            .foregroundStyle(Theme.Colors.textSecondary)
+                            .multilineTextAlignment(.center)
+                    }
+                    .frame(maxWidth: .infinity)
+                }
             }
-            .frame(maxWidth: .infinity)
+            .padding(Theme.Spacing.l)
+            .padding(.top, Theme.Spacing.xl)
         }
+        .decoBackground()
     }
 }
 
 #Preview {
-    PlaceholderScreen(
-        systemImage: "leaf",
-        title: "Lifestyle",
-        message: "Calm, data-reactive practices will live here."
-    )
+    NavigationStack {
+        PlaceholderScreen(
+            systemImage: "leaf",
+            title: "Lifestyle",
+            message: "Calm, data-reactive practices will live here."
+        )
+        .navigationTitle("Lifestyle")
+    }
 }

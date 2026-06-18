@@ -11,6 +11,9 @@ Started: 2026-06-15
 - Bundle id: `com.holistichealth.app`. Swift 5 language mode (avoids strict-concurrency churn during rapid build). iOS 17 deployment target.
 - Tabs are defined by the `AppTab` enum in `App/RootView.swift` — order there is the bottom-bar order. Settings is a sheet, NOT a tab.
 - Info.plist is auto-generated (`GENERATE_INFOPLIST_FILE: YES`); set Info.plist keys via `INFOPLIST_KEY_*` build settings in project.yml (camera + photo usage strings already added).
+- **Design system** lives in `Shared/DesignSystem`. Use `Theme.Colors.*` (semantic) and `Theme.Typography.*`, never raw colors/fonts. Components: `FramedCard`, `InkPanel`, `.buttonStyle(.decoPrimary/.decoSecondary)`, `Chip`, `StatusTag`, `DecoTextField`, `OrnamentalRule`, `PhotoPlaceholder`, `SectionHeader`, `EyebrowText`. Wrap screens in `.decoBackground()`.
+- Fonts are iOS-native: `Futura` (display/poster) + `Avenir Next` (body) — mapped in Typography.swift. No bundled fonts. For gold TEXT on paper use `Theme.Colors.accentText` (goldDeep) for contrast; plain `accent` gold is decorative only.
+- Nav/tab bar appearance is set globally in `ThemeAppearance.apply()` (called from `HolisticHealthApp.init`). `Color(hex:)` helper exists for porting design-guide hex values.
 
 ---
 
@@ -23,4 +26,15 @@ Started: 2026-06-15
   - See Codebase Patterns above for build/test/sim commands.
   - PlaceholderScreen (Shared) is the temporary visual stand-in; US-002 should replace its plain styling with Ristoro design-system components.
   - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
+---
+
+## 2026-06-17 - US-002
+- Implemented the Ristoro Italian Art Deco SwiftUI design system.
+- Files: Shared/DesignSystem/{Color+Hex,Theme,Typography,ThemeAppearance}.swift, Shared/DesignSystem/Components/{FramedCard,DecoButtons,Chip,DecoTextField,OrnamentalRule,PhotoPlaceholder,ScreenScaffold}.swift; updated App/HolisticHealthApp.swift, Shared/PlaceholderScreen.swift; HolisticHealthTests/DesignSystemTests.swift.
+- Tokens (colors/spacing/radius) ported from the standalone Ristoro Design Guide HTML (extracted via grep of CSS vars): paper cream, midnight ink, antique gold, verde, rosso. Type mapped to native Futura + Avenir Next.
+- Build passes; 4 tests pass; sim verified — Macro tab renders framed card, eyebrow, ornamental rule, gold tab selection, no overlapping text.
+- **Learnings for future iterations:**
+  - See Codebase Patterns for how to consume the design system. ALWAYS build screens from these components for visual consistency.
+  - Extracting design tokens: `grep -oiE '\\--[a-z0-9-]+\\s*:\\s*[^;]+;' "Ristoro Design Guide (standalone).html"` surfaces all CSS variables.
+  - `Color.resolve(in:)` is handy in tests to assert RGB components.
 ---

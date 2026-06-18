@@ -8,9 +8,14 @@ import SwiftUI
 /// domain models, persistence, and feature behavior onto this shell.
 @main
 struct HolisticHealthApp: App {
+    init() {
+        ThemeAppearance.apply()
+    }
+
     var body: some Scene {
         WindowGroup {
             RootView()
+                .tint(Theme.Colors.accentText)
         }
     }
 }

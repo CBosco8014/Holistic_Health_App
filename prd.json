@@ -39,8 +39,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Design tokens (Theme.swift) for paper/ink/gold/verde/rosso ported from Ristoro guide. Components: FramedCard, InkPanel, Primary/SecondaryButtonStyle, Chip/StatusTag, DecoTextField, OrnamentalRule, PhotoPlaceholder, SectionHeader, EyebrowText. Type mapped to iOS-native Futura (display) + Avenir Next (body). Nav/tab bar themed via ThemeAppearance. Build + 4 tests pass; sim verified no overlap."
     },
     {
       "id": "US-003",
