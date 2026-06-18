@@ -197,8 +197,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "AddFoodViewModel: search saved library, select record, PortionPreset chips (25/50/75/exact/150/double) + custom % override, scaledMacros recalcs P/C/F + secondary cal live, log() writes entry with servingAmount=effectiveFactor + scaled macros + meal category, clears selection. No meal planning. AddFoodView: search rows -> portion step w/ live recalc card + meal chips + Back/Log. Also links to MealPhotoView (US-011 placeholder). 4 tests pass; sim verified portion recalculation (Exact=30/0/4/165)."
     },
     {
       "id": "US-011",

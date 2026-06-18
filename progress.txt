@@ -28,6 +28,17 @@ Started: 2026-06-15
   - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
 ---
 
+## 2026-06-17 - US-010
+- Implemented saved-food search + portion sizing.
+- Files: Features/Macro/{AddFoodViewModel,AddFoodView,MealPhotoView(placeholder)}.swift; updated MacroView + DebugScreenRouter (addfood); HolisticHealthTests/AddFoodViewModelTests.swift.
+- `PortionPreset` chips (25/50/75/exact/150/double) + custom % override; `scaledMacros` recalculates on every change; `log()` records servingAmount = effectiveFactor with scaled macros. No meal-planning actions.
+- Build + 4 tests (53 total) pass. Sim verified the portion step recalc card (Chicken breast Exact = 30P/0C/4F/165cal).
+- **Learnings for future iterations:**
+  - Reuse `PortionPreset` if other features need amount presets. `MacroNutrients.scaled(by:)` is the single source of recalculation.
+  - Debug screenshot hook: `SIMCTL_CHILD_HH_PRESELECT=<query>` makes AddFoodView auto-select the first match so the portion step is screenshottable (DEBUG only).
+  - AddFoodView links to `MealPhotoView` (placeholder) — US-011 fills it.
+---
+
 ## 2026-06-17 - US-009
 - Implemented typed meal logging with library-first lookup.
 - Files: Features/Macro/{FoodEstimate,LogMealViewModel,LogMealView}.swift; updated MacroView (pass stores into LogMealView), App DebugScreenRouter (+logmeal/newfood cases, env objects); HolisticHealthTests/LogMealViewModelTests.swift.

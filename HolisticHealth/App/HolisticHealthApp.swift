@@ -73,6 +73,7 @@ struct DebugScreenRouter: View {
             case "profile": ProfileEditView()
             case "onboarding": OnboardingView()
             case "logmeal": LogMealView(library: library, mealLog: mealLog, aiConfig: aiConfig)
+            case "addfood": AddFoodView(library: library, mealLog: mealLog, aiConfig: aiConfig)
             case "newfood": NewFoodView()
             default: RootView()
             }

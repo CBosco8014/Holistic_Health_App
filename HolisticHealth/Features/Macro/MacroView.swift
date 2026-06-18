@@ -33,7 +33,9 @@ struct MacroView: View {
                     MacroActionTile(systemImage: "text.badge.plus", title: "Log Meal",
                                     subtitle: "Type what you ate")
                 }
-                NavigationLink { AddFoodView() } label: {
+                NavigationLink {
+                    AddFoodView(library: library, mealLog: mealLog, aiConfig: aiConfig)
+                } label: {
                     MacroActionTile(systemImage: "magnifyingglass", title: "Add Food",
                                     subtitle: "From saved foods")
                 }
