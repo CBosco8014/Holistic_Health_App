@@ -99,11 +99,26 @@ final class MacroLibraryStore: ObservableObject {
             return Int.max
         }
 
-        return records
-            .map { ($0, score($0)) }
-            .filter { $0.1 != Int.max }
-            .sorted { $0.1 != $1.1 ? $0.1 < $1.1 : $0.0.canonicalName < $1.0.canonicalName }
-            .map { $0.0 }
+        // Build the scored list in explicitly-typed steps. Breaking the chain
+        // (and avoiding an inferred tuple + ternary inside `.sorted`) keeps the
+        // Swift type-checker from timing out ("unable to type-check in
+        // reasonable time") under slower/beta toolchains.
+        var scored: [(record: MacroLibraryRecord, rank: Int)] = []
+        for r in records {
+            let rank = score(r)
+            if rank != Int.max {
+                scored.append((record: r, rank: rank))
+            }
+        }
+
+        scored.sort { lhs, rhs in
+            if lhs.rank != rhs.rank {
+                return lhs.rank < rhs.rank
+            }
+            return lhs.record.canonicalName < rhs.record.canonicalName
+        }
+
+        return scored.map { $0.record }
     }
 
     /// Best single match for a typed food (used by library-first lookup, US-009).
