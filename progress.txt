@@ -1,3 +1,229 @@
 # Ralph Progress Log
 Started: 2026-06-15
 ---
+
+## Codebase Patterns
+- Project is generated with **XcodeGen**: `project.yml` is the source of truth. After adding/removing source files or build settings, run `xcodegen generate`. The `.xcodeproj` is gitignored (regenerate it).
+- Build: `xcodebuild build -project HolisticHealth.xcodeproj -scheme HolisticHealth -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.3.1' -derivedDataPath build`
+- Test: same command with `test` instead of `build`. Pin `OS=18.3.1` on the iPhone 16 destination — the bare name is ambiguous (many OS runtimes installed).
+- Sim verify: `xcrun simctl boot "iPhone 16"; xcrun simctl install "iPhone 16" <app>; xcrun simctl launch "iPhone 16" com.holistichealth.app; xcrun simctl io "iPhone 16" screenshot /tmp/x.png`. Built app is under `build/Build/Products/Debug-iphonesimulator/HolisticHealth.app`.
+- Source layout: `HolisticHealth/App` (entry + root), `HolisticHealth/Features/<Feature>`, `HolisticHealth/Shared` (reusable views), `HolisticHealth/Resources` (Assets.xcassets). Tests in `HolisticHealthTests/`.
+- Bundle id: `com.holistichealth.app`. Swift 5 language mode (avoids strict-concurrency churn during rapid build). iOS 17 deployment target.
+- Tabs are defined by the `AppTab` enum in `App/RootView.swift` — order there is the bottom-bar order. Settings is a sheet, NOT a tab.
+- Info.plist is auto-generated (`GENERATE_INFOPLIST_FILE: YES`); set Info.plist keys via `INFOPLIST_KEY_*` build settings in project.yml (camera + photo usage strings already added).
+- **Design system** lives in `Shared/DesignSystem`. Use `Theme.Colors.*` (semantic) and `Theme.Typography.*`, never raw colors/fonts. Components: `FramedCard`, `InkPanel`, `.buttonStyle(.decoPrimary/.decoSecondary)`, `Chip`, `StatusTag`, `DecoTextField`, `OrnamentalRule`, `PhotoPlaceholder`, `SectionHeader`, `EyebrowText`. Wrap screens in `.decoBackground()`.
+- Fonts are iOS-native: `Futura` (display/poster) + `Avenir Next` (body) — mapped in Typography.swift. No bundled fonts. For gold TEXT on paper use `Theme.Colors.accentText` (goldDeep) for contrast; plain `accent` gold is decorative only.
+- Nav/tab bar appearance is set globally in `ThemeAppearance.apply()` (called from `HolisticHealthApp.init`). `Color(hex:)` helper exists for porting design-guide hex values.
+
+---
+
+## 2026-06-17 - US-001
+- Implemented native SwiftUI app scaffold with the approved 4-tab IA + Settings.
+- Files: project.yml, .gitignore, App/HolisticHealthApp.swift, App/RootView.swift, Shared/PlaceholderScreen.swift, Features/{Lifestyle,Supplements,Macro,Exercise,Settings}/*.swift, Resources/Assets.xcassets/*, HolisticHealthTests/AppShellTests.swift
+- Four bottom tabs (Lifestyle, Supplements, Macro, Exercise); Settings opens as a sheet from a gear in the nav bar (outside the tab bar). Each tab has a placeholder screen.
+- Build passes; 2 unit tests pass (tab count/order, titles+symbols present); verified launch on iPhone 16 (iOS 18.3.1) simulator — all four tabs render and the gear is present.
+- **Learnings for future iterations:**
+  - See Codebase Patterns above for build/test/sim commands.
+  - PlaceholderScreen (Shared) is the temporary visual stand-in; US-002 should replace its plain styling with Ristoro design-system components.
+  - The gitignore.txt template ignores prd.json/progress.txt, but we KEEP them tracked (they are the progress record). Real .gitignore added for Xcode artifacts + generated .xcodeproj.
+---
+
+## 2026-06-17 - US-020  ✅ ALL STORIES COMPLETE
+- Built privacy, consent, export, deletion + MVP verification.
+- Files: Services/DataExport.swift (ExportBundle + DataExport + DataReset), Features/Settings/PrivacyView.swift, docs/verification-checklist.md; updated SettingsView (privacy link), App (privacy route); HolisticHealthTests/DataExportTests.swift.
+- Plain-language privacy explanations, consent toggles for all ConsentType, JSON export (API key excluded), clear-library + delete-all behind confirmation. Verification checklist maps every story.
+- Build + 3 tests pass. FULL SUITE: 93 tests, 0 failures. Sim verified privacy screen.
+- Project status: 20/20 user stories passing. App is a complete native SwiftUI MVP.
+- **Learnings for future iterations:**
+  - `DataExport`/`DataReset` centralize aggregate read/wipe across all stores — update them when adding a new store.
+  - The API key is excluded from export by construction (it's only in Keychain). `DataReset.deleteAll(clearKey:)` controls whether the credential is also removed.
+---
+
+## 2026-06-17 - US-019
+- Built macro & health visualizations.
+- Files: Features/Insights/{InsightsBuilder,InsightsView}.swift; updated App (insights route); HolisticHealthTests/InsightsBuilderTests.swift.
+- `InsightsBuilder` is pure/testable (recentDays, weeklyMacros, signalSeries, hasMacroData/hasSignalData). `InsightsView` uses Swift Charts: stacked macro bars + a selectable signal line, empty/insufficient states, no deficit/burn/weight-loss.
+- Build + 5 tests (114 total) pass. Sim verified charts with seeded data.
+- **Learnings for future iterations:**
+  - Swift Charts (`import Charts`) works on the iOS 17 target. Keep chart-data computation in `InsightsBuilder` (pure) and only rendering in the view — that's what made it testable.
+---
+
+## 2026-06-17 - US-018
+- Built adaptive consult + manual health assessment.
+- Files: Features/Consult/{ConsultViewModel,ConsultView,HealthAssessmentViewModel,HealthAssessmentView}.swift; updated App (consult/assessment routes); HolisticHealthTests/{ConsultViewModelTests,HealthAssessmentViewModelTests}.swift.
+- Consult: one question at a time, ≤10, consent-gated logged-pattern context, saved as ConsultSession. Assessment: pick categories → Gemini report (summary/contributors/focus/treatments/findings/refs/caveats), editable, saved.
+- Build + 10 tests (109 total) pass. Sim verified both screens.
+- **Learnings for future iterations:**
+  - **env-object VM pattern**: a `Holder: ObservableObject` configured in `.onAppear` builds the VM from env objects; a private `*Content` view takes the VM as `@ObservedObject` so its @Published changes actually drive the UI (a VM nested in a holder alone won't). Use this whenever a StateObject VM needs many env stores.
+  - Consult context is gated by `usePatterns`; never pass logged data to the model unless the consent toggle is on.
+---
+
+## 2026-06-17 - US-017
+- Built the acne flare photo consult.
+- Files: Services/Persistence/AssessmentStore.swift, Features/Consult/{AcneConsultViewModel,AcneConsultView}.swift, placeholder Consult/ConsultView.swift + Consult/HealthAssessmentView.swift (US-018) + Insights/InsightsView.swift (US-019); updated LifestyleView (Insights & Reviews hub), App (inject AssessmentStore + acne route); HolisticHealthTests/AcneConsultViewModelTests.swift.
+- Consent-gated; image never stored (AcneAssessment has no image field, buildAssessment derives only summary/findings/suggestions/refs). Gemini may ask clarifying questions first. Wellness-only.
+- Build + 5 tests (94 total) pass. Sim verified consent step.
+- **Learnings for future iterations:**
+  - The Lifestyle tab now has an "Insights & Reviews" hub linking acne/consult/assessment/visualizations. US-018 fills ConsultView + HealthAssessmentView; US-019 fills InsightsView (all are placeholders now).
+  - `AssessmentStore` holds acne + health + consult records (image-free). Reuse for US-018.
+---
+
+## 2026-06-17 - US-016
+- Built the Exercise tab.
+- Files: Services/Persistence/ExerciseStore.swift, Features/Exercise/ExerciseView.swift (replaced placeholder); updated App (inject ExerciseStore + exercise route); HolisticHealthTests/ExerciseStoreTests.swift.
+- Weightlifting (low/med/high) + sprint-burst (running/bike/rowing/boxing), duration Slider 5–60 in 5-min steps with visible value, today summary, multiple sessions/day + remove. No lifts/sets/reps/calorie-burn/deficit.
+- Build + 3 tests (89 total) pass. Sim verified. ALL FOUR TABS now complete.
+- **Learnings for future iterations:**
+  - `ExerciseStore.totalMinutes(on:)`/`sessions(on:)` feed US-019 visualizations + US-018 assessment.
+---
+
+## 2026-06-17 - US-015
+- Built Lifestyle tab recommendations.
+- Files: Features/Lifestyle/{PracticeCatalog,PracticeCard}.swift, Services/Persistence/LifestyleStore.swift; updated LifestyleView (+practices section), App (inject LifestyleStore + lifestyle route); HolisticHealthTests/LifestyleTests.swift.
+- `PracticeCatalog.recommended(profile:latest:)` is a pure, testable recommender scoring by recent stress/sleep/mood + goals. `LifestyleStore` records save/start/complete/skip + ratings (trend/assessment use). PracticeCard exposes all five actions.
+- Build + 5 tests (86 total) pass. Sim verified the Lifestyle tab.
+- **Learnings for future iterations:**
+  - Recommender is rule-based (no AI) and pure — easy to extend with consult/cycle/exercise signals later. `LifestyleStore.completedCount`/`recent` feed US-019 visualizations + US-018 assessment.
+---
+
+## 2026-06-17 - US-014
+- Built the Supplements tab + nutrient guidance.
+- Files: Services/Persistence/SupplementStore.swift, Features/Supplements/{SupplementEditView,NutrientGuidance,SupplementsView}.swift; updated App (inject SupplementStore + supplements route); HolisticHealthTests/{SupplementStoreTests,NutrientGuidanceViewModelTests}.swift.
+- Supplement tracking (name/dosage/schedule/timing/reason/adherence/startDate/notes) + per-day adherence toggle. AI nutrient guidance pulls context from profile goals + latest check-in; cards include rationale/relevant inputs/safety/clinician questions; never diagnoses a deficiency. Supplement-specific safety copy.
+- Build + 7 tests (79 total) pass. Sim verified the tab.
+- **Learnings for future iterations:**
+  - Pattern for env-object-dependent VMs: a small `@StateObject` holder (`GuidanceHolder`) configured in `.onAppear` once env objects exist. Reuse for consult/assessment (US-018) if needed.
+  - `SupplementStore` adherence model = remove today's logs then add if taken (idempotent toggle).
+---
+
+## 2026-06-17 - US-013
+- Built the hormone & skin check-in.
+- Files: Services/Persistence/CheckInStore.swift, Features/HealthLog/{CheckInView,CheckInRow}.swift, Shared/DesignSystem/Components/RatingSelector.swift; updated LifestyleView (hosts check-in), App (inject CheckInStore + checkin route); HolisticHealthTests/CheckInStoreTests.swift.
+- `CheckInStore` (env object) is the shared source of logged hormone/skin signals for US-014/015/017/018/019. CheckInView captures cycle, skin (severity + locations), 7 signal ratings, custom symptoms, notes. Non-diagnostic copy.
+- Build + 4 tests (68 total) pass. Sim verified the editor.
+- **Learnings for future iterations:**
+  - `RatingSelector` (Binding<Int?>, 0–5) is the reusable self-rating control. `CheckInStore.recent(n)` / `.todays()` / `.latest` feed downstream features and visualizations.
+  - The Lifestyle tab currently hosts only the check-in; US-015 adds the practices section above it.
+---
+
+## 2026-06-17 - US-012
+- Implemented Visualize Food from menu (photo / screenshot / text -> one confirm flow).
+- Files: Features/Macro/{VisualizeFoodViewModel,VisualizeFoodView}.swift, extended FoodEstimate.swift (VisualizedFoodEstimate + .visualize schema); updated MacroView + DebugScreenRouter (visualize); HolisticHealthTests/VisualizeFoodViewModelTests.swift.
+- All three inputs converge on `visualize()`; Gemini returns a visual description + macro estimate; user confirms/edits before saving as a `.geminiMenu` library record + log entry. No restaurant recs / Better Choices / deficit / weight-loss framing.
+- Build + 6 tests (64 total) pass. Sim verified the single input screen with all three paths.
+- **Learnings for future iterations:**
+  - The Macro AI cluster (US-009/011/012) shares the estimator-closure VM pattern + FoodEstimate DTOs/schemas. This is the template for the remaining AI features (acne US-017, consult/assessment US-018).
+  - All AI confirm flows: estimate is editable, sourced enum set (.geminiText/.geminiPhoto/.geminiMenu), saved to library + log only on explicit confirm.
+---
+
+## 2026-06-17 - US-011
+- Implemented meal photo + upload macro capture.
+- Files: Shared/CameraPicker.swift (CameraPermission + UIImagePickerController representable), Features/Macro/{MealPhotoViewModel,MealPhotoView}.swift; updated DebugScreenRouter (mealphoto); HolisticHealthTests/MealPhotoViewModelTests.swift.
+- Upload uses PhotosPicker (no permission). Camera uses CameraPicker + AVCaptureDevice auth; unavailable/denied shows guidance. Gemini photoAnalysis -> editable items (toggle include, edit macros/category) -> confirm saves only included as .geminiPhoto records + log entries. Photos not stored by default.
+- Build + 5 tests (58 total) pass. Sim verified capture + review/edit screens (debug seed for review).
+- **Learnings for future iterations:**
+  - `CameraPicker` + `CameraPermission` are reusable for the acne flare photo (US-017). PhotosPicker is the simplest library path (no permission prompt).
+  - For screens needing a live AI result to screenshot, add a `#if DEBUG` seed method on the VM + an `HH_*` env onAppear hook (see `debugSeedReview` / `HH_PHOTO_DEMO`).
+  - `EditableFoodItem` (string-backed editable macros + include toggle) is the review-row pattern; reuse for US-012.
+---
+
+## 2026-06-17 - US-010
+- Implemented saved-food search + portion sizing.
+- Files: Features/Macro/{AddFoodViewModel,AddFoodView,MealPhotoView(placeholder)}.swift; updated MacroView + DebugScreenRouter (addfood); HolisticHealthTests/AddFoodViewModelTests.swift.
+- `PortionPreset` chips (25/50/75/exact/150/double) + custom % override; `scaledMacros` recalculates on every change; `log()` records servingAmount = effectiveFactor with scaled macros. No meal-planning actions.
+- Build + 4 tests (53 total) pass. Sim verified the portion step recalc card (Chicken breast Exact = 30P/0C/4F/165cal).
+- **Learnings for future iterations:**
+  - Reuse `PortionPreset` if other features need amount presets. `MacroNutrients.scaled(by:)` is the single source of recalculation.
+  - Debug screenshot hook: `SIMCTL_CHILD_HH_PRESELECT=<query>` makes AddFoodView auto-select the first match so the portion step is screenshottable (DEBUG only).
+  - AddFoodView links to `MealPhotoView` (placeholder) — US-011 fills it.
+---
+
+## 2026-06-17 - US-009
+- Implemented typed meal logging with library-first lookup.
+- Files: Features/Macro/{FoodEstimate,LogMealViewModel,LogMealView}.swift; updated MacroView (pass stores into LogMealView), App DebugScreenRouter (+logmeal/newfood cases, env objects); HolisticHealthTests/LogMealViewModelTests.swift.
+- Library is ALWAYS searched before Gemini. Gemini estimate only on explicit opt-in for unknown foods, and never auto-saves — confirmation required. Confirmed estimates become reusable library records (.geminiText) + a log entry; known foods log without duplicating the library.
+- Build + 6 tests (49 total) pass.
+- **Learnings for future iterations:**
+  - `ParsedFoodEstimate`/`ParsedMealEstimate` DTOs + `FoodEstimateSchema.single/.meal` are shared by US-009/011/012. Reuse them.
+  - VM pattern with injected `estimator` closure (default wires GeminiService) keeps AI flows unit-testable without network — reuse for US-011/012/017/018.
+  - Views needing stores at init (StateObject VM) are built from MacroView where env objects exist, passing stores into the init; DebugScreenRouter does the same for screenshots.
+---
+
+## 2026-06-17 - US-008
+- Built the Macro tab food module.
+- Files: Services/Persistence/MealLogStore.swift, Features/Macro/{MacroView,NewFoodView,LogMealView,AddFoodView,VisualizeFoodView}.swift, Features/Macro/Components/{MacroStat,DailyTotalsCard,FoodLogRow}.swift; updated App (inject MealLogStore); HolisticHealthTests/MealLogStoreTests.swift.
+- Macro tab = Daily Totals (protein headline, calories secondary only) + four action tiles + Food Log (with per-row remove). NewFoodView is a real manual create-and-log flow. LogMeal/AddFood/Visualize are placeholders to be filled in US-009/010/011/012.
+- Build + tests pass. Sim verified: seeded log shows correct summed totals (P80/C15/F21, 574 cal secondary) and Food Log rows.
+- **Learnings for future iterations:**
+  - `MealLogStore` is the env object for the food log; `dailyTotals(on:)` and `entries(on:)` filter by calendar day. Protein is always the headline; never add deficit/burn/weight-loss UI.
+  - Macro UI building blocks: `DailyTotalsCard`, `FoodLogRow`, `MacroStat`, `MacroActionTile`, `MacroFormat.grams/calories`.
+  - US-009 fills `LogMealView` (library-first typed logging), US-010 fills `AddFoodView` (saved search + portions), US-011 adds photo capture to Add Food, US-012 fills `VisualizeFoodView`.
+---
+
+## 2026-06-17 - US-007
+- Built the typed Gemini AI service layer.
+- Files: Services/AI/{HTTPClient,AIError,AIGuardrails,JSONSchema,GeminiService}.swift; HolisticHealthTests/GeminiServiceTests.swift.
+- `GeminiService(config:http:)` @MainActor. ONE entry point: `generate<T:Decodable>(feature:userText:images:schema:decoding:)`. Applies `AIGuardrails.instruction(for:)`, sends structured-JSON request, records usage (success/failure) via AIConfigStore, returns decoded T. Errors -> `AIError` with user-safe messages + fallback to manual entry.
+- Build + 7 tests (35 total) pass.
+- **Learnings for future iterations:**
+  - Feature views build `GeminiService(config: aiConfig)` on demand (aiConfig is an @EnvironmentObject); GeminiService is NOT injected globally.
+  - Define each feature's result as a `Decodable` DTO and a matching `JSONSchema.object(...)`; pass both to `generate`. UPPERCASE schema types via the `JSONSchema` helpers.
+  - The model NEVER sees the key in the body — it's only in the URL query. Don't log request bodies with the key. Always offer a manual fallback when `AIError` is thrown.
+  - Wellness guardrails are centralized in `AIGuardrails.base`; per-feature framing in `AIGuardrails.instruction(for:)`. Extend there, not in feature prompts.
+---
+
+## 2026-06-17 - US-006
+- Implemented Settings for Gemini key, model selection, and cost tracking.
+- Files: Services/Keychain/KeychainService.swift, Services/AI/AIConfigStore.swift, Features/Settings/GeminiSettingsView.swift; updated App/HolisticHealthApp.swift (inject AIConfigStore + DEBUG HH_SCREEN router), Features/Settings/SettingsView.swift; HolisticHealthTests/AIConfigStoreTests.swift.
+- API key lives ONLY in Keychain (never in JSON/exports/logs). `AIConfigStore` is the env object the AI service (US-007) will use: `apiKey()` reads on demand, `selectedModel`, `record(event)`, `costSummary()`, static `estimateCost(model:promptTokens:completionTokens:)`.
+- Build + 6 tests (28 total) pass. Sim verified key-entry + model-selection render via debug route.
+- **Learnings for future iterations:**
+  - Use `AIConfigStore` (env object) for model + key + usage. After each AI call, build an `APIUsageEvent` (set estimatedCostUSD via `AIConfigStore.estimateCost`) and `aiConfig.record(it)`.
+  - **Screenshot nav-gated screens**: launch with `SIMCTL_CHILD_HH_SCREEN=<settings|gemini|profile|onboarding> xcrun simctl launch booted com.holistichealth.app` (DEBUG-only `DebugScreenRouter`). Add new cases there as screens are built.
+  - Keychain tests must use a unique `keychainAccount` per test (inject via AIConfigStore init) and clean up.
+---
+
+## 2026-06-17 - US-005
+- Built onboarding + health profile.
+- Files: Services/Persistence/ProfileStore.swift, Features/Onboarding/OnboardingView.swift, Features/Settings/ProfileEditView.swift, Shared/SafetyText.swift, Shared/Extensions.swift, Shared/DesignSystem/Components/FlowChips.swift; updated App/HolisticHealthApp.swift (AppRootView gate + env objects), Features/Settings/SettingsView.swift; HolisticHealthTests/ProfileStoreTests.swift.
+- `AppRootView` shows OnboardingView until `profile.onboardingCompleted`, then RootView. Stores injected at WindowGroup so all workflows can read them.
+- Build + 3 profile tests (19 total) pass. Sim verified: onboarding step renders; seeding a completed profile.json into the app container and relaunching skips straight to the main shell.
+- **Learnings for future iterations:**
+  - `ProfileStore` and `MacroLibraryStore` are environment objects (injected in HolisticHealthApp). Read via `@EnvironmentObject` in any view; sheets inherit them.
+  - To verify persistence in the simulator without tap automation: write JSON into `$(xcrun simctl get_app_container booted com.holistichealth.app data)/Documents/<file>.json`, terminate, relaunch. NOTE: this leaves a completed profile, so later screenshots show the main shell (good).
+  - Reusable UI added: `FlowChips`/`WrapLayout` (wrapping selectable chips), `SafetyNote` + `SafetyText.*` (wellness disclaimers — reuse, don't rewrite), `Binding(_:replacingNilWith:)`, `String.nilIfBlank`.
+---
+
+## 2026-06-17 - US-004
+- Built the local JSON persistence layer + import/export.
+- Files: Services/Persistence/{JSONCoding,FileDataStore,MacroLibraryStore}.swift; HolisticHealthTests/MacroLibraryStoreTests.swift.
+- `DataPersisting` protocol decouples file IO; `FileDataStore(baseDirectory:)` is injectable for tests. `StorageLocation` + `FileDataStore.directory(for:)` are the documented iCloud extension point (local only today).
+- `MacroLibraryStore` is `@MainActor ObservableObject` (use as `@StateObject`/env object in UI). CRUD: upsert/update/delete/clear; ranked `search`; `bestMatch` for library-first lookup; export to Data/File; import with merge|replace (dedupe by id then normalized canonical name).
+- Build + 8 store tests (16 total) pass.
+- **Learnings for future iterations:**
+  - Use `JSONCoding.encoder/decoder` for ALL JSON (iso8601 dates) so files interoperate with export/import.
+  - `MacroLibraryStore` is `@MainActor`; tests touching it must be `@MainActor`. Inject a temp-dir FileDataStore in tests.
+  - This store pattern (Published array + DataPersisting + named file) is the template for future stores (meals, supplements, etc.).
+---
+
+## 2026-06-17 - US-003
+- Defined all core Codable domain models in `HolisticHealth/Models/`.
+- Files: Macros.swift, UserProfile.swift, Supplements.swift, Lifestyle.swift, Exercise.swift, HealthLogs.swift, Assessments.swift, AISettings.swift; HolisticHealthTests/ModelsTests.swift.
+- `MacroNutrients` is the shared macro unit (protein/carb/fat primary, calories secondary) with `scaled(by:)` + `+`. `MacroLibraryRecord` (reusable, per-serving) is separate from `MealLogEntry` (daily, pre-scaled, optional `libraryRecordID`). `AcneAssessment` deliberately has NO image property. `AISettings` holds model selection only — the API key never lives in a model (Keychain only).
+- Build + 9 tests pass (round-trip + macro math).
+- **Learnings for future iterations:**
+  - Reuse `MacroNutrients` everywhere; scale with `.scaled(by:)` and total with `+`.
+  - `GeminiModel` enum carries `displayName`, `blurb`, and approximate `pricing` (ModelPricing) for US-006 cost estimates.
+  - Models use `UUID` ids + `Date` timestamps with sensible defaults; most fields optional so screens can save partial data.
+---
+
+## 2026-06-17 - US-002
+- Implemented the Ristoro Italian Art Deco SwiftUI design system.
+- Files: Shared/DesignSystem/{Color+Hex,Theme,Typography,ThemeAppearance}.swift, Shared/DesignSystem/Components/{FramedCard,DecoButtons,Chip,DecoTextField,OrnamentalRule,PhotoPlaceholder,ScreenScaffold}.swift; updated App/HolisticHealthApp.swift, Shared/PlaceholderScreen.swift; HolisticHealthTests/DesignSystemTests.swift.
+- Tokens (colors/spacing/radius) ported from the standalone Ristoro Design Guide HTML (extracted via grep of CSS vars): paper cream, midnight ink, antique gold, verde, rosso. Type mapped to native Futura + Avenir Next.
+- Build passes; 4 tests pass; sim verified — Macro tab renders framed card, eyebrow, ornamental rule, gold tab selection, no overlapping text.
+- **Learnings for future iterations:**
+  - See Codebase Patterns for how to consume the design system. ALWAYS build screens from these components for visual consistency.
+  - Extracting design tokens: `grep -oiE '\\--[a-z0-9-]+\\s*:\\s*[^;]+;' "Ristoro Design Guide (standalone).html"` surfaces all CSS variables.
+  - `Color.resolve(in:)` is handy in tests to assert RGB components.
+---

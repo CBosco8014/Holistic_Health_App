@@ -19,8 +19,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Scaffolded with XcodeGen (project.yml -> HolisticHealth.xcodeproj). Four-tab TabView (Lifestyle/Supplements/Macro/Exercise) + Settings sheet from nav-bar gear. iOS 17 target, Swift 5 mode. Build + 2 unit tests pass; verified launch on iPhone 16 sim."
     },
     {
       "id": "US-002",
@@ -39,8 +39,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Design tokens (Theme.swift) for paper/ink/gold/verde/rosso ported from Ristoro guide. Components: FramedCard, InkPanel, Primary/SecondaryButtonStyle, Chip/StatusTag, DecoTextField, OrnamentalRule, PhotoPlaceholder, SectionHeader, EyebrowText. Type mapped to iOS-native Futura (display) + Avenir Next (body). Nav/tab bar themed via ThemeAppearance. Build + 4 tests pass; sim verified no overlap."
     },
     {
       "id": "US-003",
@@ -58,8 +58,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Codable models in HolisticHealth/Models: Macros (MacroNutrients, FoodSource, ConfirmationState, MealCategory, MacroLibraryRecord, MealLogEntry), UserProfile (+GoalArea, CyclePhase, ConsentType, ConsentRecord), Supplements (+SupplementLogEntry, NutrientSuggestion), Lifestyle (PracticeType, LifestylePractice, PracticeStatus, log), Exercise (category/intensity/SprintActivity/ExerciseSession), HealthLogs (HormoneSkinCheckIn, SymptomLog, AcneLog), Assessments (AcneAssessment-no image, ConsultSession, HealthAssessment, HealthReference, QAPair, AssessmentCategory), AISettings (GeminiModel+pricing, AISettings without key, AIFeature, APIUsageEvent). 9 round-trip/scaling tests pass."
     },
     {
       "id": "US-004",
@@ -78,8 +78,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Persistence in Services/Persistence: JSONCoding (iso8601 shared coders), DataPersisting protocol + FileDataStore (injectable baseDirectory for tests; StorageLocation enum documents iCloud extension point), MacroLibraryStore @MainActor ObservableObject with upsert/update/delete/clear/search/bestMatch + export(Data/File) + importLibrary(merge|replace, dedupe by id then normalized name). 8 storage tests (16 total) pass."
     },
     {
       "id": "US-005",
@@ -97,8 +97,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "OnboardingView: 4-step flow (welcome+safety, goals multi-select across all GoalAreas, optional cycle context w/ Skip, optional notes) -> ProfileStore.update marks onboardingCompleted. AppRootView gates onboarding vs RootView. ProfileEditView (Settings > Edit profile) edits later. ProfileStore @MainActor env object available app-wide; consents + reset included. SafetyText/SafetyNote shared wellness copy. FlowChips/WrapLayout added. 3 ProfileStore tests pass; sim verified onboarding renders + seeded profile skips to shell."
     },
     {
       "id": "US-006",
@@ -117,8 +117,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "KeychainService (Security framework) stores Gemini key only in Keychain (kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly). AIConfigStore @MainActor env object: model selection persisted to ai_settings.json, hasAPIKey derived from Keychain, usage events to usage_events.json, costSummary (today/last7/avg-per-active-day/total) + static estimateCost from GeminiModel.pricing. GeminiSettingsView: key paste/show-hide/save/clear + configured state, model radio cards, cost panel. Key never in JSON/exports. 6 tests pass; sim verified key entry + model selection render. Added DEBUG-only HH_SCREEN router for screenshotting nav-gated screens."
     },
     {
       "id": "US-007",
@@ -137,8 +137,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "GeminiService @MainActor generic generate<T:Decodable>(feature,userText,images,schema) -> reads model+key from AIConfigStore, applies AIGuardrails system instruction, requests structured JSON (responseMimeType+responseSchema), records success/failure usage events (key never in body/logs - only in URL query), maps errors to AIError (missingKey/modelUnavailable/rateLimited/requestFailed/malformed/policyBlocked/transport) with safe fallback messages. HTTPClient protocol + URLSession impl + mock. JSONSchema builder (OPENAPI uppercase). AIGuardrails forbids diagnosis/treatment/meds/triage. 7 tests pass (construction, missing-key, malformed, usage logging, 429, safety-block, 404)."
     },
     {
       "id": "US-008",
@@ -157,8 +157,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "MealLogStore @MainActor (meal_log.json): add/remove/clear, entries(on:), dailyTotals(on:). MacroView: DailyTotalsCard (InkPanel, protein emphasized, calories secondary only, NO deficit/burn), 4 action tiles (Log Meal, Add Food, New Food, Visualize Food) + Daily Totals + Food Log = all six sections. FoodLogRow shows name/time/serving amount+size/P-C-F/secondary cal/remove. NewFoodView fully implemented (manual create -> library + log). LogMeal/AddFood/Visualize are placeholders for US-009/010/012. Excluded sections omitted. 2 store tests pass; sim verified totals + log render correctly."
     },
     {
       "id": "US-009",
@@ -177,8 +177,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "LogMealViewModel: refreshMatches() searches local library FIRST (no network); selectKnown logs directly with editable serving+category; requestEstimate() calls Gemini (.foodParsing) only when user opts in for unknown food; estimate sets step=.confirmEstimate and does NOT auto-save; confirmAndLog saves Gemini estimates as reusable library records (.geminiText,.confirmed) + daily log entry; known foods log without duplicating library. LogMealView: search w/ library rows -> Ask Gemini -> editable confirm w/ Needs-review tag/confidence/assumptions. 6 tests pass (lookup, fallback, confirmation-required, save+totals recalc, no-dup, estimator error)."
     },
     {
       "id": "US-010",
@@ -197,8 +197,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "AddFoodViewModel: search saved library, select record, PortionPreset chips (25/50/75/exact/150/double) + custom % override, scaledMacros recalcs P/C/F + secondary cal live, log() writes entry with servingAmount=effectiveFactor + scaled macros + meal category, clears selection. No meal planning. AddFoodView: search rows -> portion step w/ live recalc card + meal chips + Back/Log. Also links to MealPhotoView (US-011 placeholder). 4 tests pass; sim verified portion recalculation (Exact=30/0/4/165)."
     },
     {
       "id": "US-011",
@@ -217,8 +217,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "MealPhotoView: Upload (PhotosPicker, no perm) + Take photo (CameraPicker UIImagePickerController). CameraPermission helper checks isAvailable + AVCaptureDevice status; denied/unavailable shows guidance note. MealPhotoViewModel: setImage -> analyze() Gemini (.photoAnalysis, FoodEstimateSchema.meal) -> editable EditableFoodItem list (name/serving/P/C/F/cal/category/include) -> confirm() saves ONLY included items as .geminiPhoto library records + log entries; empty/ error states. Photos not stored by default. 5 tests pass; sim verified capture + review/edit states."
     },
     {
       "id": "US-012",
@@ -237,8 +237,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "VisualizeFoodViewModel: three inputs (typed dish / menu screenshot via PhotosPicker / menu photo via CameraPicker) all call visualize() -> Gemini (.menuVisualize, FoodEstimateSchema.visualize returning visualDescription + macros) -> single confirm step (editable, shows visualization text) -> confirmAndLog saves as .geminiMenu library record + log entry. No restaurant recs/Better Choices/deficit/weight-loss. VisualizedFoodEstimate DTO + schema added. 6 tests pass (text path, image path, confirm saves menu source, error, no-input guard); sim verified all 3 input paths on one screen."
     },
     {
       "id": "US-013",
@@ -256,8 +256,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "CheckInStore @MainActor (checkins.json): save(upsert)/delete/clear, sorted/latest/recent(n)/todays(). CheckInView: cycle phase chips + cycle-day toggle/stepper, acne severity RatingSelector + location chips, mood/energy/cravings/digestion/bloating/sleep/stress ratings, custom symptom add/remove chips, free-text notes. Surfaced on Lifestyle tab (todays edit + recent history). Reusable RatingSelector (0-5 optional). Non-diagnostic pattern language. Available app-wide via env object to downstream workflows. 4 store tests pass; sim verified editor renders all controls."
     },
     {
       "id": "US-014",
@@ -276,8 +276,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "SupplementStore (@MainActor): supplements + adherence logs, save/delete, isTakenToday/setTakenToday. SupplementEditView: name/dosage/schedule/timing/reason/adherence(taking|paused|discontinued)/startDate/notes. SupplementsView: list w/ adherence toggle + status tag + edit, Add tile, AI nutrient guidance (NutrientGuidanceViewModel -> Gemini .supplementSuggestion w/ context from profile goals + latest check-in) producing NutrientSuggestion cards (area/rationale/relevant inputs/safety/clinician questions), non-diagnostic. Supplement safety copy (interactions/pregnancy/meds/conditions). 7 tests pass; sim verified."
     },
     {
       "id": "US-015",
@@ -296,8 +296,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "PracticeCatalog: 8 practice types (breathwork/meditation/journaling/gentle movement/gratitude/grounding/sleep wind-down/screen-boundary) + data-reactive recommended(profile,latest) scoring by stress/sleep/mood + goals. LifestyleStore: record(save/start/complete/skip + rating), todaysStatus, completedCount, persisted. PracticeCard: Save/Start/Complete/Skip + RatingSelector, status tag. LifestyleView shows recommendations above check-in. Calm non-judgmental copy. 5 tests pass (recommender stress/sleep/empty, store record/persist); sim verified."
     },
     {
       "id": "US-016",
@@ -317,8 +317,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "ExerciseStore (@MainActor): sessions, add/remove, sessions(on:)/totalMinutes(on:). ExerciseView: category chips (Weightlifting->intensity low/med/high; Sprint Burst->running/bike/rowing/boxing activity), duration Slider 5-60 step 5 with visible value before save, Today summary (minutes+sessions), multiple sessions/day + today list with remove. No lifts/sets/reps/calorie-burn/deficit. 3 tests pass; sim verified."
     },
     {
       "id": "US-017",
@@ -337,8 +337,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "AcneConsultView (entry on Lifestyle Insights hub): consent step (records ProfileStore .acnePhotoReview, states image not stored) -> capture (camera/upload + notes) -> Gemini .acneAssessment may return clarifyingQuestions -> answer step -> wellness reflection (summary/findings/suggestions/references). Save stores AcneAssessment with NO image (buildAssessment excludes it). Wellness-only, cannot diagnose/treat. AssessmentStore added (acne/health/consult, image-free). 5 tests pass; sim verified consent step."
     },
     {
       "id": "US-018",
@@ -358,8 +358,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "ConsultView: adaptive one-at-a-time questions (<=10) across 9 topics; logged-pattern context only when .aiConsultContext consent toggle on; saves ConsultSession. HealthAssessmentView: select AssessmentCategory data, Gemini .healthAssessment -> HealthAssessment (pattern summary/contributors/focus/active+holistic treatments/acne findings/refs/caveats), editable summary (editedReport), saved. Both built via env-object holder + @ObservedObject child pattern. Stored in AssessmentStore. 10 tests pass (consult one-at-a-time/complete/10-cap/consent-gated context/session; assessment build/edits/guard/error); sim verified."
     },
     {
       "id": "US-019",
@@ -378,8 +378,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 3,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "InsightsBuilder (pure, testable): recentDays, weeklyMacros (P/C/F per day), signalSeries (stress/acne/sleep/mood from check-ins, exercise minutes, supplements taken), hasMacroData/hasSignalData. InsightsView (Swift Charts): stacked macro bar chart over 7 days + selectable health-signal line chart to compare; empty/insufficient-data states with kind, no-shame copy. Excludes deficit/burn/weight-loss/restriction. Entry on Lifestyle Insights hub. 5 builder tests pass; sim verified charts + data."
     },
     {
       "id": "US-020",
@@ -400,8 +400,8 @@
         "progress.txt is updated with result and notes"
       ],
       "priority": 3,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "PrivacyView: plain-language explanations (local-first/iCloud/AI context/photos/export/deletion), explicit consent toggles for all ConsentType, JSON export via ShareLink (DataExport.buildBundle excludes Keychain API key), clear-library + delete-all behind confirmation alerts (DataReset.deleteAll keeps key unless clearKey). State coverage (empty/loading/error/offline/permission-denied) present across workflows. docs/verification-checklist.md maps every story to impl + verification. 3 tests pass (export round-trip excludes key, deleteAll keeps/clears key); sim verified."
     }
   ]
 }
