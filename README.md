@@ -35,6 +35,20 @@ xcodebuild test  -project HolisticHealth.xcodeproj -scheme HolisticHealth \
 
 Open `HolisticHealth.xcodeproj` in Xcode to run in the simulator. To use AI features, add your own Gemini API key in **Settings → Gemini & Usage** (stored in the Keychain, never exported).
 
+### TestFlight releases
+
+```sh
+./scripts/release.sh                            # bump build number, archive, upload
+./scripts/release.sh --no-upload                # archive only, upload via Xcode Organizer
+MARKETING_VERSION=0.2.0 ./scripts/release.sh    # also bump the user-facing version
+```
+
+Every upload needs a `CURRENT_PROJECT_VERSION` higher than the last for the same
+`MARKETING_VERSION` — the script handles that. Commit the bumped `project.yml`
+after a successful upload. Testers on TestFlight get a notification per build;
+those with Automatic Updates enabled get it installed silently. Builds expire
+after 90 days.
+
 ### Structure
 
 - `HolisticHealth/App` — entry point + tab shell

@@ -31,6 +31,10 @@ targets:
         INFOPLIST_KEY_CFBundleDisplayName: Holistic Health
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        # App only uses standard HTTPS/TLS (Gemini API), which is exempt from
+        # export compliance. Declaring it here avoids the "Missing Compliance"
+        # prompt blocking every TestFlight build.
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
         INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait"
         INFOPLIST_KEY_NSCameraUsageDescription: "Holistic Health uses the camera so you can capture meal photos and acne flare photos for optional AI-assisted review. Photos are processed for analysis and are not stored by default."
         INFOPLIST_KEY_NSPhotoLibraryUsageDescription: "Holistic Health lets you upload meal or menu photos from your library for optional AI-assisted macro estimation."
