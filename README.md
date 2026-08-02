@@ -40,6 +40,7 @@ Open `HolisticHealth.xcodeproj` in Xcode to run in the simulator. To use AI feat
 ```sh
 ./scripts/release.sh                            # bump build number, archive, upload
 ./scripts/release.sh --no-upload                # archive only, upload via Xcode Organizer
+./scripts/release.sh --upload-only              # upload existing archive, no bump/rebuild
 MARKETING_VERSION=0.2.0 ./scripts/release.sh    # also bump the user-facing version
 ```
 

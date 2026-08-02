@@ -2,8 +2,9 @@
 #
 # Build and upload a TestFlight build.
 #
-#   ./scripts/release.sh              # bump build number, archive, upload
-#   ./scripts/release.sh --no-upload  # bump + archive only (upload by hand in Xcode)
+#   ./scripts/release.sh               # bump build number, archive, upload
+#   ./scripts/release.sh --no-upload   # bump + archive only (upload by hand in Xcode)
+#   ./scripts/release.sh --upload-only # upload the existing archive, no bump/rebuild
 #   MARKETING_VERSION=0.2.0 ./scripts/release.sh   # also bump the user-facing version
 #
 # Upload needs an App Store Connect API key. Create one at
@@ -23,8 +24,20 @@ SCHEME=HolisticHealth
 PROJECT=HolisticHealth.xcodeproj
 ARCHIVE_PATH="build/release/${SCHEME}.xcarchive"
 UPLOAD=1
-[[ "${1:-}" == "--no-upload" ]] && UPLOAD=0
+BUILD=1
+case "${1:-}" in
+  --no-upload)   UPLOAD=0 ;;
+  --upload-only) BUILD=0 ;;
+  "")            ;;
+  *) echo "unknown option: $1" >&2; exit 2 ;;
+esac
 
+if [[ $BUILD -eq 0 && ! -d "$ARCHIVE_PATH" ]]; then
+  echo "no archive at ${ARCHIVE_PATH} — run without --upload-only first" >&2
+  exit 1
+fi
+
+if [[ $BUILD -eq 1 ]]; then
 # --- bump the build number -------------------------------------------------
 # Every upload to App Store Connect needs a CURRENT_PROJECT_VERSION higher than
 # the last one, for the same MARKETING_VERSION. This is the #1 upload rejection.
@@ -59,6 +72,10 @@ if [[ $UPLOAD -eq 0 ]]; then
   exit 0
 fi
 
+else
+  echo "==> uploading existing archive at ${ARCHIVE_PATH} (no bump, no rebuild)"
+fi
+
 if [[ -z "${ASC_KEY_ID:-}" || -z "${ASC_ISSUER_ID:-}" ]]; then
   cat <<EOF
 
@@ -73,6 +90,14 @@ EOF
   exit 0
 fi
 
+KEY_PATH="$HOME/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+if [[ ! -f "$KEY_PATH" ]]; then
+  echo "ASC_KEY_ID is ${ASC_KEY_ID} but no key file at:" >&2
+  echo "  ${KEY_PATH}" >&2
+  echo "Move the downloaded .p8 there, or fix ASC_KEY_ID to match the filename." >&2
+  exit 1
+fi
+
 echo "==> uploading to App Store Connect"
 xcodebuild -exportArchive \
   -archivePath "$ARCHIVE_PATH" \
@@ -80,8 +105,10 @@ xcodebuild -exportArchive \
   -allowProvisioningUpdates \
   -authenticationKeyID "$ASC_KEY_ID" \
   -authenticationKeyIssuerID "$ASC_ISSUER_ID" \
-  -authenticationKeyPath "$HOME/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+  -authenticationKeyPath "$KEY_PATH"
 
-echo "==> uploaded. Processing takes ~5-15 min, then it appears in TestFlight."
+UPLOADED=$(plutil -extract CFBundleVersion raw \
+  "${ARCHIVE_PATH}/Products/Applications/${SCHEME}.app/Info.plist" 2>/dev/null || echo "?")
+echo "==> uploaded build ${UPLOADED}. Processing takes ~5-15 min, then it appears in TestFlight."
 echo "==> remember to commit the bumped build number:"
-echo "    git commit -am 'Bump build to ${NEXT}'"
+echo "    git commit -am 'Bump build to ${UPLOADED}'"
